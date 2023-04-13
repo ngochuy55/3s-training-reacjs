@@ -32,7 +32,15 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+* {
+  margin: 0 10rem;
+  /* margin: 0 20px; */
+  padding: 0;
+  font-family: 'poppins', sans-serif;
 }

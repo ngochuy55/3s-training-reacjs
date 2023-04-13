@@ -1,0 +1,31 @@
+* {
+  margin: 0 0;
+}
+
+.navbar {
+  padding-top: 0;
+}
+
+.nav-link {
+  font-weight: 500;
+}
+
+.navbar .container {
+  margin-top: 0;
+  background-color: #fff;
+  border-radius: 0;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 1rem !important;
+}
+
+.bg-custom-1 {
+  background-color: #85144b;
+}
+
+.bg-custom-2 {
+  background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+}

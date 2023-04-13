@@ -1,15 +1,15 @@
-import { Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { Dropdown } from 'react-bootstrap'
+import '../../../assets/css/Navigation.css'
 
-
-
-function Navbar() {
+export function Navbar() {
   const [isLoggedin, setIsLoggedin] = useState(true);
   const [isLoginPage, setLogginPage] = useState(false);
   const location = useLocation();
-  const logo = require('../../assets/images/logo-fix.png')
-  let item = localStorage.getItem('token-info')
+  const logo = require('../../../assets/images/logo-fix.png')
+  let item = localStorage.getItem('user')
   useEffect(() => {
     if (item === '' || item === null)
       setIsLoggedin(false)
@@ -19,7 +19,7 @@ function Navbar() {
   return (
     <>
 
-      <nav className="navbar fixed-top navbar-expand-lg navbar-dark p-md-3">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-dark">
         <div className="container">
           <a href='/'>
             <img className='navbar-brand' src={logo}></img></a>
@@ -43,13 +43,13 @@ function Navbar() {
                 <a className="nav-link text-dark" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-dark" href="/about">About</a>
+                <a className="nav-link text-dark" href="/about">Introduce</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-dark" href="/blog">Blog</a>
+                <a className="nav-link text-dark" href="/blog">Product</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-dark" href="/price">Pricing</a>
+                <a className="nav-link text-dark" href="/price">New</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link text-dark" href="/contact">Contact</a>
@@ -57,8 +57,9 @@ function Navbar() {
               {isLoggedin ? (
                 <>
                   <li className="nav-item">
-                    <a className="nav-link text-white" href="/logout">Logout</a>
+                    <a className="nav-link text-dark" href="/logout">Log Out</a>
                   </li>
+
                 </>
               ) : (
                 <>
@@ -67,10 +68,10 @@ function Navbar() {
                   ) : (
                     <>
                       <li className="nav-item">
-                        <a className="nav-link text-white" href="/login">Login</a>
+                        <a className="nav-link text-dark" href="/login">Login</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link text-white" href="/register">Sign Up</a>
+                        <a className="nav-link text-dark" href="/register">Sign Up</a>
                       </li>
                     </>
                   )}
@@ -83,7 +84,5 @@ function Navbar() {
       </nav >
       <Outlet />
     </>
-  );
+  )
 }
-
-export default Navbar;

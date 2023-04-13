@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NotFound() {
+export function NotFound() {
   return (
     <div class="d-flex align-items-center justify-content-center vh-100">
       <div class="text-center">

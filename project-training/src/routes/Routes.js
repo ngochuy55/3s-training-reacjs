@@ -1,12 +1,10 @@
-import { useRoutes } from 'react-router-dom';
+import { useRoutes } from "react-router-dom";
+import Home from "../template/Home";
+import LoginPage from "../pages/Login";
+import { Logout } from "../pages/Logout";
+import { NotFound } from "../template/404Page/NotFound";
 
-import Home from '../pages/Home';
-import LoginPage from '../pages/Login';
-import RegisterPage from '../template/Register';
-import NotFound from '../template/NotFound';
-import Logout from '../pages/Logout';
-
-function RoutesComponents() {
+export function RoutesComponents() {
   let element = useRoutes([
     {
       path: "/",
@@ -20,26 +18,14 @@ function RoutesComponents() {
       path: '/*',
       element: <NotFound />
     },
-    {
-      path: '/register',
-      element: <RegisterPage />
-    },
+    // {
+    //   path: '/register',
+    //   element: <RegisterPage />
+    // },
     {
       path: '/login',
       element: <LoginPage />
     },
   ]);
   return element;
-  // return (
-  //   <Routes>
-  //     <Route path='/' element={<Home />}>
-  //       <Route index element={<Navbar />} />
-  //     </Route>
-  //     <Route path="register" element={<RegisterPage />} />
-  //     <Route path="login" element={<LoginPage />} />
-  //     <Route path="*" element={<NotFound />} />
-  //   </Routes>
-  // )
 }
-
-export default RoutesComponents;
