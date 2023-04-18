@@ -43,8 +43,8 @@ export function HomePage() {
               <h5 className="card-title" alt={product.specifications}>{product.productName}</h5>
               <p className="card-text spectification"></p>
               <div className='ram_gb_btn'>
-                <button className='ram_btn' >{product.ram}GB</button>
-                <button className='gb_btn' >{product.gb}</button>
+                <p className='ram_btn' >{product.ram}GB</p>
+                <p className='gb_btn' >{product.gb}GB</p>
               </div>
               <div className='price'>
                 <div className='new_price'>{product.priceAfterDisStr}</div>

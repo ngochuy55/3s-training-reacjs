@@ -187,11 +187,21 @@
 }
 
 .box .card-body .ram_gb_btn {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 20px;
+
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+    text-align: center;
 }
 
+.box .card-body .ram_gb_btn p{
+  background-color: #cb1c22;
+  color: #fff;
+  width: 60px;
+  padding: 10px 0;
+  align-items: center;
+  border-radius: 5px;
+}
 .content_container .card-footer .buy_add-to-cart {
   display: flex;
   justify-content: space-between;

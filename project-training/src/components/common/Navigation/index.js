@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../assets/css/Navigation.css'
+import '../../../assets/css/Responsive.css'
 
 export function Navbar() {
   const [isLoggedin, setIsLoggedin] = useState(true);

@@ -4,6 +4,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { HomePage } from "../../pages/Home";
 import { Sidebar } from "../../components/common/Sidebar";
 import { Navbar } from '../../components/common/Navigation';
+import '../../assets/css/Responsive.css'
 import React from 'react';
 
 
