@@ -1,28 +1,27 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
-import { Dropdown } from 'react-bootstrap'
-import '../../../assets/css/Navigation.css'
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import "../../../assets/css/Navigation.css";
 
 export function Navbar() {
   const [isLoggedin, setIsLoggedin] = useState(true);
   const [isLoginPage, setLogginPage] = useState(false);
   const location = useLocation();
-  const logo = require('../../../assets/images/logo-fix.png')
-  let item = localStorage.getItem('user')
+  const logo = require("../../../assets/images/logo-fix.png");
+  let item = localStorage.getItem("user");
   useEffect(() => {
-    if (item === '' || item === null)
-      setIsLoggedin(false)
-    if (location.pathname === '/login' || location.pathname === '/register')
-      setLogginPage(true)
-  })
+    if (item === "" || item === null) setIsLoggedin(false);
+    if (location.pathname === "/login" || location.pathname === "/register")
+      setLogginPage(true);
+  });
   return (
     <>
-
       <nav className="navbar fixed-top navbar-expand-lg navbar-dark">
         <div className="container">
-          <a href='/'>
-            <img className='navbar-brand' src={logo}></img></a>
+          <a href="/">
+            <img className="navbar-brand" src={logo}></img>
+          </a>
           {/* <a className="navbar-brand" href="/">LOGO</a> */}
           <button
             className="navbar-toggler"
@@ -37,29 +36,60 @@ export function Navbar() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav">
-            <div className="mx-auto"></div>
+            <div className="mx-auto">
+              <nav class="navbar navbar-light bg-light">
+                <form class="form-inline">
+                  <input
+                    class="form-control mr-sm-2 border border-primary"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <button
+                    class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
+              </nav>
+            </div>
+
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link text-dark" href="/">Home</a>
+                <a className="nav-link text-dark" href="/">
+                  Trang chủ
+                </a>
+              </li>
+              {/* <li className="nav-item">
+                <a className="nav-link text-dark" href="/about">
+                  Introduce
+                </a>
+              </li> */}
+              <li></li>
+
+              <li className="nav-item">
+                <a className="nav-link text-dark" href="/blog">
+                  Gioi thiệu
+                </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-dark" href="/about">Introduce</a>
+                <a className="nav-link text-dark" href="/price">
+                  Sản phẩm
+                </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-dark" href="/blog">Product</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-dark" href="/price">New</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-dark" href="/contact">Contact</a>
+                <a className="nav-link text-dark" href="/contact">
+                  Thông tin cá nhân
+                </a>
               </li>
               {isLoggedin ? (
                 <>
                   <li className="nav-item">
-                    <a className="nav-link text-dark" href="/logout">Log Out</a>
+                    <a className="nav-link text-dark" href="/logout">
+                      Log Out
+                    </a>
                   </li>
-
                 </>
               ) : (
                 <>
@@ -68,21 +98,24 @@ export function Navbar() {
                   ) : (
                     <>
                       <li className="nav-item">
-                        <a className="nav-link text-dark" href="/login">Login</a>
+                        <a className="nav-link text-dark" href="/login">
+                          Login
+                        </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link text-dark" href="/register">Sign Up</a>
+                        <a className="nav-link text-dark" href="/register">
+                          Sign Up
+                        </a>
                       </li>
                     </>
                   )}
                 </>
-              )
-              }
+              )}
             </ul>
           </div>
         </div>
-      </nav >
+      </nav>
       <Outlet />
     </>
-  )
+  );
 }

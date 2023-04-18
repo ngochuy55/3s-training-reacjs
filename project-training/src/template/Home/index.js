@@ -1,14 +1,16 @@
+import Sidebar from "../../components/Sidebar";
 import { Navbar } from "../../components/common/Navigation";
 
 function Home() {
   return (
-    <section>
+    <section className="mt-[106px]">
       <Navbar />
-      <main>
-        <h1>This is Home Page</h1>
+
+      <main className="mt-[106px] ">
+        <Sidebar></Sidebar>
       </main>
     </section>
-  )
+  );
 }
 
 export default Home;
