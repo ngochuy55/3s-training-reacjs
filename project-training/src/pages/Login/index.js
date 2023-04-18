@@ -5,7 +5,7 @@ import { isBlank, isEmail } from '../../ultis/functions'
 import axios from 'axios';
 
 export default function LoginPage() {
-  const [account, setAccount] = useState({})
+  const [, setAccount] = useState({})
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessages, setErrorMessage] = useState({})
