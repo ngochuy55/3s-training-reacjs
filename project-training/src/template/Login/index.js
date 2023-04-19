@@ -21,7 +21,7 @@ export function Login({
 
           <form className='form'>
             <div className='input-form'>
-              <h1>Sign in</h1>
+              <h3>Sign in</h3>
               {renderAlertMessage("summary")}
             </div>
 
@@ -52,8 +52,6 @@ export function Login({
             <button onClick={handleSubmit}>Sign In</button>
           </form>
         </div>
-
-
 
         <div className="overlay-container">
           <div className="overlay">

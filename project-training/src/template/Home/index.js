@@ -17,23 +17,18 @@ function Home() {
           <div className="row nav">
             <div className="col categories_content">
               <div className="col categories_container">
-                <div className="categories_heading_cotainer">
-                  <h3 className="categories_heading">
-                    <FontAwesomeIcon className="Bars_icon" icon={faBars} /> Danh
-                    mục
-                  </h3>
-                </div>
-                <ul className="categories">
-                  <Sidebar />
-                </ul>
+
+                <Sidebar />
+
               </div>
             </div>
             <div className="col-md s1">
               <div className="row Slider mt-4 my-4 s2 ">
                 <div>
-                  <Slider></Slider>
+                  <Slider />
                 </div>
               </div>
+
               <div className="row">
                 <div className="card-group content_container">
                   <HomePage />
@@ -41,6 +36,7 @@ function Home() {
               </div>
             </div>
           </div>
+
         </main>
       </section>
       {/* <Footer /> */}
