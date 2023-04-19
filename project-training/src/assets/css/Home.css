@@ -24,7 +24,8 @@
   /* position: -webkit-sticky;
   position: sticky;
   top: 0; */
-  position: fixed;
+  position: sticky;
+  top: 0;
   background-color: #ffffff;
   color: #808080;
   font-size: 14px;
@@ -130,11 +131,21 @@
   max-width: 13rem;
 }
 
-.content_container .box .card-body .spectification {
+.spectification {
   display: none;
   position: absolute;
   background: #fff;
   color: #212529;
+}
+
+.product_name:hover {
+  color: #7aaedd;
+  cursor: pointer;
+}
+
+.product_name:hover .spectification {
+  display: block;
+  z-index: 100;
 }
 
 .content_container .box .content_img {
@@ -190,6 +201,15 @@
   display: flex;
   justify-content: space-between;
   margin: 0 20px;
+}
+
+.box .card-body .ram_gb_btn button {
+  width: 50%;
+  background-color: #808080;
+  color: #eaeaea;
+  height: 2rem;
+  border: none;
+  border-left: 1px solid #ccc;
 }
 
 .content_container .card-footer .buy_add-to-cart {

@@ -18,13 +18,8 @@ function Home(
           <div className="row nav">
             <div className="col categories_content">
               <div className="col categories_container">
-                <div className='categories_heading_cotainer'>
-                  <h3 className="categories_heading"><FontAwesomeIcon className='Bars_icon' icon={faBars} /> Danh mục</h3></div>
-                <ul className="categories">
-                  <Sidebar />
-                </ul>
-              </div>
-            </div>
+                <Sidebar />
+              </div></div>
             <div className="col-md">
               <div className='row Slider'>
                 <h1>Slider Here</h1>
@@ -36,6 +31,7 @@ function Home(
               </div>
             </div>
           </div>
+
         </main>
       </section >
       {/* <Footer /> */}
