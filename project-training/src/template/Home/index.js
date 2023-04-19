@@ -34,6 +34,7 @@ function Home() {
                   <Slider></Slider>
                 </div>
               </div>
+
               <div className="row">
                 <div className="card-group content_container">
                   <HomePage />
