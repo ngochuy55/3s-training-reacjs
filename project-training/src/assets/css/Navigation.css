@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 * {
   margin: 0 0;
@@ -16,7 +15,7 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 123456789;
+  z-index: 99;
 }
 
 .nav-link {
@@ -115,7 +114,6 @@ a {
   line-height: 20px;
 }
 
-
 @keyframes zoom-in {
   0% {
     transform: scale(0);
@@ -138,7 +136,8 @@ a {
 
 /*-------------------- RESPONSIVE ----------------------*/
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+}
 
 @media (min-width: 768px) and (max-width: 992px) {
   .nav-item {
