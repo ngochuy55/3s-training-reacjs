@@ -19,9 +19,7 @@ function Home() {
           <div className="row nav">
             <div className="col categories_content">
               <div className="col categories_container">
-
                 <Sidebar />
-
               </div>
             </div>
             <div className="col-md s1">
@@ -38,7 +36,6 @@ function Home() {
               </div>
             </div>
           </div>
-
         </main>
       </section>
       <Footer />

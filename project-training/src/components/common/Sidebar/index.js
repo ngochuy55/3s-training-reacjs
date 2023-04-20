@@ -24,7 +24,7 @@ export function Sidebar() {
   return (
     <React.Fragment>
       {categories.map((category) => (
-        <div key={category.id} className="row">
+        <div key={category.id} className=" justify-content space-between">
           <li className="categories_name col">
             <a className="menu_label">{category.categoryName}</a>
           </li>
