@@ -8,6 +8,8 @@ import React from "react";
 import Slider from "../../components/common/Slider";
 import "../../assets/css/Slider.css";
 
+import { Footer } from "../../components/common/Footer";
+
 function Home() {
   return (
     <React.Fragment>
@@ -39,7 +41,7 @@ function Home() {
 
         </main>
       </section>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 }
