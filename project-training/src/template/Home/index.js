@@ -8,6 +8,8 @@ import React from "react";
 import Slider from "../../components/common/Slider";
 import "../../assets/css/Slider.css";
 
+import { Footer } from "../../components/common/Footer";
+
 function Home() {
   return (
     <React.Fragment>
@@ -31,7 +33,7 @@ function Home() {
             <div className="col-md s1">
               <div className="row Slider mt-4 my-4 s2 ">
                 <div>
-                  <Slider></Slider>
+                  <Slider />
                 </div>
               </div>
 
@@ -44,7 +46,7 @@ function Home() {
           </div>
         </main>
       </section>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 }

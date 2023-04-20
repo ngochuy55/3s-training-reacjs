@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 * {
   box-sizing: border-box;
@@ -10,9 +10,8 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
-  height: 100vh;
-  margin: -20px 0 50px;
+  font-family: "Montserrat", sans-serif;
+  /* height: 100vh; */
 }
 
 .form-header {
@@ -51,9 +50,9 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
-  color: #FFFFFF;
+  border: 1px solid #ff4b2b;
+  background-color: #ff4b2b;
+  color: #ffffff;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
@@ -72,11 +71,11 @@ button:focus {
 
 button.ghost {
   background-color: transparent;
-  border-color: #FFFFFF;
+  border-color: #ffffff;
 }
 
 form {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,14 +95,12 @@ input {
 input:focus,
 input:valid {
   border: none;
-
 }
 
 .container {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-    0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   width: 800px;
   max-width: 100%;
@@ -124,7 +121,6 @@ input:valid {
   left: 65px;
   margin: unset;
   color: red;
-
 }
 
 .input-form {
@@ -136,7 +132,6 @@ input:valid {
   height: 100%;
   transition: all 0.6s ease-in-out;
   margin-bottom: 50px;
-
 }
 
 .sign-in-container {
@@ -164,7 +159,6 @@ input:valid {
 }
 
 @keyframes show {
-
   0%,
   49.99% {
     opacity: 0;
@@ -193,13 +187,13 @@ input:valid {
 }
 
 .overlay {
-  background: #FF416C;
-  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  background: #ff416c;
+  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
-  color: #FFFFFF;
+  color: #ffffff;
   position: relative;
   left: -100%;
   height: 100%;
@@ -249,7 +243,7 @@ input:valid {
 }
 
 .social-container a {
-  border: 1px solid #DDDDDD;
+  border: 1px solid #dddddd;
   border-radius: 50%;
   display: inline-flex;
   justify-content: center;

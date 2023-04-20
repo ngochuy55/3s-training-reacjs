@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: 'poppins', sans-serif;
+  font-family: "poppins", sans-serif;
 }
 
-.nav {
+/* .nav {
   margin-bottom: 200rem;
-}
+} */
 
-.main_content {
+/* .main_content {
   margin-top: 380rem;
-}
+} */
 
 /* ************Categories ******************/
 .categories_content {
@@ -24,7 +24,7 @@
   /* position: -webkit-sticky;
   position: sticky;
   top: 0; */
-  position: fixed;
+  position: absolute;
   background-color: #ffffff;
   color: #808080;
   font-size: 14px;
@@ -45,13 +45,12 @@
   margin: 0px 0px 20px;
   padding: 16px 14px 15px 12px;
   text-align: left;
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 .categories_heading {
   background-color: #eaeaea;
   color: #3f3f3f;
-
 }
 
 .Bars_icon {
@@ -61,7 +60,6 @@
 .categories {
   margin-top: 2rem;
   list-style: none;
-
 }
 
 .categories_name {
@@ -140,7 +138,6 @@
 .content_container .box .content_img {
   position: relative;
   text-align: center;
-
 }
 
 .content_img:hover .card-img-top {
@@ -164,7 +161,7 @@
   align-items: center;
 }
 
-.card-title:hover>.spectification {
+.card-title:hover > .spectification {
   display: flex;
 }
 
