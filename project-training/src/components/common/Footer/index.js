@@ -2,113 +2,97 @@
 
 export function Footer() {
   return (
-    <footer class="text-center text-lg-start bg-light text-muted position-static">
-      {/* <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <div class="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
-        </div>
+    <footer className="text-center text-lg-start bg-light text-muted position-static">
 
-        <div>
-          <a href="" class="me-4 text-reset">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="" class="me-4 text-reset">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="" class="me-4 text-reset">
-            <i class="fab fa-google"></i>
-          </a>
-          <a href="" class="me-4 text-reset">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="" class="me-4 text-reset">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="" class="me-4 text-reset">
-            <i class="fab fa-github"></i>
-          </a>
-        </div>
-      </section> */}
-
-      <section class="">
+      <section className="">
         <div
-          class="container text-center text-md-start mt-5  mx-0 w-100 "
-          style={{ minHeight: "250px" }}
+          className="container text-center text-md-start mt-5  mx-0 w-100 "
+          style={{ minHeight: "325px" }}
         >
-          <div class="row mt-3 w-100 ">
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-              <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fas fa-gem me-3"></i>Company name
+          <div className="row mt-3 w-100 ">
+            <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <h6 className="text-uppercase fw-bold mb-4">
+                <i className="fas fa-gem me-3"></i>Fpt shop
               </h6>
               <p>
-                Here you can use rows and columns to organize your footer
-                content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit.
+                FPT Shop là thương hiệu thuộc Công ty Cổ Phần Bán Lẻ Kỹ Thuật Số FPT
+                (gọi tắt là FPT Retail, mã chứng Khoán: FRT). FPT Shop là chuỗi cửa
+                hàng bán lẻ chuyên về các sản phẩm kỹ thuật số.
               </p>
             </div>
 
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-              <h6 class="text-uppercase fw-bold mb-4">Products</h6>
+            <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 className="text-uppercase fw-bold mb-4">Sản Phẩm</h6>
               <p>
-                <a href="#!" class="text-reset">
-                  Angular
+                <a href="#!" className="text-reset">
+                  Iphone
                 </a>
               </p>
               <p>
-                <a href="#!" class="text-reset">
-                  React
+                <a href="#!" className="text-reset">
+                  Samsung
                 </a>
               </p>
               <p>
-                <a href="#!" class="text-reset">
-                  Vue
+                <a href="#!" className="text-reset">
+                  Vivo
                 </a>
               </p>
               <p>
-                <a href="#!" class="text-reset">
-                  Laravel
-                </a>
-              </p>
-            </div>
-
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-              <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
-              <p>
-                <a href="#!" class="text-reset">
-                  Pricing
+                <a href="#!" className="text-reset">
+                  Oppo
                 </a>
               </p>
               <p>
-                <a href="#!" class="text-reset">
-                  Settings
+                <a href="#!" className="text-reset">
+                  Xiaomi
                 </a>
               </p>
               <p>
-                <a href="#!" class="text-reset">
-                  Orders
-                </a>
-              </p>
-              <p>
-                <a href="#!" class="text-reset">
-                  Help
+                <a href="#!" className="text-reset">
+                  Realme
                 </a>
               </p>
             </div>
 
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 className="text-uppercase fw-bold mb-4">Tiện ích</h6>
               <p>
-                <i class="fas fa-home me-3"></i> New York, NY 10012, US
+                <a href="#!" className="text-reset">
+                  Hệ thống cửa hàng
+                </a>
               </p>
               <p>
-                <i class="fas fa-envelope me-3"></i>
-                info@example.com
+                <a href="#!" className="text-reset">
+                  Chính sách đổi trả
+                </a>
               </p>
               <p>
-                <i class="fas fa-phone me-3"></i> + 01 234 567 88
+                <a href="#!" className="text-reset">
+                  Hệ thống bảo hành
+                </a>
               </p>
               <p>
-                <i class="fas fa-print me-3"></i> + 01 234 567 89
+                <a href="#!" className="text-reset">
+                  Giúp đỡ khách hàng!
+                </a>
+              </p>
+            </div>
+
+            <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+              <p>
+                <i className="fas fa-home me-3"></i> Việt Nam
+              </p>
+              <p>
+                <i className="fas fa-envelope me-3"></i>
+                fptshop@fpt.com.vn
+              </p>
+              <p>
+                <i className="fas fa-phone me-3"></i> 1800 6601 (hỗ trợ khách hàng)
+              </p>
+              <p>
+                <i className="fas fa-phone me-3"></i> 1800 6616 (góp ý, khiếu nại)
               </p>
             </div>
           </div>
@@ -116,11 +100,11 @@ export function Footer() {
       </section>
 
       {/* <div
-        class="text-center p-4"
+        className="text-center p-4"
         style="background-color: rgba(0, 0, 0, 0.05);"
       >
         © 2021 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">
+        <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
           MDBootstrap.com
         </a>
       </div> */}

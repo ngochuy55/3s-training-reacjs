@@ -25,7 +25,7 @@ export default function LoginPage() {
   //Render validate: Element sẽ được hiển thị lên giao diện
   const renderAlertMessage = (name) =>
     name === errorMessages.name && (
-      <p className="error">{errorMessages.message}</p>
+      <p className="err">{errorMessages.message}</p>
     );
 
   const handleChangeEmail = (e) => {
@@ -76,7 +76,7 @@ export default function LoginPage() {
         .catch(function (err) {
           console.log(err);
         })
-        .finally(function () {});
+        .finally(function () { });
     } else setErrorMessage({ name: "summary", message: errors.blank });
   };
 

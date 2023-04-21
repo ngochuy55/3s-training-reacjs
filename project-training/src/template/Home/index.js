@@ -1,6 +1,6 @@
 // import { Footer } from "../../components/common/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { HomePage } from "../../pages/Home";
 import { Sidebar } from "../../components/common/Sidebar";
 import { Navbar } from "../../components/common/Navigation";
@@ -40,8 +40,8 @@ function Home() {
           </div>
 
         </main>
+        <Footer />
       </section>
-      <Footer />
     </React.Fragment>
   );
 }

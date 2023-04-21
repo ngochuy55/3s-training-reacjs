@@ -35,7 +35,7 @@
 }
 
 .categories_container {
-  position: fixed;
+  position: absolute;
   background-color: #ffffff;
   color: #808080;
   font-size: 14px;
@@ -54,7 +54,7 @@
 
 @media (min-width: 992px) and (max-width: 1200px) {
   .categories_container{
-    position: fixed;
+    position: absolute;
     background-color: #ffffff;
     color: #808080;
     font-size: 14px;
@@ -123,9 +123,9 @@
 }
 
 @media (min-width: 1200px) {
-  .main_content {
-    margin-top: 411rem;
-}
+  /* .main_content {
+    margin-top: 200rem;
+} */
 .logo {
   margin: 0rem 13rem 0.5px 13rem;
 }
@@ -160,7 +160,7 @@ rem
   font-size: 33px;
 }
 .categories_container {
-  position: fixed;
+  position: absolute;
   background-color: #ffffff;
   color: #808080;
   font-size: 14px;

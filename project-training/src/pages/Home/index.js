@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import '../../assets/css/Home.css'
 import { useContext } from 'react';
+import Slider from "../../components/common/Slider";
 
 
 //Create a new homepage
@@ -35,10 +36,12 @@ export function HomePage() {
 
   return (
     <React.Fragment>
+      {/* <Slider /> */}
       <ProductsContext.Provider value={products}>
         {products.map((product) => {
           return (
             <div key={product.id} className="card box">
+
               <div className="content_img">
                 <img className="card-img-top" src={product.image} alt="ảnh về 1 chiếc điện thoại" />
                 <div className='discount'>Giảm giá {product.discount}%</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import "../../assets/css/Form.css";
-import { Navbar } from "../../components/common/Navigation";
+// import { Navbar } from "../../components/common/Navigation";
 export function Register({
   renderAlertMessage,
   username,
