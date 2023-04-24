@@ -1,101 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+// import { Outlet } from 'react-router-dom';
 import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../assets/css/Navigation.css'
 import '../../../assets/css/Responsive.css'
 
 export function Navbar() {
-  const [isLoggedin, setIsLoggedin] = useState(true);
+  const [isLoggedin, setIsLoggedin] = useState(false);
   const logo = require('../../../assets/images/logo-fix.png')
   let item = localStorage.getItem('user')
-  const user = JSON.parse(item)
-  let userobj;
+  // const user = JSON.parse(item)
+  // let userobj;
   //Chuyển array user thành obj
-  if (user) {
-    userobj = user.reduce((acc) => {
-      return acc;
-    })
-  }
+  // if (user) {
+  //   userobj = user.reduce((acc) => {
+  //     return acc;
+  //   })
+  // }
   useEffect(() => {
     if (item === '' || item === null)
-      setIsLoggedin(false)
-  })
+      setIsLoggedin(false);
+    else setIsLoggedin(true);
+
+    console.log((localStorage.getItem("user")));
+    // console.log("abc");
+  }, []);
   return (
-    // <React.Fragment>
-    //   <nav className="navbar fixed-top navbar-expand-lg navbar-dark">
-    //     <div className="container">
-    //       <a className='logo' href='/'>
-    //         <img className='navbar-brand' src={logo}></img>
-    //       </a>
-    //       <button
-    //         className="navbar-toggler"
-    //         type="button"
-    //         data-bs-toggle="collapse"
-    //         data-bs-target="#navbarNav"
-    //         aria-controls="navbarNav"
-    //         aria-expanded="false"
-    //         aria-label="Toggle navigation"
-    //       >
-    //         <span className="navbar-toggler-icon"></span>
-    //       </button>
-
-    //       <div className="collapse navbar-collapse" id="navbarNav">
-    //         <div className="mx-auto"></div>
-    //         <ul className="navbar-nav">
-    //           <li className="nav-item">
-    //             <a className="nav-link text-dark" href="/">Home</a>
-    //           </li>
-    //           <li className="nav-item">
-    //             <a className="nav-link text-dark" href="/about">Introduce</a>
-    //           </li>
-    //           <li className="nav-item">
-    //             <a className="nav-link text-dark" href="/blog">Product</a>
-    //           </li>
-    //           <li className="nav-item">
-    //             <a className="nav-link text-dark" href="/price">New</a>
-    //           </li>
-    //           <li className="nav-item contact">
-    //             <a className="nav-link text-dark" href="/contact">Contact</a>
-    //           </li>
-    //           {isLoggedin ? (
-    //             <>
-    //               <div className="dropdown">
-    //                 {/* <p className="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    //                   Welcome back "{userobj.fullName}"
-    //                 </p> */}
-    //                 <ul className="dropdown-menu dropdown-menu-right">
-    //                   <li><a className="dropdown-item" href="/">Thông tin cá nhân</a></li>
-    //                   <li><a className="dropdown-item" href="/logout">Log Out</a></li>
-    //                 </ul>
-    //               </div>
-
-
-    //             </>
-    //           ) : (
-    //             <>
-    //               {isLoginPage ? (
-    //                 <></>
-    //               ) : (
-    //                 <>
-    //                   <li className="nav-item">
-    //                     <a className="nav-link text-dark" href="/login">Login</a>
-    //                   </li>
-    //                   <li className="nav-item">
-    //                     <a className="nav-link text-dark" href="/register">Sign Up</a>
-    //                   </li>
-    //                 </>
-    //               )}
-    //             </>
-    //           )
-    //           }
-    //         </ul>
-    //       </div>
-    //     </div>
-    //   </nav >
-    //   <Outlet />
-
-    // </React.Fragment>
     <React.Fragment>
       <nav className='navbar'>
         <div className='navbar-container'>
@@ -115,9 +45,10 @@ export function Navbar() {
             {isLoggedin ? (
               <React.Fragment>
                 <div className="dropdown">
-                  <p className="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <p className="dropdown-toggle m-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {/* <img src={userobj}/> */}
-                    Welcome back "{userobj?.fullName}"
+                    {/* Welcome back "{userobj?.fullName}" */}
+                    Welcome: {JSON.parse(localStorage.getItem("user")).fullName}{" "}!
                   </p>
                   <ul className="dropdown-menu dropdown-menu-right">
                     <li><a className="dropdown-item" href="/">Thông tin cá nhân</a></li>

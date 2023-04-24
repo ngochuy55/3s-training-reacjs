@@ -34,7 +34,7 @@ export function Register({
                 value={username}
                 onChange={handleChangeUsername}
               />
-              {renderAlertMessage("username")}
+              {renderAlertMessage("fullname")}
             </div>
 
             <div className="input-form">

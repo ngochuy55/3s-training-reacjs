@@ -59,7 +59,7 @@ export default function LoginPage() {
             (user) => user.email === email && user.password === password
           );
           if (user) {
-            localStorage.setItem("user", JSON.stringify(res.data));
+            localStorage.setItem("user", JSON.stringify(user));
             toast.success("Đăng nhập thành công!", {
               position: "top-center",
               autoClose: 1500,

@@ -147,18 +147,19 @@
 
 .content_container .box .discount {
   position: absolute;
-  top: 1.9rem;
-  right: -1rem;
+  top: -13PX;
+  right: 6PX;
   border: none;
   background: #ea9d02;
   color: #fff;
   z-index: 1;
-  border-radius: 6px;
-  font-size: 13px;
-  width: 10rem;
-  height: 30px;
-  rotate: 45deg;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .card-title:hover > .spectification {

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import '../../assets/css/Home.css'
-import { useContext } from 'react';
-import Slider from "../../components/common/Slider";
+// import { useContext } from 'react';
+// import Slider from "../../components/common/Slider";
 
 
 //Create a new homepage
@@ -41,10 +41,9 @@ export function HomePage() {
         {products.map((product) => {
           return (
             <div key={product.id} className="card box">
-
               <div className="content_img">
                 <img className="card-img-top" src={product.image} alt="ảnh về 1 chiếc điện thoại" />
-                <div className='discount'>Giảm giá {product.discount}%</div>
+                <div className='discount'> -{product.discount}%</div>
               </div>
               <div className="card-body">
                 <h5 className="card-title product_name">{product.productName}</h5>

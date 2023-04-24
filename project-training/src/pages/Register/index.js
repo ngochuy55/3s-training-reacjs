@@ -23,7 +23,7 @@ function RegisterPages() {
     passBlank: "Password cannot be blank",
     email: "invalid email",
     pass: "invalid password",
-    username: "invalid username",
+    username: "username cannot be blank",
     confirm: "confirm password are incorrect",
   };
 
@@ -36,7 +36,7 @@ function RegisterPages() {
   const handleChangeUsername = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    if (value && !isEmail(email)) {
+    if (!value) {
       setErrorMessages({ name: "fullname", message: errors.username });
     } else setErrorMessages(false);
     setUsername(value);
@@ -101,7 +101,7 @@ function RegisterPages() {
         .catch(function (error) {
           console.log(error);
         })
-        .finally(function () {});
+        .finally(function () { });
       toast.success("Đăng ký thành công!", {
         position: "top-center",
         autoClose: 1500,

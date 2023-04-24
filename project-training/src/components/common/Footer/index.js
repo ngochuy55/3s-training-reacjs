@@ -12,12 +12,10 @@ export function Footer() {
           <div className="row mt-3 w-100 ">
             <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">
-                <i className="fas fa-gem me-3"></i>Fpt shop
+                <i className="fas fa-gem me-3"></i>3s shop
               </h6>
               <p>
-                FPT Shop là thương hiệu thuộc Công ty Cổ Phần Bán Lẻ Kỹ Thuật Số FPT
-                (gọi tắt là FPT Retail, mã chứng Khoán: FRT). FPT Shop là chuỗi cửa
-                hàng bán lẻ chuyên về các sản phẩm kỹ thuật số.
+                3S Shop là chuỗi cửa hàng bán lẻ chuyên về các sản phẩm kỹ thuật số.
               </p>
             </div>
 
@@ -86,7 +84,7 @@ export function Footer() {
               </p>
               <p>
                 <i className="fas fa-envelope me-3"></i>
-                fptshop@fpt.com.vn
+                3sshop@fpt.com.vn
               </p>
               <p>
                 <i className="fas fa-phone me-3"></i> 1800 6601 (hỗ trợ khách hàng)
