@@ -22,43 +22,38 @@ export function Navbar() {
       setIsLoggedin(false);
     else setIsLoggedin(true);
 
-    console.log((localStorage.getItem("user")));
-    // console.log("abc");
   }, []);
   return (
     <React.Fragment>
-      <nav className='navbar'>
-        <div className='navbar-container'>
-          <div className='logo'>
-            <img src={logo} />
+      <nav className='w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40'>
+        <div className='flex container items-center justify-between'>
+          <div className='w-[50px] h-[50px]'>
+            <img src={logo} alt='' className='h-full' />
           </div>
-          <div className='Search_input_container'>
-            <input type='text' className='search_input' placeholder='Nhập tên điện thoại cần tìm' />
-            <span className='search-btn'><FontAwesomeIcon className='search_icon' icon={faMagnifyingGlass} /></span>
+          <form className='w-[496px] flex'>
+            <input type='text' className='h-[38px] w-full pl-4 outline-none text-[#000]' placeholder='Nhập tên điện thoại cần tìm' />
+            <span className='w-[58px] h-[38px] flex items-center justify-center bg-[#333]'><FontAwesomeIcon className='search_icon' icon={faMagnifyingGlass} /></span>
+          </form>
+          <div className='relative'>
+            <FontAwesomeIcon className='text-[20px]' icon={faCartShopping} /><br />
+            <span className='absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3'>0</span>
           </div>
-          <div className='shopping_cart'>
-            <FontAwesomeIcon className='cart-icon' icon={faCartShopping} /><br />
-            <span>Giỏ hàng</span>
-          </div>
-
-          <div className='right'>
+          <div>
             {isLoggedin ? (
               <React.Fragment>
                 <div className="dropdown">
                   <p className="dropdown-toggle m-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {/* <img src={userobj}/> */}
-                    {/* Welcome back "{userobj?.fullName}" */}
                     Welcome: {JSON.parse(localStorage.getItem("user")).fullName}{" "}!
                   </p>
-                  <ul className="dropdown-menu dropdown-menu-right">
+                  <ul className="dropdown-menu dropdown-menu-right transform transition duration-500 scale-0 translate-y-2">
                     <li><a className="dropdown-item" href="/">Thông tin cá nhân</a></li>
                     <li><a className="dropdown-item" href="/logout">Log Out</a></li>
                   </ul>
                 </div>
               </React.Fragment>
             ) : (
-              <ul className='link_item'>
-                <li className="nav-item">
+              <ul className='flex m-0'>
+                <li className="mr-3">
                   <a className="nav-link text-white" href="/login">Login</a>
                 </li>
                 <li className="nav-item">

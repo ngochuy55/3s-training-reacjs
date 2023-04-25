@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping, faCartPlus } from '@fortawesome/free-solid-svg-icons'
-import '../../assets/css/Home.css'
+import Home from "../../template/Home";
 // import { useContext } from 'react';
 // import Slider from "../../components/common/Slider";
 
@@ -14,9 +12,38 @@ import '../../assets/css/Home.css'
 export function HomePage() {
   document.title = "HomePage"
   const [products, setproducts] = useState([])
-  const ProductsContext = React.createContext();
+  const [categories, setCategories] = useState([])
+  const [notfound, setNotfound] = useState(false)
+  const [prices, setPrices] = useState([])
 
+  //Call API Categories Sidebar
+  async function fetchCategories() {
+    await axios
+      .get("https://621f1457311a705914ff929e.mockapi.io/categories")
+      .then(function (res) {
+        setCategories(res.data)
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+      .finally(function () {
+      });
+  }
+  //Call API Prices Sidebar
+  async function fetchPrices() {
+    await axios
+      .get("https://641bf1d81f5d999a446d48f8.mockapi.io/prices")
+      .then(function (res) {
+        setPrices(res.data)
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+      .finally(function () {
+      });
+  }
 
+  //Call API Products
   const fetchData = async () => {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
@@ -30,43 +57,71 @@ export function HomePage() {
 
       });
   }
+  //Call API and get products with categories
+  async function fetchDataWithCategory(categoriesid) {
+    await axios
+      .get(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/products`)
+      .then(function (res) {
+        const filteredProducts = res.data.filter(product => product.categoryId === categoriesid);
+        if (categoriesid === undefined) {
+          setproducts(res.data)
+        }
+        else if (filteredProducts.length > 0) {
+          const result = filteredProducts.map(product => (product));
+          setproducts(result);
+        }
+        else {
+          setNotfound(false)
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+      .finally(function () {
+      });
+  }
+
+  //Call API and get products with price
+  async function fetchDataWithPrice(Price) {
+    await axios
+      .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
+      .then(function (res) {
+        if (Price === undefined) {
+          setproducts(res.data)
+        }
+        else {
+          const filteredProducts = res.data.filter(product => product.price > Price.valueFrom && product.price < Price.valueTo);
+          if (filteredProducts.length > 0) {
+            const result = filteredProducts.map(product => (product));
+            setproducts(result);
+          } else {
+            console.log("ko có điện thoại");
+          }
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+      .finally(function () {
+
+      });
+
+  }
+
   useEffect(() => {
     fetchData()
+    fetchCategories()
+    fetchPrices()
   }, [])
 
   return (
-    <React.Fragment>
-      {/* <Slider /> */}
-      <ProductsContext.Provider value={products}>
-        {products.map((product) => {
-          return (
-            <div key={product.id} className="card box">
-              <div className="content_img">
-                <img className="card-img-top" src={product.image} alt="ảnh về 1 chiếc điện thoại" />
-                <div className='discount'> -{product.discount}%</div>
-              </div>
-              <div className="card-body">
-                <h5 className="card-title product_name">{product.productName}</h5>
-                <div className="card-text spectification">{product.specifications}</div>
-                <div className='ram_gb_btn'>
-                  <button className='ram_btn'><span data-title="RAM">{product.ram}GB</span></button>
-                  <button className='gb_btn' ><span data-title="RAM">{product.gb}GB</span></button>
-                </div>
-                <div className='price'>
-                  <div className='new_price'>{product.priceAfterDisStr}</div>
-                  <strike className='old_price'>{product.priceStr}</strike>
-                </div>
-              </div>
-              <div className="card-footer">
-                <div className='buy_add-to-cart'>
-                  <button className='buy_button'><FontAwesomeIcon icon={faCartShopping} /> Mua Ngay</button>
-                  <button className='add-to-cart_button' ><FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ</button>
-                </div>
-              </div>
-            </div >
-          )
-        })}
-      </ProductsContext.Provider>
-    </React.Fragment >
+    < Home
+      notfound={notfound}
+      products={products}
+      categories={categories}
+      prices={prices}
+      fetchDataWithCategory={fetchDataWithCategory}
+      fetchDataWithPrice={fetchDataWithPrice}
+    />
   )
 }

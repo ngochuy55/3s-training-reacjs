@@ -30,7 +30,7 @@ function RegisterPages() {
   //Render validate: Element sẽ được hiển thị lên giao diện
   const renderAlertMessage = (name) =>
     name === errorMessages.name && (
-      <p className="err">{errorMessages.message}</p>
+      <p className="l-[65px] m-0 text-[red] text-left mt-[6px]">{errorMessages.message}</p>
     );
 
   const handleChangeUsername = (e) => {

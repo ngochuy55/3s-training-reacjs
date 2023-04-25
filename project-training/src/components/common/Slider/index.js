@@ -18,12 +18,13 @@ function Slider() {
   useEffect(() => {
     fetchSlider();
   }, []);
+
   return (
     <Carousel className="my-6 s3">
       {slider.map((slider) => (
-        <Carousel.Item interval={2000}>
+        <Carousel.Item interval={2000} key={slider.id}>
           <React.Fragment>
-            <img className="d-block w-100" src={slider.image} />
+            <img className="d-block w-100" src={slider.image} alt="" />
             <Carousel.Caption></Carousel.Caption>
           </React.Fragment>
         </Carousel.Item>
