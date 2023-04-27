@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { Outlet } from 'react-router-dom';
-import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping, faSpinner, faXmark, faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../assets/css/Navigation.css'
 import '../../../assets/css/Responsive.css'
@@ -28,7 +28,7 @@ export function Navbar() {
       <nav className='w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40'>
         <div className='flex container items-center justify-between'>
           <div className='w-[50px] h-[50px]'>
-            <img src={logo} alt='' className='h-full' />
+            <a href='/'><img src={logo} alt='' className='h-full' /></a>
           </div>
           <form className='w-[496px] flex'>
             <input type='text' className='h-[38px] w-full pl-4 outline-none text-[#000]' placeholder='Nhập tên điện thoại cần tìm' />
@@ -38,6 +38,7 @@ export function Navbar() {
             <FontAwesomeIcon className='text-[20px]' icon={faCartShopping} /><br />
             <span className='absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3'>0</span>
           </div>
+          <FontAwesomeIcon className='hidden' icon={faBars} />
           <div>
             {isLoggedin ? (
               <React.Fragment>

@@ -57,7 +57,7 @@ export function Login({
         <div>
           <div className="bg-[#41ffe6] absolute flex items-center justify-center flex-col px-[40px] text-center top-0 h-[100%] w-[50%]">
             <div className="text-center items-center">
-              <img src={logo} alt='' className='mx-[40%] mb-5' />
+              <a href='/'><img src={logo} alt='' className='mx-[40%] mb-5' /></a>
               <h1 className='my-[20%]'>Don't have Account ?</h1>
               <button className='w-[80%]'><a href='/register' className="bg-[#2b86ff] border-2 border-white border-solid  text-white no-underline rounded-[20px] font-bold px-[12px] py-[15px] text-[12px] uppercase " id="signUp">Sign Up</a></button>
             </div>

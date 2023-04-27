@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Home from "../../template/Home";
+import { ProductDetail } from "../../template/ProductDetail";
 // import { useContext } from 'react';
 // import Slider from "../../components/common/Slider";
 
@@ -105,8 +106,9 @@ export function HomePage() {
       .finally(function () {
 
       });
-
   }
+
+
 
   useEffect(() => {
     fetchData()

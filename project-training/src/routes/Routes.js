@@ -4,12 +4,18 @@ import { Logout } from "../pages/Logout";
 import { NotFound } from "../template/404Page/NotFound";
 import RegisterPages from "../pages/Register";
 import { HomePage } from "../pages/Home";
+import { ProductDetails } from "../pages/ProductDetail";
+
 
 export function RoutesComponents() {
   let element = useRoutes([
     {
       path: "/",
       element: <HomePage />,
+    },
+    {
+      path: '/chi-tiet-san-pham/:productid',
+      element: <ProductDetails />
     },
     {
       path: '/logout',

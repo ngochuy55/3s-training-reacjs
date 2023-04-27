@@ -40,7 +40,6 @@ export function Register({
             <div className="mb-[15px] h-[5rem] w-[100%]">
               <input
                 className='bg-[#eee] w-full px-[12px] py-[15px]'
-
                 type="text"
                 name="email"
                 placeholder="Email"
@@ -88,7 +87,7 @@ export function Register({
         <div className="overlay-container">
           <div className="bg-[#41ffe6] absolute flex items-center justify-center flex-col px-[40px] text-center top-0 h-[100%] w-[50%]">
             <div className="text-center items-center">
-              <img src={logo} alt="" className='mx-[40%] mb-5' />
+              <a href="/"><img src={logo} alt="" className='mx-[40%] mb-5' /></a>
               <h1 className='my-[20%]'>Welcome Back!</h1>
               <p>
                 To keep connected with us please login with your personal info

@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="text-center text-lg-start bg-light text-muted position-static">
 
-      <section className="">
+      <section className="container">
         <div
           className="container text-center text-md-start mt-5  mx-0 w-100 "
           style={{ minHeight: "325px" }}
@@ -84,7 +84,7 @@ export function Footer() {
               </p>
               <p>
                 <i className="fas fa-envelope me-3"></i>
-                3sshop@fpt.com.vn
+                3sshop@3si.vn
               </p>
               <p>
                 <i className="fas fa-phone me-3"></i> 1800 6601 (hỗ trợ khách hàng)
