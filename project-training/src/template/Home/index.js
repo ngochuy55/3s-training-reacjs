@@ -4,7 +4,7 @@ import Slider from "../../components/common/Slider";
 import "../../assets/css/Slider.css";
 import { Footer } from "../../components/common/Footer";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping, faCartPlus, faMemory } from '@fortawesome/free-solid-svg-icons'
+import { faCartShopping, faCartPlus, faMemory, faMicrochip } from '@fortawesome/free-solid-svg-icons'
 
 function Home(
   {
@@ -13,7 +13,11 @@ function Home(
     fetchDataWithCategory,
     categories,
     prices,
-    products
+    products,
+    isMore,
+    showMoreProducts,
+    collapseProducts,
+    visible
   }
 ) {
   return (
@@ -53,8 +57,8 @@ function Home(
               </div>
             </div>
 
-            <div className="pt-[20px] pb-[20px] flex-1 flex flex-wrap">
-              {products.map((product) => (
+            <div className="pt-[20px] pb-[20px] flex-1 flex flex-wrap bg-white">
+              {products.slice(0, visible).map((product) => (
                 <div key={product.id} className="block w-1/3 hover:border-[0.5px] hover:bg-[#f8f9fa] transform  duration-500 mb-[25px]">
                   <div className="relative max-w-[20rem] mt-[2rem] h-[40%] flex justify-center">
                     <img className="transform  duration-500 hover:scale-110 max-w-[15rem]" src={product.image} alt="ảnh về 1 chiếc điện thoại" />
@@ -64,7 +68,7 @@ function Home(
                     <h5 className="mt-[2rem]">{product.productName}</h5>
                     <div className="hidden">{product.specifications}</div>
                     <div className='flex items-center justify-between w-[60%]'>
-                      <p className='ml-[25%]'><FontAwesomeIcon icon={faMemory} /> {product.ram}GB</p>
+                      <p className='ml-[25%]'><FontAwesomeIcon icon={faMicrochip} /> {product.ram}GB</p>
                       {/* <span>RAM</span> */}
                       <p className='' ><FontAwesomeIcon icon={faMemory} />{product.gb}GB</p>
                       {/* <span>Bộ nhớ trong</span> */}
@@ -80,7 +84,23 @@ function Home(
                   </div>
                 </div >
               ))}
-            </div></div>
+
+
+
+              {isMore ? (
+                <div className=' justify-center flex m-auto row' >
+                  <button onClick={showMoreProducts} className='bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]' > Xem thêm </button>
+                </div>
+              ) : (
+                <div className=' justify-center flex m-auto row'>
+                  <button onClick={collapseProducts} className='bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]'> Thu gọn </button>
+                </div>
+              )}
+            </div>
+
+          </div>
+
+
         </main >
         <Footer />
       </section >

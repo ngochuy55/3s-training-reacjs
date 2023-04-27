@@ -1,13 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Home from "../../template/Home";
-// import { useContext } from 'react';
-// import Slider from "../../components/common/Slider";
-
-
-//Create a new homepage
-//Rename to content
-//import content to homepage
 
 export function HomePage() {
   document.title = "HomePage"
@@ -15,6 +8,19 @@ export function HomePage() {
   const [categories, setCategories] = useState([])
   const [notfound, setNotfound] = useState(false)
   const [prices, setPrices] = useState([])
+
+  const [visible, setVisible] = useState(9)
+  const [isMore, setIsMore] = useState(true)
+  //show products
+  const showMoreProducts = () => {
+    setIsMore(false)
+    setVisible(18)
+  };
+  //collapse 
+  const collapseProducts = () => {
+    setIsMore(true)
+    setVisible(9)
+  }
 
   //Call API Categories Sidebar
   async function fetchCategories() {
@@ -56,6 +62,7 @@ export function HomePage() {
       .finally(function () {
 
       });
+
   }
   //Call API and get products with categories
   async function fetchDataWithCategory(categoriesid) {
@@ -90,7 +97,7 @@ export function HomePage() {
           setproducts(res.data)
         }
         else {
-          const filteredProducts = res.data.filter(product => product.price > Price.valueFrom && product.price < Price.valueTo);
+          const filteredProducts = res.data.filter(product => product.priceAfterDis > Price.valueFrom && product.priceAfterDis < Price.valueTo);
           if (filteredProducts.length > 0) {
             const result = filteredProducts.map(product => (product));
             setproducts(result);
@@ -114,6 +121,8 @@ export function HomePage() {
     fetchPrices()
   }, [])
 
+
+
   return (
     < Home
       notfound={notfound}
@@ -122,6 +131,11 @@ export function HomePage() {
       prices={prices}
       fetchDataWithCategory={fetchDataWithCategory}
       fetchDataWithPrice={fetchDataWithPrice}
+
+      visible={visible}
+      isMore={isMore}
+      showMoreProducts={showMoreProducts}
+      collapseProducts={collapseProducts}
     />
   )
 }

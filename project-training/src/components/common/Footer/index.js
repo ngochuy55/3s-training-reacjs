@@ -78,7 +78,7 @@ export function Footer() {
             </div>
 
             <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+              <h6 className="text-uppercase fw-bold mb-4">Liên hệ</h6>
               <p>
                 <i className="fas fa-home me-3"></i> Việt Nam
               </p>
