@@ -11,6 +11,22 @@ export function HomePage() {
 
   const [visible, setVisible] = useState(9)
   const [isMore, setIsMore] = useState(true)
+  const [categoryActive, setCategoryActive] = useState(0);
+  const [priceActive, setPriceActive] = useState(0);
+
+  //lọc theo sản phẩm
+  const handleActive = (id, category) => {
+    setCategoryActive(id);
+    fetchDataWithCategory(category);
+  };
+
+  //lọc theo giá
+  const handlePriceActive = (id, price, categoryId) => {
+    setPriceActive(id);
+    fetchDataWithPrice(price, categoryId);
+  }
+
+
   //show products
   const showMoreProducts = () => {
     setIsMore(false)
@@ -89,7 +105,7 @@ export function HomePage() {
   }
 
   //Call API and get products with price
-  async function fetchDataWithPrice(Price) {
+  async function fetchDataWithPrice(Price, categoriesid) {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
@@ -97,12 +113,15 @@ export function HomePage() {
           setproducts(res.data)
         }
         else {
-          const filteredProducts = res.data.filter(product => product.priceAfterDis > Price.valueFrom && product.priceAfterDis < Price.valueTo);
+          const filteredProducts = res.data.filter(
+            product => product.priceAfterDis > Price.valueFrom
+              && product.priceAfterDis < Price.valueTo);
           if (filteredProducts.length > 0) {
             const result = filteredProducts.map(product => (product));
             setproducts(result);
           } else {
             console.log("ko có điện thoại");
+            setproducts([]);
           }
         }
       })
@@ -136,6 +155,11 @@ export function HomePage() {
       isMore={isMore}
       showMoreProducts={showMoreProducts}
       collapseProducts={collapseProducts}
+
+      categoryActive={categoryActive}
+      priceActive={priceActive}
+      handleActive={handleActive}
+      handlePriceActive={handlePriceActive}
     />
   )
 }

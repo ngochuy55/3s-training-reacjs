@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="text-center text-lg-start bg-light text-muted position-static">
 
-      <section className="">
+      <section className="container">
         <div
           className="container text-center text-md-start mt-5  mx-0 w-100 "
           style={{ minHeight: "325px" }}
