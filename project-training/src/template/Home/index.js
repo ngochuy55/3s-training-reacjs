@@ -4,7 +4,7 @@ import Slider from "../../components/common/Slider";
 import "../../assets/css/Slider.css";
 import { Footer } from "../../components/common/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faCartPlus, faMemory, } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faCartPlus, faMemory, faMicrochip } from "@fortawesome/free-solid-svg-icons";
 
 function Home({
   categories,
@@ -133,7 +133,7 @@ function Home({
                         <div className="hidden">{product.specifications}</div>
                         <div className="flex items-center justify-between w-[60%]">
                           <p className="ml-[25%]">
-                            <FontAwesomeIcon icon={faMemory} /> {product.ram}GB
+                            <FontAwesomeIcon icon={faMicrochip} /> {product.ram}GB
                           </p>
                           {/* <span>RAM</span> */}
                           <p className="">
