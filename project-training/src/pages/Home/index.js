@@ -1,14 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Home from "../../template/Home";
-import { ProductDetail } from "../../template/ProductDetail";
-// import { useContext } from 'react';
-// import Slider from "../../components/common/Slider";
-
-
-//Create a new homepage
-//Rename to content
-//import content to homepage
 
 export function HomePage() {
   document.title = "HomePage"
@@ -16,6 +8,35 @@ export function HomePage() {
   const [categories, setCategories] = useState([])
   const [notfound, setNotfound] = useState(false)
   const [prices, setPrices] = useState([])
+
+  const [visible, setVisible] = useState(9)
+  const [isMore, setIsMore] = useState(true)
+  const [categoryActive, setCategoryActive] = useState(0);
+  const [priceActive, setPriceActive] = useState(0);
+
+  //lọc theo sản phẩm
+  const handleActive = (id, category) => {
+    setCategoryActive(id);
+    fetchDataWithCategory(category);
+  };
+
+  //lọc theo giá
+  const handlePriceActive = (id, price, categoryId) => {
+    setPriceActive(id);
+    fetchDataWithPrice(price, categoryId);
+  }
+
+
+  //show products
+  const showMoreProducts = () => {
+    setIsMore(false)
+    setVisible(18)
+  };
+  //collapse 
+  const collapseProducts = () => {
+    setIsMore(true)
+    setVisible(9)
+  }
 
   //Call API Categories Sidebar
   async function fetchCategories() {
@@ -57,6 +78,7 @@ export function HomePage() {
       .finally(function () {
 
       });
+
   }
   //Call API and get products with categories
   async function fetchDataWithCategory(categoriesid) {
@@ -83,7 +105,7 @@ export function HomePage() {
   }
 
   //Call API and get products with price
-  async function fetchDataWithPrice(Price) {
+  async function fetchDataWithPrice(Price, categoriesid) {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
@@ -91,12 +113,15 @@ export function HomePage() {
           setproducts(res.data)
         }
         else {
-          const filteredProducts = res.data.filter(product => product.price > Price.valueFrom && product.price < Price.valueTo);
+          const filteredProducts = res.data.filter(
+            product => product.priceAfterDis > Price.valueFrom
+              && product.priceAfterDis < Price.valueTo);
           if (filteredProducts.length > 0) {
             const result = filteredProducts.map(product => (product));
             setproducts(result);
           } else {
             console.log("ko có điện thoại");
+            setproducts([]);
           }
         }
       })
@@ -106,15 +131,16 @@ export function HomePage() {
       .finally(function () {
 
       });
+
   }
-
-
 
   useEffect(() => {
     fetchData()
     fetchCategories()
     fetchPrices()
   }, [])
+
+
 
   return (
     < Home
@@ -124,6 +150,16 @@ export function HomePage() {
       prices={prices}
       fetchDataWithCategory={fetchDataWithCategory}
       fetchDataWithPrice={fetchDataWithPrice}
+
+      visible={visible}
+      isMore={isMore}
+      showMoreProducts={showMoreProducts}
+      collapseProducts={collapseProducts}
+
+      categoryActive={categoryActive}
+      priceActive={priceActive}
+      handleActive={handleActive}
+      handlePriceActive={handlePriceActive}
     />
   )
 }

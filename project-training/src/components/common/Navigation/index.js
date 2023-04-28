@@ -17,6 +17,7 @@ export function Navbar() {
   //     return acc;
   //   })
   // }
+  // console.log("abc");
   useEffect(() => {
     if (item === '' || item === null)
       setIsLoggedin(false);
