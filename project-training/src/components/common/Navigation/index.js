@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { Outlet } from 'react-router-dom';
-import { faMagnifyingGlass, faCartShopping, faSpinner, faXmark, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping, faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../assets/css/Navigation.css'
 import '../../../assets/css/Responsive.css'

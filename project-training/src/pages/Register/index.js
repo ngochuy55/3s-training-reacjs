@@ -18,7 +18,7 @@ function RegisterPages() {
   const errors = {
     wrong: "Email or password are incorrect",
     lengthPass: "Password must be at least 8 character",
-    blank: "Username, Email and Password is empty",
+    blank: "Username, Email and Pass is empty",
     emailBlank: "Email cannot be blank",
     passBlank: "Password cannot be blank",
     email: "invalid email",
@@ -81,9 +81,7 @@ function RegisterPages() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      !isBlankValue(email) ||
-      !isBlankValue(password) ||
-      !isBlankValue(username)
+      !isBlankValue(email) && !isBlankValue(password) && !isBlankValue(username)
     ) {
       const data = {
         fullName: username,
@@ -101,7 +99,8 @@ function RegisterPages() {
         .catch(function (error) {
           console.log(error);
         })
-        .finally(function () { });
+        .finally(function () {
+        });
       toast.success("Đăng ký thành công!", {
         position: "top-center",
         autoClose: 1500,

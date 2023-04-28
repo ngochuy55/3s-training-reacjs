@@ -5,7 +5,7 @@ import "../../assets/css/Slider.css";
 import { Footer } from "../../components/common/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faCartPlus, faMemory, faMicrochip } from "@fortawesome/free-solid-svg-icons";
-
+import { Link } from "react-router-dom";
 function Home({
   categories,
   prices,
@@ -33,7 +33,7 @@ function Home({
           <div className="flex">
             <div className="col-3 p-0 p-r-30 ">
               <div className="text-left items-center mb-[5rem] pt-[20px] ">
-                <h3 className="">Danh mục</h3>
+                <h3 className="text-[#0a58ca]">Danh mục</h3>
                 <ul>
                   <li className="m-2">
                     <button
@@ -65,7 +65,7 @@ function Home({
                 </ul>
               </div>
               <div className="text-left items-center">
-                <h3 className=""> Mức giá</h3>
+                <h3 className="text-[#0a58ca]"> Mức giá</h3>
                 <ul>
                   <li className="m-2">
                     <button
@@ -77,22 +77,35 @@ function Home({
                       Tất cả
                     </button>
                   </li>
-                  {prices.map((price) => (
-                    <div key={price.id} className="">
-                      <li className="m-2">
-                        <button
-                          onClick={() => {
-                            handlePriceActive(price.id, price, categoryActive);
-                            // console.log(price.id, price, categoryActive);
-                          }}
-                          className={priceActive === price.id ? "hightlight text-red-600  " : ""
-                          }
-                        >
-                          {price.name}
-                        </button>
-                      </li>
+                  {prices.length === 0 ? (
+                    <div className="m-auto">
+                      <img
+                        src="https://fptshop.com.vn/Content/v5d/images/noti-search.png"
+                        className="w-50 mx-auto h-50 mt-[100px] "
+                        alt=""
+                      />
+                      <p>
+                        Rất tiếc chúng tôi không tìm thấy kết quả theo yêu cầu của
+                        bạn Vui lòng thử lại .
+                      </p>
                     </div>
-                  ))}
+                  ) : (
+                    prices.map((price) => (
+                      <div key={price.id} className="">
+                        <li className="m-2">
+                          <button
+                            onClick={() => {
+                              handlePriceActive(price.id, price, categoryActive);
+                              // console.log(price.id, price, categoryActive);
+                            }}
+                            className={priceActive === price.id ? "hightlight text-red-600  " : ""
+                            }
+                          >
+                            {price.name}
+                          </button>
+                        </li>
+                      </div>
+                    )))}
                 </ul>
               </div>
             </div>
@@ -129,7 +142,7 @@ function Home({
                         </div>
                       </div>
                       <div className="block h-[30%]">
-                        <h5 className="mt-[2rem]">{product.productName}</h5>
+                        <h5 className="mt-[2rem] ml-[20px] "><Link className="no-underline" to={`/chi-tiet-san-pham/${product.id}`}>{product.productName}</Link></h5>
                         <div className="hidden">{product.specifications}</div>
                         <div className="flex items-center justify-between w-[60%]">
                           <p className="ml-[25%]">
@@ -152,11 +165,11 @@ function Home({
                         </div>
                       </div>
                       <div className=" flex justify-between h-[20%] w-[80%]">
-                        <button className="bg-[#cb1c22] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
-                          <FontAwesomeIcon icon={faCartShopping} /> Mua Ngay
+                        <button className="bg-[#cb1c22] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem] hover:bg-[#23E8E8]">
+                          <FontAwesomeIcon icon={faCartShopping} /><a className="no-underline text-[#fff] hover:text-[#fff]" href={`/chi-tiet-san-pham/${product.id}`}> Mua Ngay</a>
                         </button>
-                        <button className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
-                          <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
+                        <button className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem] hover:bg-[#FF8C00]">
+                          <FontAwesomeIcon icon={faCartPlus} /> <a className="no-underline text-[#fff] hover:text-[#fff]" href="/#">Thêm vào giỏ</a>
                         </button>
                       </div>
                     </div>
@@ -165,16 +178,26 @@ function Home({
               </div>
               <div>
                 {isMore ? (
-                  <div className=' justify-center flex m-auto' >
-                    <button onClick={showMoreProducts} className='bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]' >
-                      Xem thêm
-                    </button>
+                  <div className=" justify-center flex m-auto">
+                    {products.slice(0, visible).length === 9 && (
+                      <button
+                        onClick={showMoreProducts}
+                        className="bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]"
+                      >
+                        Xem thêm
+                      </button>
+                    )}
                   </div>
                 ) : (
-                  <div className=' justify-center flex m-auto'>
-                    <button onClick={collapseProducts} className='bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]'>
-                      Thu gọn
-                    </button>
+                  <div className=" justify-center flex m-auto">
+                    {products.slice(0, visible).length === 18 && (
+                      <button
+                        onClick={collapseProducts}
+                        className="bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]"
+                      >
+                        Thu gọn
+                      </button>
+                    )}
                   </div>
                 )}
               </div>

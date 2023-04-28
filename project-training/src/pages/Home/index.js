@@ -60,6 +60,8 @@ export function HomePage() {
       })
       .catch(function (err) {
         console.log(err);
+        setPrices([]);
+
       })
       .finally(function () {
       });
@@ -99,6 +101,7 @@ export function HomePage() {
       })
       .catch(function (err) {
         console.log(err);
+        // setproducts([]);
       })
       .finally(function () {
       });
@@ -122,6 +125,7 @@ export function HomePage() {
           } else {
             console.log("ko có điện thoại");
             setproducts([]);
+
           }
         }
       })

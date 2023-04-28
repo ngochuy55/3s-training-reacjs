@@ -10,6 +10,7 @@ export function ProductDetail(
     renderStar
   }
 ) {
+  console.log(productdetail);
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
