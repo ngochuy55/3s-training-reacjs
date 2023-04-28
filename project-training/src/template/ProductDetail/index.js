@@ -2,14 +2,14 @@ import React from "react"
 import { Navbar } from "../../components/common/Navigation"
 import { Footer } from "../../components/common/Footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCartShopping, faCartPlus } from "@fortawesome/free-solid-svg-icons"
+import { faCartShopping, faCartPlus, faMobile } from "@fortawesome/free-solid-svg-icons"
+import { AiFillChrome } from "react-icons/ai";
 
 export function ProductDetail(
   { productdetail,
     renderStar
   }
 ) {
-  // console.log(productdetail)
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
@@ -18,18 +18,19 @@ export function ProductDetail(
           {
             productdetail.map((product) =>
               <React.Fragment key={product.id}>
-                <p className="font-bold w-full h-[40px] items-center flex text-500 mt-3  shadow-sm"><a className="no-underline" href="/"> Trang chủ</a> / {product.productName}</p>
+                <p className="font-bold w-full h-[40px] items-center flex text-500 mt-3 shadow-sm"><a className="no-underline" href="/"> Trang chủ</a> / {product.productName}</p>
                 <div className="shadow-lg shadow-[#dee2e6]"></div>
-                <div className="flex mb-[16px] leading-[18.2px] pt-[10px] pb-[15px]">
+                <div className="flex mb-[16px] leading-[18.2px] pt-[10px] pb-[15px] border-b-2">
                   <h1 className="text-[#212529] w-3/4 font-[Roboto] text-left flex border-b-2 border-gray-500">{product.productName}</h1>
                   <div className="flex items-center justify-center">
+                    <p className="mb-0" >Đánh giá: </p>
                     {renderStar(product.star)}
                   </div>
                 </div>
 
-                <div className="flex m-4">
+                <div className="flex m-4 border-b-2">
                   <div className="w-1/3 items-center justify-center col mr-0 block">
-                    <img src={product.imageDetail} className="text-[14px] text-left leading-[18.2px] max-w-[585px] max-h-[390px]" alt={`Ảnh về chiếc điện thoại ${product.productName}`} />
+                    <img src={product.imageDetail} className="text-[14px] text-left leading-[18.2px] max-w-[585px] max-h-[390px] transform  duration-500 hover:scale-110" alt={`Ảnh về chiếc điện thoại ${product.productName}`} />
                   </div>
                   <div className="col pl-2 w-2/3">
                     <div className="flex row ">
@@ -38,12 +39,12 @@ export function ProductDetail(
                     </div>
                     <div className="col my-[2rem]">
                       {product.color.map(color =>
-                        <button className={`mr-9 bg-[${color}]`} key={color}>
+                        <button className="mr-9" key={color}>
                           <img
                             alt={`Ảnh điện thoại ${product.productName} màu ${color}`}
                             className="max-w-[38px] max-h-[38px] hover:border-[#cb1c22]"
                             src={product.imageDetail}
-                          />{color}</button>
+                          /><span className={`text-[${color}]`}>{color}</span></button>
                       )}
                     </div>
                     <p>{product.specifications}</p>
@@ -56,8 +57,8 @@ export function ProductDetail(
                 <div className="w-1/2 flex text-left mb-[16px] leading-[18.2px] px-[15px] py-[20px]">
                   <div>
                     <h3 className="my-[20px] text-[#0a58ca]">Thông số kĩ thuật</h3>
-                    <p>Display: {product.display}</p>
-                    <p>Camera trước: {product.frontCamera}</p>
+                    <p><FontAwesomeIcon icon={faMobile} /> Display: {product.display}</p>
+                    <p className="flex"><AiFillChrome /> Camera trước: {product.frontCamera}</p>
                     <p>Camera sau: {product.backCamera}</p>
                     <p>CPU: {product.cpu}</p>
                     <p>Bộ nhớ trong: {product.gb}</p>
