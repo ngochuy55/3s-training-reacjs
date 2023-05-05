@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function LoginPage() {
-  const [, setAccount] = useState({});
+  const [account, setAccount] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessage] = useState({});
@@ -25,7 +25,9 @@ export default function LoginPage() {
   //Render validate: Element sẽ được hiển thị lên giao diện
   const renderAlertMessage = (name) =>
     name === errorMessages.name && (
-      <p className="l-[65px] m-0 text-[red] text-left mt-[6px]">{errorMessages.message}</p>
+      <p className="l-[65px] m-0 text-[red] text-left mt-[6px]">
+        {errorMessages.message}
+      </p>
     );
 
   const handleChangeEmail = (e) => {
@@ -76,7 +78,7 @@ export default function LoginPage() {
         .catch(function (err) {
           console.log(err);
         })
-        .finally(function () { });
+        .finally(function () {});
     } else setErrorMessage({ name: "summary", message: errors.blank });
   };
 

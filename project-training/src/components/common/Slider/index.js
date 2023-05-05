@@ -13,7 +13,7 @@ function Slider() {
       .catch(function (err) {
         console.log(err);
       })
-      .finally(function () { });
+      .finally(function () {});
   };
   useEffect(() => {
     fetchSlider();
