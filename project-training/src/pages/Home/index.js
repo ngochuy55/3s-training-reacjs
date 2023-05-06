@@ -61,6 +61,8 @@ export function HomePage() {
       })
       .catch(function (err) {
         console.log(err);
+        setPrices([]);
+
       })
       .finally(function () {
       });

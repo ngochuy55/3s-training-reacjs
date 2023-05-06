@@ -34,7 +34,7 @@ function HomeTemplate({
           <div className="flex">
             <div className="col-3 p-0 p-r-30 ">
               <div className="text-left items-center mb-[5rem] pt-[20px] ">
-                <h3 className="">Danh mục</h3>
+                <h3 className="text-[#0a58ca]">Danh mục</h3>
                 <ul>
                   <li className="m-2">
                     <button
@@ -66,7 +66,7 @@ function HomeTemplate({
                 </ul>
               </div>
               <div className="text-left items-center">
-                <h3 className=""> Mức giá</h3>
+                <h3 className="text-[#0a58ca]"> Mức giá</h3>
                 <ul>
                   <li className="m-2">
                     <button
@@ -153,8 +153,8 @@ function HomeTemplate({
                         </div>
                       </div>
                       <div className=" flex justify-between h-[20%] w-[80%]">
-                        <button className="bg-[#cb1c22] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
-                          <FontAwesomeIcon icon={faCartShopping} /> Mua Ngay
+                        <button className="bg-[#cb1c22] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem] hover:bg-[#23E8E8]">
+                          <FontAwesomeIcon icon={faCartShopping} /><a className="no-underline text-[#fff] hover:text-[#fff]" href={`/chi-tiet-san-pham/${product.id}`}> Mua Ngay</a>
                         </button>
                         <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
                           <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
@@ -166,16 +166,26 @@ function HomeTemplate({
               </div>
               <div>
                 {isMore ? (
-                  <div className=' justify-center flex m-auto' >
-                    <button onClick={showMoreProducts} className='bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]' >
-                      Xem thêm
-                    </button>
+                  <div className=" justify-center flex m-auto">
+                    {products.slice(0, visible).length === 9 && (
+                      <button
+                        onClick={showMoreProducts}
+                        className="bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]"
+                      >
+                        Xem thêm
+                      </button>
+                    )}
                   </div>
                 ) : (
-                  <div className=' justify-center flex m-auto'>
-                    <button onClick={collapseProducts} className='bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]'>
-                      Thu gọn
-                    </button>
+                  <div className=" justify-center flex m-auto">
+                    {products.slice(0, visible).length === 18 && (
+                      <button
+                        onClick={collapseProducts}
+                        className="bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]"
+                      >
+                        Thu gọn
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
