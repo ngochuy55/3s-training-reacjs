@@ -4,18 +4,20 @@ import { Logout } from "../pages/Logout";
 import { NotFound } from "../template/404Page/NotFound";
 import RegisterPages from "../pages/Register";
 import { HomePage } from "../pages/Home";
-import { ProductDetails } from "../pages/ProductDetail";
-
+import { ProductDetail } from "../pages/ProductDetail";
 
 export function RoutesComponents() {
   let element = useRoutes([
     {
       path: "/",
       element: <HomePage />,
+      children: [
+
+      ]
     },
     {
-      path: '/chi-tiet-san-pham/:productid',
-      element: <ProductDetails />
+      path: '/chi-tiet-san-pham/:id',
+      element: <ProductDetail />
     },
     {
       path: '/logout',

@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function LoginPage() {
+  document.title = "Đăng nhập"
   const [, setAccount] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,7 +78,19 @@ export default function LoginPage() {
           console.log(err);
         })
         .finally(function () { });
-    } else setErrorMessage({ name: "summary", message: errors.blank });
+    } else {
+      setErrorMessage({ name: "summary", message: errors.blank });
+      toast.error("Đăng nhập thất bại!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+    }
   };
 
   return (

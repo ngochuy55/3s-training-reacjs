@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from 'react';
 // import { Outlet } from 'react-router-dom';
-import { faMagnifyingGlass, faCartShopping, faSpinner, faXmark, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping, faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../../../assets/css/Navigation.css'
-import '../../../assets/css/Responsive.css'
 
-export function Navbar() {
+
+export function Navbar({
+  cartItems,
+}) {
   const [isLoggedin, setIsLoggedin] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [total, setTotal] = useState(0);
   const logo = require('../../../assets/images/logo-fix.png')
   let item = localStorage.getItem('user')
-  // const user = JSON.parse(item)
-  // let userobj;
-  //Chuyển array user thành obj
-  // if (user) {
-  //   userobj = user.reduce((acc) => {
-  //     return acc;
-  //   })
-  // }
-  // console.log("abc");
+  const handleShowCart = () => {
+    setShowCart(!showCart);
+  };
+  useEffect(() => {
+    // console.log("type", typeof (cartItems));
+    if (cartItems.length !== 0) {
+      const totalPrice = cartItems.reduce((sum, item) => {
+        console.log(sum + item.price * item.quantity);
+        return sum + item.price * item.quantity;
+      }, 0)
+      setTotal(totalPrice);
+    }
+  }, [cartItems])
+
   useEffect(() => {
     if (item === '' || item === null)
       setIsLoggedin(false);
@@ -36,8 +44,10 @@ export function Navbar() {
             <span className='w-[58px] h-[38px] flex items-center justify-center bg-[#333]'><FontAwesomeIcon className='search_icon' icon={faMagnifyingGlass} /></span>
           </form>
           <div className='relative'>
-            <FontAwesomeIcon className='text-[20px]' icon={faCartShopping} /><br />
-            <span className='absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3'>0</span>
+            <button><FontAwesomeIcon className='text-[20px]' icon={faCartShopping} onClick={handleShowCart} /><br /></button>
+            <span className='absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3'>
+              {`${cartItems.length}`}
+            </span>
           </div>
           <FontAwesomeIcon className='hidden' icon={faBars} />
           <div>
@@ -66,7 +76,25 @@ export function Navbar() {
             }
           </div>
         </div>
+
       </nav>
+      {showCart ? (
+        <React.Fragment>
+          <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'} 
+          bg-[#ccc] fixed top-[55px] right-0 h-full w-[300px] max-w-[40vw] transition-all duration-300 z-[1000]`}>
+            <h2>Giỏ hàng</h2>
+            {cartItems.map((item) => (
+              <div key={item.id}>
+                {item.productName} {item.quantity} {item.priceStr}
+              </ div >
+            ))}
+            <p className=''>Tổng: {total.toLocaleString('en-US')}đ</p>
+            <button>Đặt hàng</button>
+          </div>
+        </React.Fragment>
+      ) : (<React.Fragment>
+      </React.Fragment>)
+      }
     </React.Fragment >
   )
 }

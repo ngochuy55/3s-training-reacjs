@@ -1,13 +1,17 @@
 import axios from "axios";
-import { ProductDetail } from "../../template/ProductDetail";
+import { ProductDetailTemplate } from "../../template/ProductDetail";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-export function ProductDetails() {
+export function ProductDetail() {
+  document.title = "Chi tiết sản phẩm"
   const [productdetail, setproductdetail] = useState([]);
-  const { productid } = useParams();
+  const { id } = useParams();
+  const [description, setdescription] = useState(0);
+  const [activetab, setIsActivetab] = useState(false);
+  const [activecolor, setIsActivecolor] = useState(false);
 
   //Render star of product
   function renderStar(num) {
@@ -17,16 +21,23 @@ export function ProductDetails() {
     return <React.Fragment>{stars}</React.Fragment>
   }
 
+  //change to parameters
+  function handleClickdescriptions(state) {
+    // e.preventDefault();
+    setIsActivetab(!activetab);
+    setdescription(state)
+  }
+
+  function handleClickcolor(state) {
+    setIsActivecolor(!activecolor)
+  }
   //Call API product for Detail page
-  async function fetchDataProductDetails() {
-    await axios
+  function fetchDataProductDetails() {
+    axios
       .get(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/products`)
       .then(function (res) {
-        // console.log(res.data);
-        const filteredProducts = res.data.filter(product => product.id == productid);
-        // console.log("filter", filteredProducts);
+        const filteredProducts = res.data.filter(product => product.id === parseInt(id));
         const result = filteredProducts.map(product => (product));
-        // console.log("result", result);
         setproductdetail(result)
 
       })
@@ -41,8 +52,12 @@ export function ProductDetails() {
   }, []);
 
   return (
-
-    <ProductDetail
+    <ProductDetailTemplate
+      handleClickcolor={handleClickcolor}
+      activecolor={activecolor}
+      activetab={activetab}
+      description={description}
+      handleClickdescriptions={handleClickdescriptions}
       renderStar={renderStar}
       productdetail={productdetail}
     />

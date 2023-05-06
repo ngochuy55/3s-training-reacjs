@@ -79,3 +79,30 @@ td {
   vertical-align: baseline;
   background: transparent;
 }
+
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(calc(100% + 300px));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-right {
+  animation: slideRight 0.5s ease-in-out ;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100% + 300px));
+  }
+}
+
+.animate-slide-left {
+  animation: slideLeft 0.5s ease-in-out;
+}

@@ -7,6 +7,7 @@ import { isEmail, isBlankValue } from "../../ultis/functions";
 import { toast } from "react-toastify";
 
 function RegisterPages() {
+  document.title = "Đăng ký"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");

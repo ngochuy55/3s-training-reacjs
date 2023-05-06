@@ -5,8 +5,9 @@ import "../../assets/css/Slider.css";
 import { Footer } from "../../components/common/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faCartPlus, faMemory, faMicrochip } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-function Home({
+function HomeTemplate({
   categories,
   prices,
   products,
@@ -18,13 +19,13 @@ function Home({
   priceActive,
   handleActive,
   handlePriceActive,
-
+  cartItems,
+  handleAddToCart,
 }) {
-  // console.log(products);
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
-        <Navbar />
+        <Navbar cartItems={cartItems} />
 
         <main className="container pt-[56px] place-items-center mr-32 ml-32 shadow-lg">
           <div className="mt-4 basis-1/4 h-4/5">
@@ -83,7 +84,6 @@ function Home({
                         <button
                           onClick={() => {
                             handlePriceActive(price.id, price, categoryActive);
-                            // console.log(price.id, price, categoryActive);
                           }}
                           className={priceActive === price.id ? "hightlight text-red-600  " : ""
                           }
@@ -119,7 +119,8 @@ function Home({
                     >
                       <div className="relative max-w-[20rem] mt-[2rem] h-[40%] flex justify-center">
                         <img
-                          className="transform  duration-500 hover:scale-110 max-w-[15rem]"
+
+                          className="transform duration-500 hover:scale-110 max-w-[15rem]"
                           src={product.image}
                           alt="ảnh về 1 chiếc điện thoại"
                         />
@@ -129,7 +130,7 @@ function Home({
                         </div>
                       </div>
                       <div className="block h-[30%]">
-                        <h5 className="mt-[2rem]">{product.productName}</h5>
+                        <h5 className="mt-[2rem] ml-[20px] "><Link className="no-underline" to={`chi-tiet-san-pham/${product.id}`}>{product.productName}</Link></h5>
                         <div className="hidden">{product.specifications}</div>
                         <div className="flex items-center justify-between w-[60%]">
                           <p className="ml-[25%]">
@@ -155,7 +156,7 @@ function Home({
                         <button className="bg-[#cb1c22] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
                           <FontAwesomeIcon icon={faCartShopping} /> Mua Ngay
                         </button>
-                        <button className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
+                        <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
                           <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
                         </button>
                       </div>
@@ -188,4 +189,4 @@ function Home({
   );
 }
 
-export default Home;
+export default HomeTemplate;
