@@ -1,5 +1,9 @@
 import React from "react";
 import "../../assets/css/Form.css";
+import { faEnvelope, faKey, faCalendarDay, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from '../../assets/images/logo-fix.png'
+
 // import { Navbar } from "../../components/common/Navigation";
 export function Register({
   renderAlertMessage,
@@ -13,92 +17,143 @@ export function Register({
   handleChangeBirthday,
   handleSubmit,
 }) {
-  const logo = require("../../assets/images/logo-fix.png");
+
 
   return (
     <React.Fragment>
-      <div className="flex absolute h-[480px] w-[776px] top-[20%] left-[25%] rounded-[10px] box-shadow" id="container">
-        <div className="text-center w-[50%]">
-          <form className="bg-[#fff] flex items-center justify-center flex-col px-[50px] h-full text-center">
-            <div className=" text-[#7f7f7f] m-0 font-bold">
-              <h3>Create Account</h3>
-              {renderAlertMessage("summary")}
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-0 lg:w-[30%] lg:ml-[33.33%] mt-5 shadow-lg shadow-indigo-500/40">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <a href='/'><img
+            className="mx-auto h-10 w-auto"
+            src={logo}
+            alt=""
+          /></a>
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            SIGN UP
+          </h2>
+          <div className='flex justify-center'>
+            {renderAlertMessage("summary")}</div>
+        </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium leading-6 text-gray-900">
+                <FontAwesomeIcon icon={faUser} /> User name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  // required
+                  placeholder='Username'
+                  value={username}
+                  onChange={handleChangeUsername}
+                  className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {renderAlertMessage("username")}
             </div>
-
-            <div className="mb-[15px] h-[5rem] w-[100%]">
-              <input
-                className='bg-[#eee] w-full px-[12px] py-[12px]'
-                type="text"
-                name="fullname"
-                placeholder="Full Name"
-                value={username}
-                onChange={handleChangeUsername}
-              />
-              {renderAlertMessage("fullname")}
-            </div>
-
-            <div className="mb-[15px] h-[5rem] w-[100%]">
-              <input
-                className='bg-[#eee] w-full px-[12px] py-[15px]'
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={email}
-                onChange={handleChangeEmail}
-              />
+            <div>
+              <label className="block text-sm font-medium leading-6 text-gray-900">
+                <FontAwesomeIcon icon={faEnvelope} /> Email address
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  // required
+                  placeholder='Email'
+                  value={email}
+                  onChange={handleChangeEmail}
+                  className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
               {renderAlertMessage("email")}
             </div>
 
-            <div className="mb-[15px] h-[5rem] w-[100%]">
-              <input
-                className='bg-[#eee] w-full px-[12px] py-[15px]'
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={handleChangePassword}
-              />
-              {renderAlertMessage("password")}
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  <FontAwesomeIcon icon={faKey} /> Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  // id="password"
+                  name="password"
+                  type="password"
+                  placeholder='Password'
+                  value={password}
+                  onChange={handleChangePassword}
+                  // required
+                  className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {renderAlertMessage("password")}
+              </div>
             </div>
 
-            <div className="mb-[15px] h-[5rem] w-[100%]">
-              <input
-                className='bg-[#eee] w-full px-[12px] py-[15px]'
-                type="password"
-                name="comfirmpassword"
-                placeholder="Comfirm Password"
-                onChange={handleChangeConfirm}
-              />
-              {renderAlertMessage("confirm")}
-            </div>
-            <div className="mb-[15px] h-[5rem] w-[100%]">
-              <input
-                className='bg-[#eee] w-full px-[12px] py-[15px]'
-                name="birthday"
-                type="date"
-                onChange={handleChangeBirthday}
-              />
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  <FontAwesomeIcon icon={faKey} /> Comfirm password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  // id="password"
+                  name="comfirmpassword"
+                  type="password"
+                  placeholder='Comfirm Password'
+                  // value={password}
+                  onChange={handleChangeConfirm}
+                  // required
+                  className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {renderAlertMessage("comfirmpassword")}
+              </div>
             </div>
 
-            <button className="bg-[#2b86ff] mb-[6px] text-white rounded-[20px] font-bold px-[12px] py-[15px] border-[1px] text-[12px] uppercase w-2/5 " onClick={handleSubmit}>Sign Up</button>
-          </form>
-        </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="" className="block text-sm font-medium leading-6 text-gray-900">
+                  <FontAwesomeIcon icon={faCalendarDay} /> Birthday
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  // id="password"
+                  name="birthday"
+                  type="date"
+                  // value={password}
+                  onChange={handleChangeBirthday}
+                  // required
+                  className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {renderAlertMessage("birthday")}
+              </div>
+            </div>
 
-        <div className="overlay-container">
-          <div className="bg-[#41ffe6] absolute flex items-center justify-center flex-col px-[40px] text-center top-0 h-[100%] w-[50%]">
-            <div className="text-center items-center">
-              <a href="/"><img src={logo} alt="" className='mx-[40%] mb-5' /></a>
-              <h1 className='my-[20%]'>Welcome Back!</h1>
-              <p>
-                To keep connected with us please login with your personal info
-              </p>
-              <button className='w-[80%]'>
-                <a href="/login" className="bg-[#2b86ff] border-2 border-white border-solid  text-white no-underline rounded-[20px] font-bold px-[12px] py-[15px] text-[12px] uppercase " id="signIn">
-                  Sign In
-                </a>
+
+
+            <div>
+              <button
+                onClick={handleSubmit}
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign in
               </button>
             </div>
-          </div>
+          </form>
+
+          <p className="mt-10 text-center text-sm text-gray-500">
+            Already have an account!ㅤ
+            <a href="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+              Sign in
+            </a>
+          </p>
         </div>
       </div>
     </React.Fragment>

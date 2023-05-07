@@ -10,6 +10,7 @@ function RegisterPages() {
   document.title = "Đăng ký"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [username, setUsername] = useState("");
   const [birthday, setBirthday] = useState("");
 
@@ -18,13 +19,17 @@ function RegisterPages() {
 
   const errors = {
     wrong: "Email or password are incorrect",
+    emailwrong: "Email is incorrect",
+    passwrong: "password is incorrect",
     lengthPass: "Password must be at least 8 character",
-    blank: "Username, Email and Password is empty",
+    blank: "Username, Email and Pass is empty",
     emailBlank: "Email cannot be blank",
     passBlank: "Password cannot be blank",
+    confirmBlank: "confirm password cannot be blank",
+    usernameBlank: "username cannot be blank",
+    birthdayBlank: "birthday cannot be blank",
     email: "invalid email",
     pass: "invalid password",
-    username: "username cannot be blank",
     confirm: "confirm password are incorrect",
   };
 
@@ -38,7 +43,7 @@ function RegisterPages() {
     e.preventDefault();
     const value = e.target.value;
     if (!value) {
-      setErrorMessages({ name: "fullname", message: errors.username });
+      setErrorMessages({ name: "username", message: errors.usernameBlank });
     } else setErrorMessages(false);
     setUsername(value);
   };
@@ -54,7 +59,7 @@ function RegisterPages() {
     } else setErrorMessages(false);
     setEmail(value);
   };
-
+  // lấy dữ liệu ngày tháng
   const handleChangeBirthday = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -65,27 +70,36 @@ function RegisterPages() {
   const handleChangePassword = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    setPassword(value);
-    if (value.length < 8)
+
+    if (value && value.length < 8) {
       setErrorMessages({ name: "password", message: errors.lengthPass });
-    else setErrorMessages(false);
+    } else if (!value) {
+      setErrorMessages({ name: "password", message: errors.passBlank });
+    } else setErrorMessages(false);
+    setPassword(value);
   };
+  // validate confirm pass: kiểm tra nhập lại pass
   const handleChangeConfirm = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    if (value !== password)
-      setErrorMessages({ name: "confirm", message: errors.confirm });
+    setConfirmPassword(value);
+    if (value && value.length < 8) {
+      setErrorMessages({ name: "comfirmpassword", message: errors.lengthPass });
+    } else if (!value) {
+      setErrorMessages({ name: "comfirmpassword", message: errors.confirmBlank });
+    }
     else setErrorMessages(false);
   };
 
   //Validate when Submit Form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !isBlankValue(email) ||
-      !isBlankValue(password) ||
-      !isBlankValue(username)
-    ) {
+    let isValid = true;
+    if (password !== confirmPassword) {
+      setErrorMessages({ name: "confirmPassword", message: errors.confirm });
+      isValid = false;
+    }
+    if (isValid && !isBlankValue(username) && !isBlankValue(email) && !isBlankValue(password) && !isBlankValue(birthday) && !isBlankValue(confirmPassword)) {
       const data = {
         fullName: username,
         email: email,
@@ -102,7 +116,8 @@ function RegisterPages() {
         .catch(function (error) {
           console.log(error);
         })
-        .finally(function () { });
+        .finally(function () {
+        });
       toast.success("Đăng ký thành công!", {
         position: "top-center",
         autoClose: 1500,
@@ -113,7 +128,33 @@ function RegisterPages() {
         progress: undefined,
         theme: "colored",
       });
-    } else setErrorMessages({ name: "summary", message: errors.blank });
+    } else {
+
+      if (username === "") {
+        setErrorMessages({ name: "username", message: errors.usernameBlank });
+      } else if (email === "") {
+        setErrorMessages({ name: "email", message: errors.emailBlank });
+      } else if (password === "") {
+        setErrorMessages({ name: "password", message: errors.passBlank });
+      } else if (birthday === "") {
+        setErrorMessages({ name: "birthday", message: errors.birthdayBlank });
+      } else if (confirmPassword === "") {
+        setErrorMessages({ name: "comfirmpassword", message: errors.confirmBlank });
+      } else if (confirmPassword !== password)
+        setErrorMessages({ name: "comfirmpassword", message: errors.confirm });
+
+      toast.error("Đăng ký thất bại!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
   };
 
   return (

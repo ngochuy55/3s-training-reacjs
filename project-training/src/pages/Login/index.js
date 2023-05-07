@@ -10,11 +10,13 @@ export default function LoginPage() {
   const [, setAccount] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessages, setErrorMessage] = useState({});
+  const [errorMessages, setErrorMessages] = useState({});
   const navigate = useNavigate();
 
   const errors = {
     wrong: "Email or password are incorrect",
+    emailwrong: "Email is incorrect",
+    passwrong: "password is incorrect",
     lengthPass: "Password must be at least 8 character",
     blank: "Email and Password can not be blank",
     emailBlank: "Email cannot be blank",
@@ -33,21 +35,26 @@ export default function LoginPage() {
     e.preventDefault();
     const value = e.target.value;
     if (value && !isEmail(email)) {
-      setErrorMessage({ name: "email", message: errors.email });
+      setErrorMessages({ name: "email", message: errors.email });
     } else if (!value) {
-      setErrorMessage({ name: "email", message: errors.emailBlank });
-    } else setErrorMessage(false);
+      setErrorMessages({ name: "email", message: errors.emailBlank });
+    }
+    else setErrorMessages(false);
     setEmail(value);
   };
 
   const handleChangePassword = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    if (value.length < 8)
-      setErrorMessage({ name: "password", message: errors.lengthPass });
-    else setErrorMessage(false);
+    if (value && value.length < 8) {
+      setErrorMessages({ name: "password", message: errors.lengthPass });
+    } else if (!value) {
+      setErrorMessages({ name: "password", message: errors.passBlank });
+    }
+    else setErrorMessages(false);
     setPassword(value);
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,15 +63,15 @@ export default function LoginPage() {
         .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/users")
         .then(function (res) {
           setAccount(res.data);
-          const user = res.data.find(
-            (user) => user.email === email && user.password === password
-          );
-          if (user) {
-            localStorage.setItem("user", JSON.stringify(user));
+          const users = res.data.find((user) => user.email === email && user.password === password);
+          const useremail = res.data.find((user) => user.email === email);
+          const userpass = res.data.find((user) => user.password === password);
+          if (users) {
+            localStorage.setItem("user", JSON.stringify(users));
             toast.success("Đăng nhập thành công!", {
               position: "top-center",
               autoClose: 1500,
-              hideProgressBar: true,
+              hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
@@ -72,25 +79,44 @@ export default function LoginPage() {
               theme: "colored",
             });
             navigate("/");
-          } else setErrorMessage({ name: "summary", message: errors.wrong });
+          }
+          else {
+            localStorage.setItem("user", JSON.stringify(users));
+            toast.error("Đăng nhập thất bại!", {
+              position: "top-center",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+
+            if (!userpass) {
+              setErrorMessages({ name: "password", message: errors.passwrong })
+            }
+            if (!useremail) {
+              setErrorMessages({ name: "email", message: errors.emailwrong })
+            }
+          }
+
         })
         .catch(function (err) {
           console.log(err);
         })
         .finally(function () { });
-    } else {
-      setErrorMessage({ name: "summary", message: errors.blank });
-      toast.error("Đăng nhập thất bại!", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      })
     }
+    else {
+      if (password === "") {
+        setErrorMessages({ name: "password", message: errors.passBlank });
+      }
+      if (email === "") {
+        setErrorMessages({ name: "email", message: errors.emailBlank });
+      }
+
+    }
+    // setErrorMessage({ name: "summary", message: errors.blank });
   };
 
   return (
