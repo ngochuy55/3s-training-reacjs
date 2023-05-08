@@ -18,20 +18,42 @@ export function HomePage() {
   const [loading, setLoading] = useState(false);
 
   const [productState, dispatch] = useProducts();
+  const [filter, setFilter] = useState({
+    categoryId: 0,
+    from: null,
+    to: null,
 
+  })
   const [cartItems, setCartItems] = useState([])
+
   //lọc theo sản phẩm
   const handleActive = (id, category) => {
     setCategoryActive(id);
     fetchDataWithCategory(category);
+    setFilter({
+      ...filter, categoryId: id
+    })
+
   };
 
   //lọc theo giá
-  const handlePriceActive = (id, price, categoryId) => {
+  const handlePriceActive = (id, price) => {
     setPriceActive(id);
-    fetchDataWithPrice(price, categoryId);
+    // fetchDataWithPrice(price, categoryId);
+    setFilter({
+      ...filter, from: id === 0 ? null : price.valueFrom, to: id === 0 ? null : price.valueTo
+    })
+    console.log(price);
   };
+  // console.log(filter);
+  useEffect(() => {
 
+    if (filter) {
+      fetchDataWithPrice();
+    }
+  }, [filter]);
+
+  console.log(products);
   //show products
   const showMoreProducts = () => {
     setIsMore(false);
@@ -123,23 +145,35 @@ export function HomePage() {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
-        if (Price === undefined) {
-          setproducts(res.data);
-        } else {
-          const filteredProducts = res.data.filter(
-            (product) =>
-              product.priceAfterDis > Price.valueFrom &&
-              product.priceAfterDis < Price.valueTo
-          );
-          if (filteredProducts.length > 0) {
-            const result = filteredProducts.map((product) => product);
-            setproducts(result);
-          } else {
-            console.log("ko có điện thoại");
-            setproducts([]);
+        let data = []
+        if (res.data.length > 0) {
+          if (filter.categoryId === 0) {
+            if (filter.from === null && filter.to === null)
+              data = res.data
+            else {
+              data = res.data.filter(
+                (item) =>
+                  item.price >= filter.from && item.price <= filter.to
+              );
+            }
           }
+          else {
+            if (filter.from === null && filter.to === null) {
+              data = res.data.filter(
+                (item) =>
+                  item.categoryId === filter.categoryId
+              );
+            }
+            else {
+              data = res.data.filter(
+                (item) =>
+                  item.categoryId === filter.categoryId && item.price >= filter.from && item.price <= filter.to
+              );
+            }
+          }
+          setproducts(data)
+          setLoading(false);
         }
-        setLoading(false);
       })
       .catch(function (err) {
         console.log(err);
@@ -179,8 +213,8 @@ export function HomePage() {
   ) : (
     <Home
       notfound={notfound}
-      // products={products}
-      products={productState.searchResult}
+      products={products}
+      // products={productState.searchResult}
       categories={categories}
       prices={prices}
       fetchDataWithCategory={fetchDataWithCategory}

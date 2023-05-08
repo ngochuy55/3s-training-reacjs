@@ -100,16 +100,6 @@ export default function LoginPage() {
         })
         .finally(function () { });
     } else {
-      toast.warning("Email và mật khẩu không được bỏ trống!", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
 
       if (email === "") {
         setErrorMessages({ name: "email", message: errors.emailBlank });

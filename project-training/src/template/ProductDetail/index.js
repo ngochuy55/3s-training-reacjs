@@ -46,14 +46,17 @@ export function ProductDetailTemplate(
                       <p className="text-[#0a58ca] text-[32px] mr-[20px] text-[500]">{product.priceStr}</p>
                       <strike className="text-[#99a2aa] text-[20px] text-left inline">{product.priceAfterDisStr}</strike>
                     </div>
-                    <div className="col my-[2rem]">
-                      {product.color.map(color =>
-                        <button className="mr-9">
-                          <img
-                            alt={`Ảnh điện thoại ${product.productName} màu ${color}`}
-                            className="max-w-[38px] max-h-[38px] hover:border-[#cb1c22]"
-                            src={product.imageDetail}
-                          /><span>{color}</span></button>
+                    <div className="col my-[2rem] flex">
+                      {product.color.map((color, i) =>
+                        <div className=" w-[16px] h-[16px]" style={{ background: color, marginLeft: i === 0 ? 0 : "8px" }}>
+
+                        </div>
+                        // <button className="mr-9">
+                        //   <img
+                        //     alt={`Ảnh điện thoại ${product.productName} màu ${color}`}
+                        //     className="max-w-[38px] max-h-[38px] hover:border-[#cb1c22]"
+                        //     src={product.imageDetail}
+                        //   /><span>{color}</span></button>
                       )}
                     </div>
                     <p>{product.description}</p>

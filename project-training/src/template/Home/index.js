@@ -112,9 +112,7 @@ function Home({
                           <button
                             onClick={() => {
                               handlePriceActive(
-                                price.id,
-                                price,
-                                categoryActive
+                                price.id, price
                               );
                               // console.log(price.id, price, categoryActive);
                             }}
