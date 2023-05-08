@@ -11,6 +11,8 @@ import {
   faMicrochip,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useProducts } from "../../Store";
+
 function Home({
   categories,
   prices,
@@ -26,6 +28,7 @@ function Home({
   handlePriceActive,
 }) {
   // console.log(products);
+  const [state, dispatch] = useProducts();
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
@@ -126,6 +129,10 @@ function Home({
             </div>
 
             <div className="pt-[20px] pb-[20px] bg-white w-full mb-[20px]">
+              <p className="hilight1 text-red-600">
+                Tìm thấy {products?.length} kết quả với từ khóa "
+                {state.searchName}"
+              </p>
               <div className="flex-1 flex flex-wrap">
                 {products.length === 0 ? (
                   <div className="m-auto">

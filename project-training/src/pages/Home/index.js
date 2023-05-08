@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Home from "../../template/Home";
 import Loading from "../Loading";
+import { productActions, useProducts } from "../../Store";
 
 export function HomePage() {
   document.title = "HomePage";
@@ -15,6 +16,8 @@ export function HomePage() {
   const [categoryActive, setCategoryActive] = useState(0);
   const [priceActive, setPriceActive] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const [productState, dispatch] = useProducts();
 
   //lọc theo sản phẩm
   const handleActive = (id, category) => {
@@ -78,6 +81,7 @@ export function HomePage() {
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
         setproducts(res.data);
+        dispatch(productActions.setSearchResult(res.data));
         setLoading(false);
       })
       .catch(function (err) {
@@ -153,7 +157,8 @@ export function HomePage() {
   ) : (
     <Home
       notfound={notfound}
-      products={products}
+      // products={products}
+      products={productState.searchResult}
       categories={categories}
       prices={prices}
       fetchDataWithCategory={fetchDataWithCategory}

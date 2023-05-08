@@ -14,7 +14,6 @@ export default function Navigation({
   search,
 }) {
   const [value, setValue] = useState("");
-  console.log(search);
   return (
     <React.Fragment>
       <nav className="w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
@@ -35,7 +34,10 @@ export default function Navigation({
 
             <button
               className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]"
-              onClick={() => handleSearchClick()}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSearchClick();
+              }}
               type="submit"
             >
               <FontAwesomeIcon
@@ -43,11 +45,11 @@ export default function Navigation({
                 icon={faMagnifyingGlass}
               />
             </button>
-            <div>
+            {/* <div>
               {products.map((product) => {
                 return <div>{product}</div>;
               })}
-            </div>
+            </div> */}
           </form>
           <div className="relative">
             <FontAwesomeIcon className="text-[20px]" icon={faCartShopping} />
