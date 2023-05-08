@@ -22,14 +22,14 @@ export function Register({
 
   return (
     <React.Fragment>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-0 lg:w-[30%] lg:ml-[33.33%] mt-5 shadow-lg shadow-indigo-500/40">
+      <div className="flex max-h-full flex-1 flex-col justify-center px-6 mt-[20px] lg:px-0 lg:w-[30%] lg:ml-[33.33%]  shadow-lg shadow-indigo-500/40">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href='/'><img
-            className="mx-auto h-10 w-auto"
+            className="mx-auto h-10 w-auto mt-2"
             src={logo}
             alt=""
           /></a>
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className=" m-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             SIGN UP
           </h2>
           <div className='flex justify-center'>

@@ -1,7 +1,7 @@
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-
+import logo from '../../assets/images/logo-fix.png'
 export function Login({
   handleChangeEmail,
   renderAlertMessage,
@@ -11,8 +11,6 @@ export function Login({
   password
 }
 ) {
-  const logo = require('../../assets/images/logo-fix.png')
-
   return (
     <React.Fragment>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-0 lg:w-[30%] lg:ml-[33.33%] mt-5 shadow-lg shadow-indigo-500/40">
