@@ -12,8 +12,13 @@ export default function Navigation({
   setSearchValue,
   products,
   search,
+
+  total,
+  handleShowCart,
+  showCart,
+  cartItems,
 }) {
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
   return (
     <React.Fragment>
       <nav className="w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
@@ -52,10 +57,10 @@ export default function Navigation({
             </div> */}
           </form>
           <div className="relative">
-            <FontAwesomeIcon className="text-[20px]" icon={faCartShopping} />
+            <FontAwesomeIcon className="text-[20px]" icon={faCartShopping} onClick={handleShowCart} />
             <br />
             <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
-              0
+              {`${cartItems.length}`}
             </span>
           </div>
           <FontAwesomeIcon className="hidden" icon={faBars} />
@@ -103,6 +108,23 @@ export default function Navigation({
           </div>
         </div>
       </nav>
+      {showCart ? (
+        <React.Fragment>
+          <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'} 
+          bg-[#ccc] fixed top-[55px] right-0 h-full w-[300px] max-w-[40vw] transition-all duration-300 z-[1000]`}>
+            <h2>Giỏ hàng</h2>
+            {cartItems.map((item) => (
+              <div key={item.id}>
+                {item.productName} {item.quantity} {item.priceStr}
+              </ div >
+            ))}
+            <p className=''>Tổng: {total.toLocaleString('en-US')}đ</p>
+            <button>Đặt hàng</button>
+          </div>
+        </React.Fragment>
+      ) : (<React.Fragment>
+      </React.Fragment>)
+      }
     </React.Fragment>
   );
 }

@@ -11,12 +11,15 @@ import "../../../assets/css/Responsive.css";
 import Navigation from "../../../template/Navigation";
 import axios from "axios";
 import { productActions, useProducts } from "../../../Store";
-import Home from "../../../template/Home";
 
-export function Navbar() {
+export function Navbar({
+  cartItems,
+}) {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [products, setproducts] = useState([]);
-  const [productState, dispatch] = useProducts();
+  const [, dispatch] = useProducts();
+  const [showCart, setShowCart] = useState(false);
+  const [total, setTotal] = useState(0);
   const logo = require("../../../assets/images/logo-fix.png");
   let item = localStorage.getItem("user");
 
@@ -31,7 +34,7 @@ export function Navbar() {
       .catch(function (err) {
         console.log(err);
       })
-      .finally(function () {});
+      .finally(function () { });
   };
   useEffect(() => {
     fetchData();
@@ -57,6 +60,21 @@ export function Navbar() {
     console.log(filterBySearch);
   }
 
+  const handleShowCart = () => {
+    setShowCart(!showCart);
+  };
+
+  useEffect(() => {
+    // console.log("type", typeof (cartItems));
+    if (cartItems.length !== 0) {
+      const totalPrice = cartItems.reduce((sum, item) => {
+        console.log(sum + item.price * item.quantity);
+        return sum + item.price * item.quantity;
+      }, 0)
+      setTotal(totalPrice);
+    }
+  }, [cartItems])
+
   useEffect(() => {
     if (item === "" || item === null) setIsLoggedin(false);
     else setIsLoggedin(true);
@@ -73,6 +91,11 @@ export function Navbar() {
       products={products}
       handleSearchClick={handleSearchClick}
       search={search}
+
+      total={total}
+      handleShowCart={handleShowCart}
+      showCart={showCart}
+      cartItems={cartItems}
     />
   );
 }

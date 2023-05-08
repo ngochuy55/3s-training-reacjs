@@ -19,6 +19,7 @@ export function HomePage() {
 
   const [productState, dispatch] = useProducts();
 
+  const [cartItems, setCartItems] = useState([])
   //lọc theo sản phẩm
   const handleActive = (id, category) => {
     setCategoryActive(id);
@@ -55,7 +56,7 @@ export function HomePage() {
         console.log(err);
         setLoading(false);
       })
-      .finally(function () {});
+      .finally(function () { });
   }
   //Call API Prices Sidebar
   async function fetchPrices() {
@@ -71,7 +72,7 @@ export function HomePage() {
         setLoading(false);
         setPrices([]);
       })
-      .finally(function () {});
+      .finally(function () { });
   }
 
   //Call API Products
@@ -88,7 +89,7 @@ export function HomePage() {
         console.log(err);
         setLoading(false);
       })
-      .finally(function () {});
+      .finally(function () { });
   };
   //Call API and get products with categories
   async function fetchDataWithCategory(categoriesid) {
@@ -113,7 +114,7 @@ export function HomePage() {
         console.log(err);
         // setproducts([]);
       })
-      .finally(function () {});
+      .finally(function () { });
   }
 
   //Call API and get products with price
@@ -143,9 +144,25 @@ export function HomePage() {
       .catch(function (err) {
         console.log(err);
       })
-      .finally(function () {});
+      .finally(function () { });
   }
+  //Addd Product to cart
+  const handleAddToCart = (item) => {
+    // Kiểm tra xem mặt hàng đã có trong giỏ hàng hay chưa
+    const existItem = cartItems.find((cartItem) => cartItem.id === item.id);
 
+    if (existItem) {
+      // Nếu mặt hàng đã có trong giỏ hàng, tăng số lượng lên 1
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
+        )
+      );
+    } else {
+      // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+    }
+  };
   useEffect(() => {
     fetchData();
     fetchCategories();
@@ -172,6 +189,8 @@ export function HomePage() {
       priceActive={priceActive}
       handleActive={handleActive}
       handlePriceActive={handlePriceActive}
+      handleAddToCart={handleAddToCart}
+      cartItems={cartItems}
     />
   );
 }
