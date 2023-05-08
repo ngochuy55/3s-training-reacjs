@@ -4,28 +4,35 @@ import Slider from "../../components/common/Slider";
 import "../../assets/css/Slider.css";
 import { Footer } from "../../components/common/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faCartPlus, faMemory, faMicrochip } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faCartPlus,
+  faMemory,
+  faMicrochip,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useProducts } from "../../Store";
 
-function HomeTemplate({
+function Home({
   categories,
   prices,
   products,
   visible,
   isMore,
+  loading,
   showMoreProducts,
   collapseProducts,
   categoryActive,
   priceActive,
   handleActive,
   handlePriceActive,
-  cartItems,
-  handleAddToCart,
 }) {
+  // console.log(products);
+  const [state, dispatch] = useProducts();
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
-        <Navbar cartItems={cartItems} />
+        <Navbar />
 
         <main className="container pt-[56px] place-items-center mr-32 ml-32 shadow-lg">
           <div className="mt-4 basis-1/4 h-4/5">
@@ -55,7 +62,9 @@ function HomeTemplate({
                             handleActive(category.id, category.id);
                           }}
                           className={
-                            categoryActive === category.id ? "hightlight text-red-600  " : ""
+                            categoryActive === category.id
+                              ? "hightlight text-red-600  "
+                              : ""
                           }
                         >
                           {category.categoryName}
@@ -78,26 +87,52 @@ function HomeTemplate({
                       Tất cả
                     </button>
                   </li>
-                  {prices.map((price) => (
-                    <div key={price.id} className="">
-                      <li className="m-2">
-                        <button
-                          onClick={() => {
-                            handlePriceActive(price.id, price, categoryActive);
-                          }}
-                          className={priceActive === price.id ? "hightlight text-red-600  " : ""
-                          }
-                        >
-                          {price.name}
-                        </button>
-                      </li>
+                  {prices.length === 0 ? (
+                    <div className="m-auto">
+                      <img
+                        src="https://fptshop.com.vn/Content/v5d/images/noti-search.png"
+                        className="w-50 mx-auto h-50 mt-[100px] "
+                        alt=""
+                      />
+                      <p>
+                        Rất tiếc chúng tôi không tìm thấy kết quả theo yêu cầu
+                        của bạn Vui lòng thử lại .
+                      </p>
                     </div>
-                  ))}
+                  ) : (
+                    prices.map((price) => (
+                      <div key={price.id} className="">
+                        <li className="m-2">
+                          <button
+                            onClick={() => {
+                              handlePriceActive(
+                                price.id,
+                                price,
+                                categoryActive
+                              );
+                              // console.log(price.id, price, categoryActive);
+                            }}
+                            className={
+                              priceActive === price.id
+                                ? "hightlight text-red-600  "
+                                : ""
+                            }
+                          >
+                            {price.name}
+                          </button>
+                        </li>
+                      </div>
+                    ))
+                  )}
                 </ul>
               </div>
             </div>
 
             <div className="pt-[20px] pb-[20px] bg-white w-full mb-[20px]">
+              <p className="hilight1 text-red-600">
+                Tìm thấy {products?.length} kết quả với từ khóa "
+                {state.searchName}"
+              </p>
               <div className="flex-1 flex flex-wrap">
                 {products.length === 0 ? (
                   <div className="m-auto">
@@ -115,12 +150,11 @@ function HomeTemplate({
                   products.slice(0, visible).map((product) => (
                     <div
                       key={product.id}
-                      className="block w-1/3 hover:border-[0.5px] hover:bg-[#f8f9fa] transform  duration-500 mb-[25px]"
+                      className="block w-1/3 hover:border-[0.5px] hover:bg-[transparent] transform  duration-500 mb-[25px]"
                     >
                       <div className="relative max-w-[20rem] mt-[2rem] h-[40%] flex justify-center">
                         <img
-
-                          className="transform duration-500 hover:scale-110 max-w-[15rem]"
+                          className="transform  duration-500 hover:scale-110 max-w-[15rem]"
                           src={product.image}
                           alt="ảnh về 1 chiếc điện thoại"
                         />
@@ -130,11 +164,19 @@ function HomeTemplate({
                         </div>
                       </div>
                       <div className="block h-[30%]">
-                        <h5 className="mt-[2rem] ml-[20px] "><Link className="no-underline" to={`chi-tiet-san-pham/${product.id}`}>{product.productName}</Link></h5>
+                        <h5 className="mt-[2rem] ml-[20px] ">
+                          <Link
+                            className="no-underline"
+                            to={`/chi-tiet-san-pham/${product.id}`}
+                          >
+                            {product.productName}
+                          </Link>
+                        </h5>
                         <div className="hidden">{product.specifications}</div>
                         <div className="flex items-center justify-between w-[60%]">
                           <p className="ml-[25%]">
-                            <FontAwesomeIcon icon={faMicrochip} /> {product.ram}GB
+                            <FontAwesomeIcon icon={faMicrochip} /> {product.ram}
+                            GB
                           </p>
                           {/* <span>RAM</span> */}
                           <p className="">
@@ -154,10 +196,23 @@ function HomeTemplate({
                       </div>
                       <div className=" flex justify-between h-[20%] w-[80%]">
                         <button className="bg-[#cb1c22] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem] hover:bg-[#23E8E8]">
-                          <FontAwesomeIcon icon={faCartShopping} /><a className="no-underline text-[#fff] hover:text-[#fff]" href={`/chi-tiet-san-pham/${product.id}`}> Mua Ngay</a>
+                          <FontAwesomeIcon icon={faCartShopping} />
+                          <a
+                            className="no-underline text-[#fff] hover:text-[#fff]"
+                            href={`/chi-tiet-san-pham/${product.id}`}
+                          >
+                            {" "}
+                            Mua Ngay
+                          </a>
                         </button>
-                        <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
-                          <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
+                        <button className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem] hover:bg-[#FF8C00]">
+                          <FontAwesomeIcon icon={faCartPlus} />{" "}
+                          <a
+                            className="no-underline text-[#fff] hover:text-[#fff]"
+                            href="/#"
+                          >
+                            Thêm vào giỏ
+                          </a>
                         </button>
                       </div>
                     </div>
@@ -167,7 +222,7 @@ function HomeTemplate({
               <div>
                 {isMore ? (
                   <div className=" justify-center flex m-auto">
-                    {products.slice(0, visible).length === 9 && (
+                    {products.slice(0, visible).length >= 9 && (
                       <button
                         onClick={showMoreProducts}
                         className="bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]"
@@ -178,7 +233,7 @@ function HomeTemplate({
                   </div>
                 ) : (
                   <div className=" justify-center flex m-auto">
-                    {products.slice(0, visible).length === 18 && (
+                    {products.slice(0, visible).length >= products.length && (
                       <button
                         onClick={collapseProducts}
                         className="bg-[#33CCFF] ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]"
@@ -191,7 +246,6 @@ function HomeTemplate({
               </div>
             </div>
           </div>
-
         </main>
         <Footer />
       </section>
@@ -199,4 +253,4 @@ function HomeTemplate({
   );
 }
 
-export default HomeTemplate;
+export default Home;

@@ -8,3 +8,16 @@
 /* .s3 {
   margin-top: 15rem;
 } */
+.carousel-control-prev-icon {
+  margin-right: 150px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  align-items: center;
+}
+.carousel-control-next-icon {
+  margin-left: 150px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  align-items: center;
+}
