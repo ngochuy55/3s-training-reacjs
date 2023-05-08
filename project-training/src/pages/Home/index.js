@@ -163,6 +163,11 @@ export function HomePage() {
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
   };
+  //Xoá sản phẩm khỏi giỏ hàng
+  const handleDeleteProduct = (productId) => {
+    const newCart = cartItems.filter(product => product.id !== productId);
+    setCartItems(newCart);
+  }
   useEffect(() => {
     fetchData();
     fetchCategories();
@@ -189,8 +194,10 @@ export function HomePage() {
       priceActive={priceActive}
       handleActive={handleActive}
       handlePriceActive={handlePriceActive}
+
       handleAddToCart={handleAddToCart}
       cartItems={cartItems}
+      handleDeleteProduct={handleDeleteProduct}
     />
   );
 }

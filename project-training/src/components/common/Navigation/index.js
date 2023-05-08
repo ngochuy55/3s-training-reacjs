@@ -14,6 +14,7 @@ import { productActions, useProducts } from "../../../Store";
 
 export function Navbar({
   cartItems,
+  handleDeleteProduct
 }) {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [products, setproducts] = useState([]);
@@ -60,13 +61,14 @@ export function Navbar({
     console.log(filterBySearch);
   }
 
+  //show cart
   const handleShowCart = () => {
     setShowCart(!showCart);
   };
 
   useEffect(() => {
     // console.log("type", typeof (cartItems));
-    if (cartItems.length !== 0) {
+    if (!cartItems.length !== 0) {
       const totalPrice = cartItems.reduce((sum, item) => {
         console.log(sum + item.price * item.quantity);
         return sum + item.price * item.quantity;
@@ -96,6 +98,7 @@ export function Navbar({
       handleShowCart={handleShowCart}
       showCart={showCart}
       cartItems={cartItems}
+      handleDeleteProduct={handleDeleteProduct}
     />
   );
 }

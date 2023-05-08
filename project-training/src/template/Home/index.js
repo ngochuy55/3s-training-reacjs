@@ -27,14 +27,18 @@ function Home({
   handleActive,
   handlePriceActive,
   handleAddToCart,
-  cartItems
+  cartItems,
+  handleDeleteProduct
 }) {
   // console.log(products);
   const [state,] = useProducts();
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
-        <Navbar cartItems={cartItems} />
+        <Navbar
+          cartItems={cartItems}
+          handleDeleteProduct={handleDeleteProduct}
+        />
 
         <main className="container pt-[56px] place-items-center mr-32 ml-32 shadow-lg">
           <div className="mt-4 basis-1/4 h-4/5">
