@@ -3,7 +3,7 @@ import "../../assets/css/Form.css";
 import { faEnvelope, faKey, faCalendarDay, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '../../assets/images/logo-fix.png'
-import { InputField } from '../../components/common/Input/index.js'
+// import { InputField } from '../../components/common/Input/index.js'
 
 // import { Navbar } from "../../components/common/Navigation";
 export function Register({
@@ -22,7 +22,7 @@ export function Register({
 
   return (
     <React.Fragment>
-      <div className="flex max-h-full flex-1 flex-col justify-center px-6 mt-[20px] lg:px-0 lg:w-[30%] lg:ml-[33.33%]  shadow-lg shadow-indigo-500/40">
+      <div className="flex max-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-0 lg:w-[30%] lg:ml-[33.33%]  shadow-lg shadow-indigo-500/40">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href='/'><img
             className="mx-auto h-10 w-auto mt-2"

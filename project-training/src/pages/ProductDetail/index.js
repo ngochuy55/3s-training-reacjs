@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { productActions, useProducts } from "../../Store";
 
 export function ProductDetail() {
   document.title = "Chi tiết sản phẩm"
@@ -12,6 +13,8 @@ export function ProductDetail() {
   const [description, setdescription] = useState(0);
   const [activetab, setIsActivetab] = useState(false);
   const [activecolor, setIsActivecolor] = useState(false);
+
+  const [state, dispatch] = useProducts()
 
   //Render star of product
   function renderStar(num) {
@@ -60,6 +63,7 @@ export function ProductDetail() {
       handleClickdescriptions={handleClickdescriptions}
       renderStar={renderStar}
       productdetail={productdetail}
+      cartItems={state.cart}
     />
   );
 }

@@ -1,5 +1,4 @@
-import { faHouse, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Navigation({
   isLoggedin,
@@ -23,6 +22,7 @@ export default function Navigation({
   showBars,
   isproductDetail
 }) {
+  // const [value, setValue] = useState("");
   return (
     <React.Fragment>
       <nav className="flex w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
@@ -125,7 +125,7 @@ export default function Navigation({
               <div className='relative'>
                 <button><FontAwesomeIcon className='text-[20px]' icon={faCartShopping} onClick={handleShowCart} /><br /></button>
                 <span className='absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3'>
-                  {`${cartItems.length}`}
+                  {`${cartItems?.length}`}
                 </span>
               </div>
 
@@ -172,6 +172,7 @@ export default function Navigation({
                   <div className='flex items-center justify-center my-2'>
                     <button onClick={handleShowCart}>
                       <svg className="h-6 w-6 absolute right-1" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Home from "../../template/Home";
-import Loading from "../Loading";
+// import Loading from "../Loading";
 import { productActions, useProducts } from "../../Store";
 
 export function HomePage() {
@@ -18,15 +18,15 @@ export function HomePage() {
   const [showCategories, setShowCategories] = useState(false);
   const [showPrices, setShowPrices] = useState(false);
 
+  const [state, dispatch] = useProducts();
 
-  const [productState, dispatch] = useProducts();
   const [filter, setFilter] = useState({
     categoryId: 0,
     from: null,
     to: null,
 
   })
-  const [cartItems, setCartItems] = useState([])
+  // const [cartItems, setCartItems] = useState([])
 
   //lọc theo sản phẩm
   const handleActive = (id, category) => {
@@ -182,31 +182,37 @@ export function HomePage() {
       })
       .finally(function () { });
   }
+
+
   //Addd Product to cart
   const handleAddToCart = (item) => {
     // Kiểm tra xem mặt hàng đã có trong giỏ hàng hay chưa
-    const existItem = cartItems.find((cartItem) => cartItem.id === item.id);
-
+    // const existItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    const existItem = state.cart.find((cartItem) => cartItem.id === item.id);
     if (existItem) {
       // Nếu mặt hàng đã có trong giỏ hàng, tăng số lượng lên 1
-      setCartItems(
-        cartItems.map((cartItem) =>
+      // setCartItems(
+      //   cartItems.map((cartItem) =>
+      //     cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
+      //   )
+      // );
+      dispatch(productActions.setCart(
+        state.cart.map((cartItem) =>
           cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
-        )
-      );
+        )))
     } else {
       // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
-      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+      // setCartItems([...cartItems, { ...item, quantity: 1 }]);
+      dispatch(productActions.setCart([...state.cart, { ...item, quantity: 1 }]))
     }
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   };
 
   //Xoá sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = (productId) => {
-    localStorage.removeItem('cartItems');
-    const newCart = cartItems.filter(product => product.id !== productId);
-    setCartItems(newCart);
-    localStorage.setItem('cartItems', JSON.stringify(newCart));
+    const newCart = state.cart.filter(product => product.id !== productId);
+    // setCartItems(newCart);
+    dispatch(productActions.setCart(newCart))
   }
 
   //show Categories when responsive
@@ -223,6 +229,7 @@ export function HomePage() {
     fetchCategories();
     fetchPrices();
   }, []);
+  console.log(state.cart);
 
   return (
     <Home
@@ -243,7 +250,7 @@ export function HomePage() {
       handlePriceActive={handlePriceActive}
 
       handleAddToCart={handleAddToCart}
-      cartItems={cartItems}
+      cartItems={state.cart}
       handleDeleteProduct={handleDeleteProduct}
       handleshowCategories={handleshowCategories}
       handleshowPrices={handleshowPrices}
