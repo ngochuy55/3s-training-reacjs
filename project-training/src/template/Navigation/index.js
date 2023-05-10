@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-
+// import { ProductDetail } from "../../pages/ProductDetail";
+// import { HomePage } from "../../pages/Home";
+// import { useLocation } from 'react-router-dom';
 export default function Navigation({
   isLoggedin,
   logo,
@@ -20,6 +22,8 @@ export default function Navigation({
   handleDeleteProduct
 }) {
   // const [value, setValue] = useState("");
+  // const { pathname } = useLocation();
+  // const isProductDetailPage = pathname.includes('/chi-tiet-san-pham/');
   return (
     <React.Fragment>
       <nav className="w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
@@ -29,6 +33,7 @@ export default function Navigation({
               <img src={logo} alt="" className="h-full" />
             </a>
           </div>
+
           <form className="w-[496px] flex">
             <input
               type="text"
@@ -57,6 +62,7 @@ export default function Navigation({
               })}
             </div> */}
           </form>
+
           <div className="relative">
             <FontAwesomeIcon className="text-[20px]" icon={faCartShopping} onClick={handleShowCart} />
             <br />
@@ -123,7 +129,7 @@ export default function Navigation({
               <div className='relative'>
                 <button><FontAwesomeIcon className='text-[20px]' icon={faCartShopping} onClick={handleShowCart} /><br /></button>
                 <span className='absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3'>
-                  {`${cartItems.length}`}
+                  {`${cartItems?.length}`}
                 </span>
               </div>
               <FontAwesomeIcon className='hidden' icon={faBars} />
@@ -169,7 +175,7 @@ export default function Navigation({
                   <div className='flex items-center justify-center my-2'>
                     <button onClick={handleShowCart}>
                       <svg className="h-6 w-6 absolute right-1" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                        <path strokeLinecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
                   </div>

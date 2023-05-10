@@ -60,8 +60,6 @@ export default function LoginPage() {
         .then(function (res) {
           setAccount(res.data);
           const user = res.data.find((user) => user.email === email && user.password === password);
-          const useremail = res.data.find((user) => user.email === email);
-          const userpass = res.data.find((user) => user.password === password);
           if (user) {
             localStorage.setItem("user", JSON.stringify(user));
             toast.success("Đăng nhập thành công!", {
@@ -76,7 +74,7 @@ export default function LoginPage() {
             });
             navigate("/");
           } else {
-            toast.error("Đăng nhập thất bại!", {
+            toast.error("Email hoặc mật khẩu sai!", {
               position: "top-center",
               autoClose: 1500,
               hideProgressBar: false,
@@ -86,13 +84,6 @@ export default function LoginPage() {
               progress: undefined,
               theme: "colored",
             });
-
-            if (!userpass) {
-              setErrorMessages({ name: "password", message: errors.passwrong })
-            }
-            if (!useremail) {
-              setErrorMessages({ name: "email", message: errors.emailwrong })
-            }
           }
         })
         .catch(function (err) {

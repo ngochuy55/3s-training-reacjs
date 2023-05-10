@@ -14,13 +14,14 @@ export function ProductDetailTemplate(
     handleClickdescriptions,
     activetab,
     renderStar,
-
+    cartItems
   }
 ) {
   return (
     <React.Fragment>
       <section className="bg-[#fff]">
-        {/* <Navbar /> */}
+        <Navbar
+          cartItems={cartItems} />
         <main className="container pt-[56px] place-items-center mr-32 ml-32 shadow-lg mb-36">
           {
             productdetail.map((product) =>

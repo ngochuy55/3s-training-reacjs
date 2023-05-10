@@ -1,9 +1,10 @@
-import { SEARCH_RESULT, SEARCH_RELOAD, SEARCH_NAME } from "./constant";
+import { SEARCH_RESULT, SEARCH_RELOAD, SEARCH_NAME, CART } from "./constant";
 
 const initState = {
   searchResult: [],
   searchReload: false,
   searchName: "",
+  cart: [],
 };
 
 function reducer(state, action) {
@@ -23,7 +24,11 @@ function reducer(state, action) {
         ...state,
         searchName: action.payload,
       };
-
+    case CART:
+      return {
+        ...state,
+        cart: action.payload,
+      };
     default:
       throw new Error("INvalid Action");
   }

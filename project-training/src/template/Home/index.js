@@ -19,7 +19,6 @@ function Home({
   products,
   visible,
   isMore,
-  loading,
   showMoreProducts,
   collapseProducts,
   categoryActive,
@@ -94,17 +93,19 @@ function Home({
                     </button>
                   </li>
                   {prices.length === 0 ? (
-                    <div className="m-auto">
-                      <img
-                        src="https://fptshop.com.vn/Content/v5d/images/noti-search.png"
-                        className="w-50 mx-auto h-50 mt-[100px] "
-                        alt=""
-                      />
-                      <p>
-                        Rất tiếc chúng tôi không tìm thấy kết quả theo yêu cầu
-                        của bạn Vui lòng thử lại .
-                      </p>
-                    </div>
+                    // <div className="m-auto">
+                    //   {/* <img
+                    //     src="https://fptshop.com.vn/Content/v5d/images/noti-search.png"
+                    //     className="w-50 mx-auto h-50 mt-[100px] "
+                    //     alt=""
+                    //   />
+                    //   <p>
+                    //     Rất tiếc chúng tôi không tìm thấy kết quả theo yêu cầu
+                    //     của bạn Vui lòng thử lại .
+                    //   </p> */}
+                    //   {/* <a>hahaha</a> */}
+                    // </div>
+                    null
                   ) : (
                     prices.map((price) => (
                       <div key={price.id} className="">
@@ -183,8 +184,8 @@ function Home({
                         <div className="hidden">{product.specifications}</div>
                         <div className="flex items-center justify-between w-[60%]">
                           <p className="ml-[25%]">
-                            <FontAwesomeIcon icon={faMicrochip} /> {product.ram}
-                            GB
+                            <FontAwesomeIcon icon={faMicrochip} />
+                            {product.ram}GB
                           </p>
                           {/* <span>RAM</span> */}
                           <p className="">
