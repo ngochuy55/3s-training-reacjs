@@ -80,6 +80,11 @@ td {
   background: transparent;
 }
 
+@media (max-width: 1023px) {
+  .container {
+    width: 100%;
+  }
+}
 
 @keyframes slideRight {
   0% {

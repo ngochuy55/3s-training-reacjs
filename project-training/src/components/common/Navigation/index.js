@@ -14,16 +14,17 @@ import { productActions, useProducts } from "../../../Store";
 
 export function Navbar({
   cartItems,
-  handleDeleteProduct
+  handleDeleteProduct,
+  isproductDetail
 }) {
+  const logo = require("../../../assets/images/logo-fix.png");
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [products, setproducts] = useState([]);
   const [, dispatch] = useProducts();
-  const [showCart, setShowCart] = useState(false);
   const [total, setTotal] = useState(0);
-  const logo = require("../../../assets/images/logo-fix.png");
+  const [showCart, setShowCart] = useState(false);
+  const [showBars, setShowbars] = useState(false);
   let item = localStorage.getItem("user");
-
   const [search, setSearchValue] = useState("");
 
   const fetchData = async () => {
@@ -65,13 +66,16 @@ export function Navbar({
   const handleShowCart = () => {
     setShowCart(!showCart);
   };
+  //show sidebar on lg
+  const handleShowSidebar = () => {
+    setShowbars(!showBars);
+  };
 
   useEffect(() => {
     // console.log("type", typeof (cartItems));
     if (!cartItems.length !== 0) {
       const totalPrice = cartItems.reduce((sum, item) => {
-        console.log(sum + item.price * item.quantity);
-        return sum + item.price * item.quantity;
+        return sum + item.priceAfterDis * item.quantity;
       }, 0)
       setTotal(totalPrice);
     }
@@ -94,11 +98,14 @@ export function Navbar({
       handleSearchClick={handleSearchClick}
       search={search}
 
+      handleShowSidebar={handleShowSidebar}
       total={total}
       handleShowCart={handleShowCart}
       showCart={showCart}
+      showBars={showBars}
       cartItems={cartItems}
       handleDeleteProduct={handleDeleteProduct}
+      isproductDetail={isproductDetail}
     />
   );
 }

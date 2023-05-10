@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { faHouse, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 export default function Navigation({
   isLoggedin,
@@ -17,19 +18,21 @@ export default function Navigation({
   handleShowCart,
   showCart,
   cartItems,
-  handleDeleteProduct
+  handleDeleteProduct,
+  handleShowSidebar,
+  showBars,
+  isproductDetail
 }) {
-  // const [value, setValue] = useState("");
   return (
     <React.Fragment>
-      <nav className="w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
-        <div className="flex container items-center justify-between">
-          <div className="w-[50px] h-[50px]">
+      <nav className="flex w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
+        <div className="flex w-full relative lg:container 2xl:w-[80%] lg:mx-auto items-center justify-between">
+          <div className="hidden sm:hidden md:flex md:ml-2 w-[50px] h-[50px]">
             <a href="/">
               <img src={logo} alt="" className="h-full" />
             </a>
           </div>
-          <form className="w-[496px] flex">
+          <form className="w-[80%] ml-1 sm:ml-2 md:w-[496px] flex">
             <input
               type="text"
               className="h-[38px] w-full pl-4 outline-none text-[#000]"
@@ -51,24 +54,21 @@ export default function Navigation({
                 icon={faMagnifyingGlass}
               />
             </button>
-            {/* <div>
-              {products.map((product) => {
-                return <div>{product}</div>;
-              })}
-            </div> */}
           </form>
-          <div className="relative">
-            <FontAwesomeIcon className="text-[20px]" icon={faCartShopping} onClick={handleShowCart} />
+          <div className="hidden relative lg:flex xl:right-[-6rem] 2xl:-right-40">
+            <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
             <br />
             <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
-              {`${cartItems.length}`}
+              {`${isproductDetail ? (localStorage.getItem('cartItems').length) : (cartItems.length)}`}
             </span>
           </div>
-          <FontAwesomeIcon className="hidden" icon={faBars} />
+          <div className="absolute left-[90%] lg:hidden">
+            <FontAwesomeIcon icon={faBars} onClick={handleShowSidebar} />
+          </div>
           <div>
             {isLoggedin ? (
               <React.Fragment>
-                <div className="dropdown">
+                <div className="dropdown lg:flex hidden">
                   <p
                     className="dropdown-toggle m-0"
                     type="button"
@@ -84,6 +84,7 @@ export default function Navigation({
                         Thông tin cá nhân
                       </a>
                     </li>
+
                     <li>
                       <a className="dropdown-item" href="/logout">
                         Log Out
@@ -91,9 +92,10 @@ export default function Navigation({
                     </li>
                   </ul>
                 </div>
+
               </React.Fragment>
             ) : (
-              <ul className="flex m-0">
+              <ul className="hidden lg:flex m-0">
                 <li className="mr-3">
                   <a className="nav-link text-white" href="/login">
                     Login
@@ -111,12 +113,12 @@ export default function Navigation({
       </nav>
       {showCart ? (
         <React.Fragment>
-          <nav className='w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40'>
+          <nav className='w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-4000'>
             <div className='flex container items-center justify-between'>
               <div className='w-[50px] h-[50px]'>
                 <a href='/'><img src={logo} alt='' className='h-full' /></a>
               </div>
-              <form className='w-[496px] flex'>
+              <form className={`${isproductDetail ? 'hidden' : 'flex -[496px]'} `}>
                 <input type='text' className='h-[38px] w-full pl-4 outline-none text-[#000]' placeholder='Nhập tên điện thoại cần tìm' />
                 <span className='w-[58px] h-[38px] flex items-center justify-center bg-[#333]'><FontAwesomeIcon className='search_icon' icon={faMagnifyingGlass} /></span>
               </form>
@@ -126,7 +128,7 @@ export default function Navigation({
                   {`${cartItems.length}`}
                 </span>
               </div>
-              <FontAwesomeIcon className='hidden' icon={faBars} />
+
               <div>
                 {isLoggedin ? (
                   <React.Fragment>
@@ -155,12 +157,13 @@ export default function Navigation({
             </div>
 
           </nav>
+
           {showCart ? (
             <React.Fragment>
-              <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'} 
-           bg-white shadow-xl fixed top-[55px] right-0 h-full w-[500px] max-w-[40vw] transition-all duration-300 z-[1000]`}>
+              <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'}  
+                  w-full max-w-full bg-white shadow-xl fixed top-[55px] right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}>
 
-                <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6 ">
+                <div className="flex-1 sm:w-full sm:max-w-full overflow-y-auto px-4 py-6 sm:px-6 ">
                   <div className="flex items-start justify-between">
                     <h2 className=''>Giỏ hàng</h2>
                   </div>
@@ -169,7 +172,7 @@ export default function Navigation({
                   <div className='flex items-center justify-center my-2'>
                     <button onClick={handleShowCart}>
                       <svg className="h-6 w-6 absolute right-1" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                        <path strokeLinecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
                   </div>
@@ -219,7 +222,7 @@ export default function Navigation({
                         <p>Tổng:</p>
                         <p>{total.toLocaleString('en-US')}đ</p>
                       </div></div>
-                    <button>Đặt hàng</button>
+                    <button className="w-full bg-slate-600 text-white h-6 rounded-[5px]">Đặt hàng</button>
                   </div>
                 </div>
               </div>
@@ -232,6 +235,89 @@ export default function Navigation({
       ) : (<React.Fragment>
       </React.Fragment>)
       }
-    </React.Fragment>
+      {
+        showBars ? (
+          <React.Fragment>
+            <div className={`${showBars ? 'animate-slide-right' : 'animate-slide-left'} 
+         bg-white w-full sm:w-[300px] sm:max-w-[100%] md:w-[300px] lg:hidden 
+          shadow-xl fixed top-[55px] right-0 h-full max-w-full transition-all duration-300 z-40`}>
+
+              <div className="flex flex-col h-full p-3 w-full dark:bg-gray-900 dark:text-gray-100">
+
+                <div className="space-y-3 h-3/5 relative">
+
+                  <div className="flex items-center">
+                    <div className="w-[50px] h-[50px] ">
+                      <a href="/">
+                        <img src={logo} alt="" className="h-full" />
+                      </a>
+                    </div>
+                    <h2>3S Shop</h2>
+                  </div>
+
+                  <div className="flex-1 ">
+                    <ul className="pt-2 pb-4 space-y-1 text-sm ">
+                      <li className="rounded-sm">
+                        <a href="/" className="no-underline text-white flex items-center p-2 space-x-3 rounded-md">
+                          <FontAwesomeIcon icon={faHouse} style={{ color: "#ffffff", }} /><span>Home</span>
+                        </a>
+                      </li>
+                      {isLoggedin ? (
+                        <React.Fragment>
+                          <li className="rounded-sm">
+                            <button className="flex items-center  p-2 space-x-3 rounded-md">
+                              <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff", }} />
+                              <span>Thông tin cá nhân</span>
+                            </button>
+                          </li>
+                          <li className="rounded-sm">
+                            <button className="flex items-center  p-2 space-x-3 rounded-md" onClick={handleShowCart}>
+                              <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ffffff", }} />
+                              <span>Giỏ hàng ({`${cartItems.length}`})</span>
+                            </button>
+                          </li>
+                          <li className="rounded-sm">
+                            <a href="/logout" className="flex no-underline text-white items-center p-2 space-x-3 rounded-md">
+                              <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "#ffffff", }} />
+                              <span>Logout</span>
+                            </a>
+                          </li>
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          <li className="rounded-sm">
+                            <a href="/login" className="flex no-underline text-white items-center p-2 space-x-3 rounded-md">
+                              <FontAwesomeIcon icon={faRightToBracket} style={{ color: "#ffffff", }} />
+                              <span>Login</span>
+                            </a>
+                          </li>
+                          <li className="rounded-sm">
+                            <a href="/register" className="flex no-underline text-white items-center p-2 space-x-3 rounded-md">
+                              <FontAwesomeIcon icon={faUserPlus} style={{ color: "#ffffff", }} />
+                              <span>Signup</span>
+                            </a>
+                          </li>
+                        </React.Fragment>
+                      )}
+
+                    </ul>
+                  </div>
+                </div>
+                {isLoggedin &&
+                  <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end absolute bottom-0 h-2/5">
+                    <img src={JSON.parse(localStorage.getItem("user"))?.image} alt="" className="w-12 h-12 rounded-lg dark:bg-gray-500" />
+                    <div>
+                      <h2 className="text-lg font-semibold">{JSON.parse(localStorage.getItem("user"))?.fullName}{" "}</h2>
+                      <span className="flex items-center space-x-1">
+                        <button className="text-xs hover:underline dark:text-gray-400">View profile</button>
+                      </span>
+                    </div>
+                  </div>}
+              </div>
+            </div>
+          </React.Fragment>
+        ) : (<React.Fragment></React.Fragment>)
+      }
+    </React.Fragment >
   );
 }
