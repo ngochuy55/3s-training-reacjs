@@ -1,3 +1,4 @@
+import { faHouse, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 
 export default function Navigation({

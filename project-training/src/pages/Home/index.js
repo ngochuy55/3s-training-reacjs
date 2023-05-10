@@ -205,7 +205,6 @@ export function HomePage() {
       // setCartItems([...cartItems, { ...item, quantity: 1 }]);
       dispatch(productActions.setCart([...state.cart, { ...item, quantity: 1 }]))
     }
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   };
 
   //Xoá sản phẩm khỏi giỏ hàng
