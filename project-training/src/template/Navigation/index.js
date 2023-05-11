@@ -1,6 +1,5 @@
 import { faHouse, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
-
+import React from "react";
 export default function Navigation({
   isLoggedin,
   logo,
@@ -9,9 +8,7 @@ export default function Navigation({
   faCartShopping,
   faBars,
   handleSearchClick,
-  handleSearch,
   setSearchValue,
-  products,
   search,
 
   total,
@@ -21,9 +18,9 @@ export default function Navigation({
   handleDeleteProduct,
   handleShowSidebar,
   showBars,
-  isproductDetail
+  isproductDetail,
+  isProductDetailPage
 }) {
-  // const [value, setValue] = useState("");
   return (
     <React.Fragment>
       <nav className="flex w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
@@ -33,29 +30,31 @@ export default function Navigation({
               <img src={logo} alt="" className="h-full" />
             </a>
           </div>
-          <form className="w-[80%] ml-1 sm:ml-2 md:w-[496px] flex">
-            <input
-              type="text"
-              className="h-[38px] w-full pl-4 outline-none text-[#000]"
-              placeholder="Nhập tên điện thoại cần tìm"
-              value={search}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-
-            <button
-              className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]"
-              onClick={(e) => {
-                e.preventDefault();
-                handleSearchClick();
-              }}
-              type="submit"
-            >
-              <FontAwesomeIcon
-                className="search_icon"
-                icon={faMagnifyingGlass}
+          {isProductDetailPage ? null : (
+            <form className="w-[80%] ml-1 sm:ml-2 md:w-[496px] flex">
+              <input
+                type="text"
+                className="h-[38px] w-full pl-4 outline-none text-[#000]"
+                placeholder="Nhập tên điện thoại cần tìm"
+                value={search}
+                onChange={(e) => setSearchValue(e.target.value)}
               />
-            </button>
-          </form>
+
+              <button
+                className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSearchClick();
+                }}
+                type="submit"
+              >
+                <FontAwesomeIcon
+                  className="search_icon"
+                  icon={faMagnifyingGlass}
+                />
+              </button>
+            </form>
+          )}
           <div className="hidden relative lg:flex xl:right-[-6rem] 2xl:-right-40">
             <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
             <br />

@@ -11,6 +11,7 @@ import "../../../assets/css/Responsive.css";
 import Navigation from "../../../template/Navigation";
 import axios from "axios";
 import { productActions, useProducts } from "../../../Store";
+import { useLocation } from 'react-router-dom';
 
 export function Navbar({
   cartItems,
@@ -26,6 +27,8 @@ export function Navbar({
   const [showBars, setShowbars] = useState(false);
   let item = localStorage.getItem("user");
   const [search, setSearchValue] = useState("");
+  const { pathname } = useLocation();
+  const isProductDetailPage = pathname.includes('/chi-tiet-san-pham/');
 
   const fetchData = async () => {
     await axios
@@ -85,6 +88,8 @@ export function Navbar({
     if (item === "" || item === null) setIsLoggedin(false);
     else setIsLoggedin(true);
   }, []);
+
+
   return (
     <Navigation
       isLoggedin={isLoggedin}
@@ -106,6 +111,8 @@ export function Navbar({
       cartItems={cartItems}
       handleDeleteProduct={handleDeleteProduct}
       isproductDetail={isproductDetail}
+
+      isProductDetailPage={isProductDetailPage}
     />
   );
 }
