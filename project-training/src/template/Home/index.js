@@ -35,7 +35,7 @@ function Home({
   showCategories,
 }) {
   // console.log(products);
-  const [state,] = useProducts();
+  const [state] = useProducts();
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
@@ -146,11 +146,12 @@ function Home({
             <div className="pt-[20px] pb-[20px] bg-white w-full mb-[20px]">
               {state.searchName ? (
                 <p className="hilight1 text-red-600">
-
                   Tìm thấy {products?.length} kết quả với từ khóa "
                   {state.searchName}"
                 </p>
-              ) : (<React.Fragment></React.Fragment>)}
+              ) : (
+                <React.Fragment></React.Fragment>
+              )}
 
               <div className="block md:flex-1 md:flex flex-wrap">
                 {products.length === 0 ? (

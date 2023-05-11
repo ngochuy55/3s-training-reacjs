@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Home from "../../template/Home";
-// import Loading from "../Loading";
+
 import { productActions, useProducts } from "../../Store";
+import { toast } from "react-toastify";
 
 export function HomePage() {
   document.title = "HomePage";
@@ -26,16 +27,16 @@ export function HomePage() {
     to: null,
 
   })
-  // const [cartItems, setCartItems] = useState([])
+
 
   //lọc theo sản phẩm
   const handleActive = (id, category) => {
     setCategoryActive(id);
     fetchDataWithCategory(category);
     setFilter({
-      ...filter, categoryId: id
-    })
-
+      ...filter,
+      categoryId: id,
+    });
   };
 
   //lọc theo giá
@@ -43,13 +44,14 @@ export function HomePage() {
     setPriceActive(id);
     // fetchDataWithPrice(price, categoryId);
     setFilter({
-      ...filter, from: id === 0 ? null : price.valueFrom, to: id === 0 ? null : price.valueTo
-    })
-
+      ...filter,
+      from: id === 0 ? null : price.valueFrom,
+      to: id === 0 ? null : price.valueTo,
+    });
+    console.log(price);
   };
 
   useEffect(() => {
-
     if (filter) {
       fetchDataWithPrice();
     }
@@ -94,6 +96,7 @@ export function HomePage() {
       .catch(function (err) {
         console.log(err);
 
+
         setPrices([]);
       })
       .finally(function () { });
@@ -126,9 +129,11 @@ export function HomePage() {
         );
         if (categoriesid === undefined) {
           setproducts(res.data);
+          dispatch(productActions.setSearchResult(res.data));
         } else if (filteredProducts.length > 0) {
           const result = filteredProducts.map((product) => product);
           setproducts(result);
+          dispatch(productActions.setSearchResult(result));
         } else {
           setNotfound(false);
         }
@@ -147,34 +152,33 @@ export function HomePage() {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
-        let data = []
+        let data = [];
         if (res.data.length > 0) {
           if (filter.categoryId === 0) {
-            if (filter.from === null && filter.to === null)
-              data = res.data
+            if (filter.from === null && filter.to === null) data = res.data;
             else {
               data = res.data.filter(
                 (item) =>
-                  item.price >= filter.from && item.price <= filter.to
+                  item.priceAfterDis >= filter.from &&
+                  item.priceAfterDis <= filter.to
               );
             }
-          }
-          else {
+          } else {
             if (filter.from === null && filter.to === null) {
               data = res.data.filter(
-                (item) =>
-                  item.categoryId === filter.categoryId
+                (item) => item.categoryId === filter.categoryId
               );
-            }
-            else {
+            } else {
               data = res.data.filter(
                 (item) =>
-                  item.categoryId === filter.categoryId && item.price >= filter.from && item.price <= filter.to
+                  item.categoryId === filter.categoryId &&
+                  item.priceAfterDis >= filter.from &&
+                  item.priceAfterDis <= filter.to
               );
             }
           }
-          setproducts(data)
-
+          setproducts(data);
+          dispatch(productActions.setSearchResult(data));
         }
       })
       .catch(function (err) {
@@ -199,11 +203,31 @@ export function HomePage() {
       dispatch(productActions.setCart(
         state.cart.map((cartItem) =>
           cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
-        )))
+        )));
+      toast.warn("Sản phẩm đã tồn tại trong giỏ!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } else {
       // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
       // setCartItems([...cartItems, { ...item, quantity: 1 }]);
-      dispatch(productActions.setCart([...state.cart, { ...item, quantity: 1 }]))
+      dispatch(productActions.setCart([...state.cart, { ...item, quantity: 1 }]));
+      toast.success("Thêm vào giỏ thành công!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -233,8 +257,8 @@ export function HomePage() {
   return (
     <Home
       notfound={notfound}
-      products={products}
-      // products={productState.searchResult}
+      // products={products}
+      products={productState.searchResult}
       categories={categories}
       prices={prices}
       fetchDataWithCategory={fetchDataWithCategory}
@@ -247,7 +271,6 @@ export function HomePage() {
       priceActive={priceActive}
       handleActive={handleActive}
       handlePriceActive={handlePriceActive}
-
       handleAddToCart={handleAddToCart}
       cartItems={state.cart}
       handleDeleteProduct={handleDeleteProduct}

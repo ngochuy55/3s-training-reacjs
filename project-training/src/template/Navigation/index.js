@@ -10,7 +10,6 @@ export default function Navigation({
   handleSearchClick,
   setSearchValue,
   search,
-
   total,
   handleShowCart,
   showCart,
@@ -122,10 +121,17 @@ export default function Navigation({
                 <input type='text' className='h-[38px] w-full pl-4 outline-none text-[#000]' placeholder='Nhập tên điện thoại cần tìm' />
                 <span className='w-[58px] h-[38px] flex items-center justify-center bg-[#333]'><FontAwesomeIcon className='search_icon' icon={faMagnifyingGlass} /></span>
               </form>
-              <div className='relative'>
-                <button><FontAwesomeIcon className='text-[20px]' icon={faCartShopping} onClick={handleShowCart} /><br /></button>
-                <span className='absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3'>
-                  {`${cartItems?.length}`}
+              <div className="relative">
+                <button>
+                  <FontAwesomeIcon
+                    className="text-[20px]"
+                    icon={faCartShopping}
+                    onClick={handleShowCart}
+                  />
+                  <br />
+                </button>
+                <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
+                  {`${cartItems.length}`}
                 </span>
               </div>
 
@@ -133,29 +139,45 @@ export default function Navigation({
                 {isLoggedin ? (
                   <React.Fragment>
                     <div className="dropdown">
-                      <p className="dropdown-toggle m-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Welcome: {JSON.parse(localStorage.getItem("user")).fullName}{" "}!
+                      <p
+                        className="dropdown-toggle m-0"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        Welcome:{" "}
+                        {JSON.parse(localStorage.getItem("user")).fullName} !
                       </p>
                       <ul className="dropdown-menu dropdown-menu-right transform transition duration-500 scale-0 translate-y-2">
-                        <li><a className="dropdown-item" href="/">Thông tin cá nhân</a></li>
-                        <li><a className="dropdown-item" href="/logout">Log Out</a></li>
+                        <li>
+                          <a className="dropdown-item" href="/">
+                            Thông tin cá nhân
+                          </a>
+                        </li>
+                        <li>
+                          <a className="dropdown-item" href="/logout">
+                            Log Out
+                          </a>
+                        </li>
                       </ul>
                     </div>
                   </React.Fragment>
                 ) : (
-                  <ul className='flex m-0'>
+                  <ul className="flex m-0">
                     <li className="mr-3">
-                      <a className="nav-link text-white" href="/login">Login</a>
+                      <a className="nav-link text-white" href="/login">
+                        Login
+                      </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link text-white" href="/register">Sign Up</a>
+                      <a className="nav-link text-white" href="/register">
+                        Sign Up
+                      </a>
                     </li>
                   </ul>
-                )
-                }
+                )}
               </div>
             </div>
-
           </nav>
 
           {showCart ? (
@@ -165,15 +187,24 @@ export default function Navigation({
 
                 <div className="flex-1 sm:w-full sm:max-w-full overflow-y-auto px-4 py-6 sm:px-6 ">
                   <div className="flex items-start justify-between">
-                    <h2 className=''>Giỏ hàng</h2>
+                    <h2 className="">Giỏ hàng</h2>
                   </div>
 
-
-                  <div className='flex items-center justify-center my-2'>
+                  <div className="flex items-center justify-center my-2">
                     <button onClick={handleShowCart}>
-                      <svg className="h-6 w-6 absolute right-1" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      <svg
+                        className="h-6 w-6 absolute right-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -196,12 +227,15 @@ export default function Navigation({
                                   <h3>
                                     <a href={item.href}>{item.productName}</a>
                                   </h3>
-                                  <p className="ml-4">{item.priceAfterDisStr}</p>
+                                  <p className="ml-4">
+                                    {item.priceAfterDisStr}
+                                  </p>
                                 </div>
-
                               </div>
                               <div className="flex flex-1 items-end justify-between text-sm">
-                                <p className="text-gray-500">Số lượng:  {item.quantity}</p>
+                                <p className="text-gray-500">
+                                  Số lượng: {item.quantity}
+                                </p>
 
                                 <div className="flex">
                                   <button
