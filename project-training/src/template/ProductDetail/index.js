@@ -145,7 +145,7 @@ export function ProductDetailTemplate(
                   </div>
                 )}
                 {description === 0 && (
-                  <div className=" w-1/3 ml-[2rem] ">
+                  <div className=" w-[90%] ml-[2rem] ">
                     <p className="h-[171px]">{product.specifications}</p>
                   </div>
                 )}

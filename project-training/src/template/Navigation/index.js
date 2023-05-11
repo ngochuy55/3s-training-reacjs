@@ -54,7 +54,7 @@ export default function Navigation({
               </button>
             </form>
           )}
-          <div className="hidden relative lg:flex xl:right-[-6rem] 2xl:-right-40">
+          <div className="hidden relative lg:flex xl:right-[-6rem] 2xl:-right-30">
             <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
             <br />
             <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
@@ -183,7 +183,8 @@ export default function Navigation({
           {showCart ? (
             <React.Fragment>
               <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'}  
-                  w-full max-w-full bg-white shadow-xl fixed overflow-auto top-[55px] right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}>
+                  w-full max-w-full bg-white shadow-xl fixed overflow-auto top-[55px]
+                   right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}>
 
                 <div className="flex-1 sm:w-full sm:max-w-full overflow-y-auto px-4 py-6 sm:px-6 ">
                   <div className="flex items-start justify-between">
@@ -277,7 +278,7 @@ export default function Navigation({
          bg-white w-full sm:w-[300px] sm:max-w-[100%] md:w-[300px] lg:hidden 
           shadow-xl fixed top-[55px] right-0 h-full max-w-full transition-all duration-300 z-40`}>
 
-              <div className="flex flex-col h-full p-3 w-full dark:bg-gray-900 dark:text-gray-100">
+              <div className="flex flex-col h-full p-3 w-full bg-gray-900 text-gray-100">
 
                 <div className="space-y-3 h-3/5 relative">
 

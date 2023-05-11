@@ -6,7 +6,7 @@ export function Footer() {
 
       <section className="container">
         <div
-          className="container text-center text-md-start mt-5  mx-0 w-100 "
+          className="container text-center text-md-start mt-5  mx-0 w-100 pt-1 "
           style={{ minHeight: "325px" }}
         >
           <div className="row mt-3 w-100 ">
