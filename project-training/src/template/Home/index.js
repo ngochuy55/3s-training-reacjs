@@ -19,7 +19,7 @@ function Home({
   products,
   visible,
   isMore,
-  loading,
+
   showMoreProducts,
   collapseProducts,
   categoryActive,
@@ -28,10 +28,10 @@ function Home({
   handlePriceActive,
   handleAddToCart,
   cartItems,
-  handleDeleteProduct
+  handleDeleteProduct,
 }) {
   // console.log(products);
-  const [state,] = useProducts();
+  const [state] = useProducts();
   return (
     <React.Fragment>
       <section className="bg-[#f8f9fa]">
@@ -111,9 +111,7 @@ function Home({
                         <li className="m-2">
                           <button
                             onClick={() => {
-                              handlePriceActive(
-                                price.id, price
-                              );
+                              handlePriceActive(price.id, price);
                               // console.log(price.id, price, categoryActive);
                             }}
                             className={
@@ -135,11 +133,12 @@ function Home({
             <div className="pt-[20px] pb-[20px] bg-white w-full mb-[20px]">
               {state.searchName ? (
                 <p className="hilight1 text-red-600">
-
                   Tìm thấy {products?.length} kết quả với từ khóa "
                   {state.searchName}"
                 </p>
-              ) : (<React.Fragment></React.Fragment>)}
+              ) : (
+                <React.Fragment></React.Fragment>
+              )}
 
               <div className="flex-1 flex flex-wrap">
                 {products.length === 0 ? (
@@ -213,7 +212,10 @@ function Home({
                             Mua Ngay
                           </a>
                         </button>
-                        <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
+                        <button
+                          onClick={() => handleAddToCart(product)}
+                          className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]"
+                        >
                           <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
                         </button>
                       </div>

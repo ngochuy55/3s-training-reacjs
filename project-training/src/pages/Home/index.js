@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Home from "../../template/Home";
-import Loading from "../Loading";
+
 import { productActions, useProducts } from "../../Store";
+import { toast } from "react-toastify";
 
 export function HomePage() {
   document.title = "HomePage";
@@ -15,25 +16,23 @@ export function HomePage() {
   const [isMore, setIsMore] = useState(true);
   const [categoryActive, setCategoryActive] = useState(0);
   const [priceActive, setPriceActive] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   const [productState, dispatch] = useProducts();
   const [filter, setFilter] = useState({
     categoryId: 0,
     from: null,
     to: null,
-
-  })
-  const [cartItems, setCartItems] = useState([])
+  });
+  const [cartItems, setCartItems] = useState([]);
 
   //lọc theo sản phẩm
   const handleActive = (id, category) => {
     setCategoryActive(id);
     fetchDataWithCategory(category);
     setFilter({
-      ...filter, categoryId: id
-    })
-
+      ...filter,
+      categoryId: id,
+    });
   };
 
   //lọc theo giá
@@ -41,13 +40,14 @@ export function HomePage() {
     setPriceActive(id);
     // fetchDataWithPrice(price, categoryId);
     setFilter({
-      ...filter, from: id === 0 ? null : price.valueFrom, to: id === 0 ? null : price.valueTo
-    })
+      ...filter,
+      from: id === 0 ? null : price.valueFrom,
+      to: id === 0 ? null : price.valueTo,
+    });
     console.log(price);
   };
   // console.log(filter);
   useEffect(() => {
-
     if (filter) {
       fetchDataWithPrice();
     }
@@ -67,55 +67,46 @@ export function HomePage() {
 
   //Call API Categories Sidebar
   async function fetchCategories() {
-    setLoading(true);
     await axios
       .get("https://621f1457311a705914ff929e.mockapi.io/categories")
       .then(function (res) {
         setCategories(res.data);
-        setLoading(false);
       })
       .catch(function (err) {
         console.log(err);
-        setLoading(false);
       })
-      .finally(function () { });
+      .finally(function () {});
   }
   //Call API Prices Sidebar
   async function fetchPrices() {
-    setLoading(true);
     await axios
       .get("https://641bf1d81f5d999a446d48f8.mockapi.io/prices")
       .then(function (res) {
         setPrices(res.data);
-        setLoading(false);
       })
       .catch(function (err) {
         console.log(err);
-        setLoading(false);
+
         setPrices([]);
       })
-      .finally(function () { });
+      .finally(function () {});
   }
 
   //Call API Products
   const fetchData = async () => {
-    setLoading(true);
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
         setproducts(res.data);
         dispatch(productActions.setSearchResult(res.data));
-        setLoading(false);
       })
       .catch(function (err) {
         console.log(err);
-        setLoading(false);
       })
-      .finally(function () { });
+      .finally(function () {});
   };
   //Call API and get products with categories
   async function fetchDataWithCategory(categoriesid) {
-    setLoading(true);
     await axios
       .get(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/products`)
       .then(function (res) {
@@ -124,61 +115,60 @@ export function HomePage() {
         );
         if (categoriesid === undefined) {
           setproducts(res.data);
+          dispatch(productActions.setSearchResult(res.data));
         } else if (filteredProducts.length > 0) {
           const result = filteredProducts.map((product) => product);
           setproducts(result);
+          dispatch(productActions.setSearchResult(result));
         } else {
           setNotfound(false);
         }
-        setLoading(false);
       })
       .catch(function (err) {
         console.log(err);
         // setproducts([]);
       })
-      .finally(function () { });
+      .finally(function () {});
   }
 
   //Call API and get products with price
   async function fetchDataWithPrice(Price, categoriesid) {
-    setLoading(true);
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
-        let data = []
+        let data = [];
         if (res.data.length > 0) {
           if (filter.categoryId === 0) {
-            if (filter.from === null && filter.to === null)
-              data = res.data
+            if (filter.from === null && filter.to === null) data = res.data;
             else {
               data = res.data.filter(
                 (item) =>
-                  item.price >= filter.from && item.price <= filter.to
+                  item.priceAfterDis >= filter.from &&
+                  item.priceAfterDis <= filter.to
               );
             }
-          }
-          else {
+          } else {
             if (filter.from === null && filter.to === null) {
               data = res.data.filter(
-                (item) =>
-                  item.categoryId === filter.categoryId
+                (item) => item.categoryId === filter.categoryId
               );
-            }
-            else {
+            } else {
               data = res.data.filter(
                 (item) =>
-                  item.categoryId === filter.categoryId && item.price >= filter.from && item.price <= filter.to
+                  item.categoryId === filter.categoryId &&
+                  item.priceAfterDis >= filter.from &&
+                  item.priceAfterDis <= filter.to
               );
             }
           }
-          setproducts(data)
-          setLoading(false);
+          setproducts(data);
+          dispatch(productActions.setSearchResult(data));
         }
       })
       .catch(function (err) {
         console.log(err);
       })
-      .finally(function () { });
+      .finally(function () {});
   }
   //Addd Product to cart
   const handleAddToCart = (item) => {
@@ -189,46 +179,64 @@ export function HomePage() {
       // Nếu mặt hàng đã có trong giỏ hàng, tăng số lượng lên 1
       setCartItems(
         cartItems.map((cartItem) =>
-          cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
+          cartItem.id === item.id
+            ? { ...existItem, quantity: existItem.quantity + 1 }
+            : cartItem
         )
       );
+      toast.warn("Sản phẩm đã tồn tại trong giỏ!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } else {
       // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
+      toast.success("Thêm vào giỏ thành công!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
   //Xoá sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = (productId) => {
-    const newCart = cartItems.filter(product => product.id !== productId);
+    const newCart = cartItems.filter((product) => product.id !== productId);
     setCartItems(newCart);
-  }
+  };
   useEffect(() => {
     fetchData();
     fetchCategories();
     fetchPrices();
   }, []);
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <Home
       notfound={notfound}
-      products={products}
-      // products={productState.searchResult}
+      // products={products}
+      products={productState.searchResult}
       categories={categories}
       prices={prices}
       fetchDataWithCategory={fetchDataWithCategory}
       fetchDataWithPrice={fetchDataWithPrice}
       visible={visible}
       isMore={isMore}
-      loading={loading}
       showMoreProducts={showMoreProducts}
       collapseProducts={collapseProducts}
       categoryActive={categoryActive}
       priceActive={priceActive}
       handleActive={handleActive}
       handlePriceActive={handlePriceActive}
-
       handleAddToCart={handleAddToCart}
       cartItems={cartItems}
       handleDeleteProduct={handleDeleteProduct}
