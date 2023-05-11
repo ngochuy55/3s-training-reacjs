@@ -19,7 +19,7 @@ export function HomePage() {
   const [showCategories, setShowCategories] = useState(false);
   const [showPrices, setShowPrices] = useState(false);
 
-  const [state, dispatch] = useProducts();
+  const [productState, dispatch] = useProducts();
 
   const [filter, setFilter] = useState({
     categoryId: 0,
@@ -192,7 +192,7 @@ export function HomePage() {
   const handleAddToCart = (item) => {
     // Kiểm tra xem mặt hàng đã có trong giỏ hàng hay chưa
     // const existItem = cartItems.find((cartItem) => cartItem.id === item.id);
-    const existItem = state.cart.find((cartItem) => cartItem.id === item.id);
+    const existItem = productState.cart.find((cartItem) => cartItem.id === item.id);
     if (existItem) {
       // Nếu mặt hàng đã có trong giỏ hàng, tăng số lượng lên 1
       // setCartItems(
@@ -201,7 +201,7 @@ export function HomePage() {
       //   )
       // );
       dispatch(productActions.setCart(
-        state.cart.map((cartItem) =>
+        productState.cart.map((cartItem) =>
           cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
         )));
       toast.warn("Sản phẩm đã tồn tại trong giỏ!", {
@@ -217,7 +217,7 @@ export function HomePage() {
     } else {
       // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
       // setCartItems([...cartItems, { ...item, quantity: 1 }]);
-      dispatch(productActions.setCart([...state.cart, { ...item, quantity: 1 }]));
+      dispatch(productActions.setCart([...productState.cart, { ...item, quantity: 1 }]));
       toast.success("Thêm vào giỏ thành công!", {
         position: "top-center",
         autoClose: 1500,
@@ -233,7 +233,7 @@ export function HomePage() {
 
   //Xoá sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = (productId) => {
-    const newCart = state.cart.filter(product => product.id !== productId);
+    const newCart = productState.cart.filter(product => product.id !== productId);
     // setCartItems(newCart);
     dispatch(productActions.setCart(newCart))
   }
@@ -252,7 +252,7 @@ export function HomePage() {
     fetchCategories();
     fetchPrices();
   }, []);
-  console.log(state.cart);
+  // console.log(state.cart);
 
   return (
     <Home
@@ -272,7 +272,7 @@ export function HomePage() {
       handleActive={handleActive}
       handlePriceActive={handlePriceActive}
       handleAddToCart={handleAddToCart}
-      cartItems={state.cart}
+      cartItems={productState.cart}
       handleDeleteProduct={handleDeleteProduct}
       handleshowCategories={handleshowCategories}
       handleshowPrices={handleshowPrices}
