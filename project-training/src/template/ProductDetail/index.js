@@ -22,7 +22,7 @@ export function ProductDetailTemplate(
       <section className="bg-[#fff]">
         <Navbar
           cartItems={cartItems} />
-        <main className="container pt-[56px] place-items-center mr-32 ml-32 shadow-lg mb-36">
+        <main className="mx-auto px-2.5 lg:container pt-[56px] place-items-center mr-32 ml-32 mb-36">
           {
             productdetail.map((product) =>
               <React.Fragment key={product.id}>
@@ -38,14 +38,14 @@ export function ProductDetailTemplate(
                   </div>
                 </div>
 
-                <div className="flex m-4 border-b-2">
-                  <div className="w-1/3 flex col mr-0">
-                    <img src={product.imageDetail} className="leading-[18.2px] object-cover max-h-[390px] transform duration-500 hover:scale-110" alt={`Ảnh về chiếc điện thoại ${product.productName}`} />
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-4 m-4 border-b-2">
+                  <div className="mr-0">
+                    <img src={product.imageDetail} className="w-full " alt={`Ảnh về chiếc điện thoại ${product.productName}`} />
                   </div>
-                  <div className="col pl-2 w-2/3">
-                    <div className="flex items-center">
-                      <p className="text-[#0a58ca] text-[32px] mr-[20px] text-[500]">{product.priceStr}</p>
-                      <strike className="text-[#99a2aa] text-[20px] text-left inline">{product.priceAfterDisStr}</strike>
+                  <div className="pl-2">
+                    <div className="block lg:flex items-center">
+                      <p className="text-[#0a58ca] text-[32px] mr-[20px] text-[500]">{product.priceAfterDisStr}</p>
+                      <strike className="text-[#99a2aa] text-[20px] text-left inline">{product.priceStr}</strike>
                     </div>
                     <div className="col my-[2rem] flex">
                       {product.color.map((color, i) =>
@@ -75,7 +75,7 @@ export function ProductDetailTemplate(
                       <li className={`cursor-pointer ${activetab ? 'active' : ''}`} onClick={() => handleClickdescriptions(1)}>Thông số kĩ thuật</li></ul>
                   </div>
                   {description === 1 &&
-                    <div className="w-1/2 ml-[2rem] flex text-left leading-[18.2px] px-[15px] py-[20px]">
+                    <div className="w-[90%] lg:w-1/2 ml-[2rem] flex text-left leading-[18.2px] px-[15px] py-[20px]">
                       <div>
                         <p><FontAwesomeIcon icon={faMobile} /> Display: {product.display}</p>
                         <p className="flex"><AiFillChrome /> Camera trước: {product.frontCamera}</p>
@@ -86,7 +86,7 @@ export function ProductDetailTemplate(
                     </div>
                   }
                   {description === 0 &&
-                    <div className=" w-1/3 ml-[2rem] ">
+                    <div className=" w-[90%] ml-[2rem] ">
                       <p className="h-[171px]">{product.specifications}</p>
                     </div>
                   }

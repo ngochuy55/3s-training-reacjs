@@ -5,8 +5,8 @@ import Home from "../../template/Home";
 import { productActions, useProducts } from "../../Store";
 
 export function HomePage() {
-  document.title = "HomePage";
-  const [products, setproducts] = useState([]);
+  document.title = "Trang chủ";
+  const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [notfound, setNotfound] = useState(false);
   const [prices, setPrices] = useState([]);
@@ -105,7 +105,7 @@ export function HomePage() {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
-        setproducts(res.data);
+        setProducts(res.data);
         dispatch(productActions.setSearchResult(res.data));
 
       })
@@ -125,10 +125,10 @@ export function HomePage() {
           (product) => product.categoryId === categoriesid
         );
         if (categoriesid === undefined) {
-          setproducts(res.data);
+          setProducts(res.data);
         } else if (filteredProducts.length > 0) {
           const result = filteredProducts.map((product) => product);
-          setproducts(result);
+          setProducts(result);
         } else {
           setNotfound(false);
         }
@@ -136,7 +136,7 @@ export function HomePage() {
       })
       .catch(function (err) {
         console.log(err);
-        // setproducts([]);
+        // setProducts([]);
       })
       .finally(function () { });
   }
@@ -173,7 +173,7 @@ export function HomePage() {
               );
             }
           }
-          setproducts(data)
+          setProducts(data)
 
         }
       })
@@ -207,13 +207,6 @@ export function HomePage() {
     }
   };
 
-  //Xoá sản phẩm khỏi giỏ hàng
-  const handleDeleteProduct = (productId) => {
-    const newCart = state.cart.filter(product => product.id !== productId);
-    // setCartItems(newCart);
-    dispatch(productActions.setCart(newCart))
-  }
-
   //show Categories when responsive
   const handleshowCategories = () => {
     setShowCategories(!showCategories);
@@ -228,7 +221,6 @@ export function HomePage() {
     fetchCategories();
     fetchPrices();
   }, []);
-  console.log(state.cart);
 
   return (
     <Home
@@ -250,7 +242,6 @@ export function HomePage() {
 
       handleAddToCart={handleAddToCart}
       cartItems={state.cart}
-      handleDeleteProduct={handleDeleteProduct}
       handleshowCategories={handleshowCategories}
       handleshowPrices={handleshowPrices}
       showPrices={showPrices}

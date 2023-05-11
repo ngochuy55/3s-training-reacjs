@@ -14,16 +14,18 @@ import { productActions, useProducts } from "../../../Store";
 
 export function Navbar({
   cartItems,
-  handleDeleteProduct,
   isproductDetail
 }) {
+  const user = JSON.parse(localStorage.getItem('user'));
   const logo = require("../../../assets/images/logo-fix.png");
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [products, setproducts] = useState([]);
-  const [, dispatch] = useProducts();
+  const [productState, dispatch] = useProducts();
   const [total, setTotal] = useState(0);
   const [showCart, setShowCart] = useState(false);
   const [showBars, setShowbars] = useState(false);
+  const [showInfor, setShowInfor] = useState(false);
+
   let item = localStorage.getItem("user");
   const [search, setSearchValue] = useState("");
 
@@ -49,7 +51,7 @@ export function Navbar({
 
       return;
     }
-    console.log(search);
+    // console.log(search);
     const filterBySearch = products.filter((item) => {
       console.log(item);
 
@@ -70,6 +72,19 @@ export function Navbar({
   const handleShowSidebar = () => {
     setShowbars(!showBars);
   };
+
+  //show popup information
+  const handleshowinfo = () => {
+    setShowbars(false);
+    setShowInfor(!showInfor);
+  };
+
+  //Xoá sản phẩm khỏi giỏ hàng
+  const handleDeleteProduct = (productId) => {
+    const newCart = productState.cart.filter(product => product.id !== productId);
+    // setCartItems(newCart);
+    dispatch(productActions.setCart(newCart))
+  }
 
   useEffect(() => {
     // console.log("type", typeof (cartItems));
@@ -106,6 +121,9 @@ export function Navbar({
       cartItems={cartItems}
       handleDeleteProduct={handleDeleteProduct}
       isproductDetail={isproductDetail}
+      handleshowinfo={handleshowinfo}
+      showInfor={showInfor}
+      user={user}
     />
   );
 }
