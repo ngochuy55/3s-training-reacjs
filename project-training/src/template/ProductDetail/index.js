@@ -59,7 +59,7 @@ export function ProductDetailTemplate(
 
                         </div>
                       )
-                    )}
+                      }
                     </div>
                     <p>{product.description}</p>
                     <div className="mt-5 bg-[#f8f9fa] rounded-[4px] justify-between flex text-[14px] leading-[18.2px] mb-[16px] ">
@@ -91,8 +91,8 @@ export function ProductDetailTemplate(
                       </li>
                     </ul>
                   </div>
-                  {description === 1 && (
-                    <div className="w-1/2 ml-[2rem] flex text-left leading-[18.2px] px-[15px] py-[20px]">
+                  {description === 1 &&
+                    <div className="w-full lg:w-1/2 ml-[2rem] flex text-left leading-[18.2px] px-[15px] py-[20px]">
                       <div>
                         <p>
                           <FontAwesomeIcon icon={faMobile} /> Display:{" "}
@@ -113,13 +113,14 @@ export function ProductDetailTemplate(
                           {product.gb}
                         </p>
                       </div>
-                  }
-                      {description === 0 &&
-                        <div className=" w-[90%] ml-[2rem] ">
-                          <p className="h-[171px]">{product.specifications}</p>
-                        </div>
-                      }
                     </div>
+                  }
+                  {description === 0 &&
+                    <div className=" w-[90%] ml-[2rem] ">
+                      <p className="h-[171px]">{product.specifications}</p>
+                    </div>
+                  }
+                </div>
               </React.Fragment >
 
             )
@@ -128,5 +129,5 @@ export function ProductDetailTemplate(
         <Footer />
       </section>
     </React.Fragment>
-  );
+  )
 }

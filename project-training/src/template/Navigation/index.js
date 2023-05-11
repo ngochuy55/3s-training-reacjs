@@ -63,7 +63,7 @@ export default function Navigation({
           <div className="hidden  lg:flex xl:right-[-6rem] 2xl:-right-30">
             <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
             <br />
-            <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
+            <span className="relative w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 right-1">
               {cartItems.length}
             </span>
           </div>

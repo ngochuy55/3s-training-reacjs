@@ -128,11 +128,11 @@ export function HomePage() {
           (product) => product.categoryId === categoriesid
         );
         if (categoriesid === undefined) {
-          setproducts(res.data);
+          setProducts(res.data);
           dispatch(productActions.setSearchResult(res.data));
         } else if (filteredProducts.length > 0) {
           const result = filteredProducts.map((product) => product);
-          setproducts(result);
+          setProducts(result);
           dispatch(productActions.setSearchResult(result));
         } else {
           setNotfound(false);
@@ -177,7 +177,7 @@ export function HomePage() {
               );
             }
           }
-          setproducts(data);
+          setProducts(data);
           dispatch(productActions.setSearchResult(data));
         }
       })
@@ -264,8 +264,7 @@ export function HomePage() {
       handleActive={handleActive}
       handlePriceActive={handlePriceActive}
       handleAddToCart={handleAddToCart}
-      cartItems={state.cart}
-      handleDeleteProduct={handleDeleteProduct}
+      cartItems={productState.cart}
       handleshowCategories={handleshowCategories}
       handleshowPrices={handleshowPrices}
       showPrices={showPrices}
