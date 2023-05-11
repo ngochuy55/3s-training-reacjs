@@ -58,7 +58,7 @@ export default function Navigation({
             <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
             <br />
             <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
-              {`${isproductDetail ? (localStorage.getItem('cartItems').length) : (cartItems.length)}`}
+              {cartItems.length}
             </span>
           </div>
           <div className="absolute left-[90%] lg:hidden">
@@ -211,7 +211,7 @@ export default function Navigation({
                   </div>
                   <div className="mt-8">
                     <div className="flow-root">
-                      <ul className="-my-6 divide-y divide-gray-200">
+                      <ul className="-my-6 divide-y divide-gray-200 overflow-y-auto max-h-[450px]">
                         {cartItems.map((item) => (
                           <li key={item.id} className="flex py-6">
                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
