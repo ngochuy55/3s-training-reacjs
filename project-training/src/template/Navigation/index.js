@@ -183,7 +183,7 @@ export default function Navigation({
           {showCart ? (
             <React.Fragment>
               <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'}  
-                  w-full max-w-full bg-white shadow-xl fixed top-[55px] right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}>
+                  w-full max-w-full bg-white shadow-xl fixed overflow-auto top-[55px] right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}>
 
                 <div className="flex-1 sm:w-full sm:max-w-full overflow-y-auto px-4 py-6 sm:px-6 ">
                   <div className="flex items-start justify-between">
