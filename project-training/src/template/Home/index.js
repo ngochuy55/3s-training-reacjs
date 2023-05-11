@@ -28,7 +28,6 @@ function Home({
   handlePriceActive,
   handleAddToCart,
   cartItems,
-  handleDeleteProduct,
   handleshowCategories,
   handleshowPrices,
   showPrices,
@@ -41,10 +40,9 @@ function Home({
       <section className="bg-[#f8f9fa]">
         <Navbar
           cartItems={cartItems}
-          handleDeleteProduct={handleDeleteProduct}
         />
 
-        <main className="md:mx-auto container lg:mx-auto pt-[56px] place-items-center mr-32 ml-32 shadow-lg">
+        <main className="mx-auto px-2.5 lg:max-w-[1024px] lg:px-0 lg:mx-auto pt-[56px] place-items-center mr-32 ml-32">
           <div className="mt-4 basis-1/4 h-4/5">
             <Slider />
           </div>
@@ -105,17 +103,7 @@ function Home({
                   </li>
                   {prices.length === 0 ? (
                     null
-                    // <div className="m-auto">
-                    //   <img
-                    //     src="https://fptshop.com.vn/Content/v5d/images/noti-search.png"
-                    //     className="w-50 mx-auto h-50 mt-[100px] "
-                    //     alt=""
-                    //   />
-                    //   <p>
-                    //     Rất tiếc chúng tôi không tìm thấy kết quả theo yêu cầu
-                    //     của bạn Vui lòng thử lại .
-                    //   </p>
-                    // </div>
+
                   ) : (
                     prices.map((price) => (
 
@@ -172,19 +160,19 @@ function Home({
                       key={product.id}
                       className="flex md:block md:w-1/3 hover:border-[0.5px] hover:bg-[transparent] transform  duration-500 mb-[25px]"
                     >
-                      <div className="relative max-w-[20rem] mt-[2rem] h-[40%] flex justify-center">
+                      <div className="relative max-w-[20rem] mt-[2rem] h-1/3 flex justify-center">
                         <img
-                          className="transform  duration-500 hover:scale-110 max-w-[15rem]"
+                          className="transform w-full min-h-full object-contain duration-500 hover:scale-110 max-w-[15rem]"
                           src={product.image}
                           alt="ảnh về 1 chiếc điện thoại"
                         />
-                        <div className="w-[3rem] h-[3rem] rounded-[50%] bg-[#ea9d02] absolute z-2  justify-center text-[#fff] top-0 right-[40px] items-center">
+                        <div className="w-[3rem] flex h-[3rem] rounded-[50%] bg-[#ea9d02] absolute z-2  justify-center text-[#fff] top-0 right-[40px] items-center">
                           {" "}
                           -{product.discount}%
                         </div>
                       </div>
-                      <div className="h-full ml-[20px]">
-                        <div className="block h-[30%]">
+                      <div className="ml-[20px]">
+                        <div className="block">
                           <h5 className="mt-[2rem] ml-[20px] ">
                             <Link
                               className="no-underline"
@@ -194,8 +182,8 @@ function Home({
                             </Link>
                           </h5>
                           <div className="hidden">{product.specifications}</div>
-                          <div className="flex items-center justify-between w-[60%]">
-                            <p className="ml-[25%]">
+                          <div className="flex justify-between">
+                            <p className="">
                               <FontAwesomeIcon icon={faMicrochip} /> {product.ram}
                               GB
                             </p>
@@ -206,8 +194,8 @@ function Home({
                             </p>
                             {/* <span>Bộ nhớ trong</span> */}
                           </div>
-                          <div className="h-[20%] block md:flex justify-between w-[80%] items-center">
-                            <div className=" bg-[#cb1c22] md:ml-[20px] xl:-[8rem] 2xl:w-[9rem] text-[#fff] xl:[10px] 2xl:text-[18px] xl:leading-[26px] 2xl:leading-[28px] text-center rounded-[2px]">
+                          <div className="block md:flex justify-between my-[5px]">
+                            <div className=" bg-[#cb1c22] xl:-[8rem] 2xl:w-[9rem] text-[#fff] xl:[10px] 2xl:text-[18px] xl:leading-[26px] 2xl:leading-[28px] text-center rounded-[2px]">
                               {product.priceAfterDisStr}
                             </div>
                             <strike className="hidden md:block text-[#919191] text-[14px] leading-[15px] text-right">
@@ -215,8 +203,8 @@ function Home({
                             </strike>
                           </div>
                         </div>
-                        <div className="block md:flex justify-between h-[20%] lg:mt-3 w-[80%]">
-                          <button className="bg-[#cb1c22] lg:w-[7rem] lg:mr-[10px] my-[20px] md:my-0 md:ml-[20px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem] hover:bg-[#23E8E8]">
+                        <div className="block md:flex justify-between lg:mt-3">
+                          <button className="bg-[#cb1c22] lg:w-[7rem] lg:mr-[10px] my-[20px] md:my-0 text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[40%] hover:bg-[#23E8E8]">
                             <FontAwesomeIcon icon={faCartShopping} />
                             <a
                               className="no-underline text-[#fff] hover:text-[#fff]"
@@ -226,7 +214,7 @@ function Home({
                               Mua Ngay
                             </a>
                           </button>
-                          <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[7rem]">
+                          <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[40%]">
                             <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
                           </button>
                         </div>

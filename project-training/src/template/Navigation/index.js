@@ -1,5 +1,8 @@
 import { faHouse, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import { Dialog, Transition } from '@headlessui/react'
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import React, { useState } from "react";
+
 export default function Navigation({
   isLoggedin,
   logo,
@@ -18,12 +21,15 @@ export default function Navigation({
   handleShowSidebar,
   showBars,
   isproductDetail,
+  handleshowinfo,
+  showInfor,
+  user,
   isProductDetailPage
 }) {
   return (
     <React.Fragment>
       <nav className="flex w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
-        <div className="flex w-full relative lg:container 2xl:w-[80%] lg:mx-auto items-center justify-between">
+        <div className="flex w-full relative lg:max-w-[1024px] 2xl:w-[80%] lg:mx-auto items-center justify-between">
           <div className="hidden sm:hidden md:flex md:ml-2 w-[50px] h-[50px]">
             <a href="/">
               <img src={logo} alt="" className="h-full" />
@@ -54,7 +60,7 @@ export default function Navigation({
               </button>
             </form>
           )}
-          <div className="hidden relative lg:flex xl:right-[-6rem] 2xl:-right-30">
+          <div className="hidden  lg:flex xl:right-[-6rem] 2xl:-right-30">
             <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
             <br />
             <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
@@ -79,9 +85,9 @@ export default function Navigation({
                   </p>
                   <ul className="dropdown-menu dropdown-menu-right transform transition duration-500 scale-0 translate-y-2">
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <button className="dropdown-item" onClick={handleshowinfo}>
                         Thông tin cá nhân
-                      </a>
+                      </button>
                     </li>
 
                     <li>
@@ -301,7 +307,7 @@ export default function Navigation({
                       {isLoggedin ? (
                         <React.Fragment>
                           <li className="rounded-sm">
-                            <button className="flex items-center  p-2 space-x-3 rounded-md">
+                            <button className="flex items-center  p-2 space-x-3 rounded-md" onClick={handleshowinfo}>
                               <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff", }} />
                               <span>Thông tin cá nhân</span>
                             </button>
@@ -345,7 +351,7 @@ export default function Navigation({
                     <div>
                       <h2 className="text-lg font-semibold">{JSON.parse(localStorage.getItem("user"))?.fullName}{" "}</h2>
                       <span className="flex items-center space-x-1">
-                        <button className="text-xs hover:underline dark:text-gray-400">View profile</button>
+                        <button className="text-xs hover:underline dark:text-gray-400" onClick={handleShowSidebar}>View profile</button>
                       </span>
                     </div>
                   </div>}
@@ -354,6 +360,45 @@ export default function Navigation({
           </React.Fragment>
         ) : (<React.Fragment></React.Fragment>)
       }
+
+      {showInfor &&
+        <React.Fragment>
+          <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+
+                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div className="sm:flex sm:items-start">
+
+                      <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left w-full">
+                        <h3 className="text-center w-full font-semibold leading-6 text-gray-900" id="modal-title">Thông tin cá nhân</h3>
+                        <form>
+                          <label className="block mb-2">Full Name:</label>
+                          <input type="text" className="border border-[#ccc] px-3 py-2" value={user.fullName} />
+                          <label className="block mb-2">Email:</label>
+                          <input type="text" className="border border-[#ccc] px-3 py-2" value={user.email} />
+                          <label className="block mb-2">Avatar:</label>
+                          <input type="file" className="border border-[#ccc] px-3 py-2" value={user.avatar} />
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" className=" mt-3 inline-flex w-full justify-center rounded-md ml-2 bg-[#fff] px-3 py-2 text-sm font-semibold
+                     text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto">Deactivate</button>
+                    <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold
+                     text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={handleshowinfo}>Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </React.Fragment>}
     </React.Fragment >
   );
 }

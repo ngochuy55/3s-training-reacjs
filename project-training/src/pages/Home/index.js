@@ -6,8 +6,8 @@ import { productActions, useProducts } from "../../Store";
 import { toast } from "react-toastify";
 
 export function HomePage() {
-  document.title = "HomePage";
-  const [products, setproducts] = useState([]);
+  document.title = "Trang chủ";
+  const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [notfound, setNotfound] = useState(false);
   const [prices, setPrices] = useState([]);
@@ -108,7 +108,7 @@ export function HomePage() {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
       .then(function (res) {
-        setproducts(res.data);
+        setProducts(res.data);
         dispatch(productActions.setSearchResult(res.data));
 
       })
@@ -141,7 +141,7 @@ export function HomePage() {
       })
       .catch(function (err) {
         console.log(err);
-        // setproducts([]);
+        // setProducts([]);
       })
       .finally(function () { });
   }
@@ -231,13 +231,6 @@ export function HomePage() {
     }
   };
 
-  //Xoá sản phẩm khỏi giỏ hàng
-  const handleDeleteProduct = (productId) => {
-    const newCart = productState.cart.filter(product => product.id !== productId);
-    // setCartItems(newCart);
-    dispatch(productActions.setCart(newCart))
-  }
-
   //show Categories when responsive
   const handleshowCategories = () => {
     setShowCategories(!showCategories);
@@ -252,7 +245,6 @@ export function HomePage() {
     fetchCategories();
     fetchPrices();
   }, []);
-  // console.log(state.cart);
 
   return (
     <Home
@@ -272,7 +264,7 @@ export function HomePage() {
       handleActive={handleActive}
       handlePriceActive={handlePriceActive}
       handleAddToCart={handleAddToCart}
-      cartItems={productState.cart}
+      cartItems={state.cart}
       handleDeleteProduct={handleDeleteProduct}
       handleshowCategories={handleshowCategories}
       handleshowPrices={handleshowPrices}
