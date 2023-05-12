@@ -1,6 +1,4 @@
 import { faHouse, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import React, { useState } from "react";
 
 export default function Navigation({
