@@ -28,7 +28,7 @@ export function ProductDetailTemplate(
       <section className="bg-[#fff]">
         <Navbar
           cartItems={cartItems} />
-        <main className="mx-auto px-2.5 lg:container pt-[56px] place-items-center mr-32 ml-32 mb-36">
+        <main className="mx-auto container pt-[56px] place-items-center mr-32 ml-32 mb-36">
           {
             productdetail.map((product) =>
               <React.Fragment key={product.id}>
@@ -54,13 +54,29 @@ export function ProductDetailTemplate(
                       <strike className="text-[#99a2aa] text-[20px] text-left inline">{product.priceStr}</strike>
                     </div>
                     <div className="col my-[2rem] flex">
-                      {product.color.map((color, i) =>
-                        <div className=" w-[16px] h-[16px]" style={{ background: color, marginLeft: i === 0 ? 0 : "8px" }}>
-
-                        </div>
-                      )
-                      }
+                      {product.color.map(
+                        (color, i) => (
+                          <div>
+                            <div
+                              className=" w-[16px] h-[16px]"
+                              style={{
+                                background: color,
+                                marginLeft: i === 0 ? 0 : "8px",
+                              }}
+                            ></div>
+                            <input
+                              className=" w-[16px] h-[16px]"
+                              type="radio"
+                              name="color"
+                              style={{
+                                background: color,
+                                marginLeft: i === 0 ? 0 : "8px",
+                              }}
+                            ></input>
+                          </div>
+                        ))}
                     </div>
+
                     <p>{product.description}</p>
                     <div className="mt-5 bg-[#f8f9fa] rounded-[4px] justify-between flex text-[14px] leading-[18.2px] mb-[16px] ">
                       <button className="bg-[#cb1c22] mr-[20px] px-[32px] py-[10px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[50px] w-[50%]">

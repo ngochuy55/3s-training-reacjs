@@ -32,6 +32,7 @@ export function Navbar({
   const { pathname } = useLocation();
   const isProductDetailPage = pathname.includes('/chi-tiet-san-pham/');
 
+  //fetch api product
   const fetchData = async () => {
     await axios
       .get("https://61bfdf3ab25c3a00173f4f15.mockapi.io/products")
@@ -47,6 +48,7 @@ export function Navbar({
     fetchData();
   }, []);
 
+  //handle Search submit
   function handleSearchClick() {
     dispatch(productActions.setSearchName(search));
     if (search === "") {
@@ -54,24 +56,22 @@ export function Navbar({
 
       return;
     }
-    // console.log(search);
     const filterBySearch = products.filter((item) => {
-      console.log(item);
-
+      // console.log(item);
       if (item.productName.toLowerCase().includes(search.toLowerCase())) {
         return item;
       }
     });
     // setprodudicts(filterBySearch);
     dispatch(productActions.setSearchResult(filterBySearch));
-    console.log(filterBySearch);
+    // console.log(filterBySearch);
   }
 
   //show cart
   const handleShowCart = () => {
     setShowCart(!showCart);
   };
-  //show sidebar on lg
+  //show sidebar when responsive mode
   const handleShowSidebar = () => {
     setShowbars(!showBars);
   };

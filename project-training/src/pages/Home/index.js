@@ -188,18 +188,13 @@ export function HomePage() {
   }
 
 
-  //Addd Product to cart
+  //Add Product to cart
   const handleAddToCart = (item) => {
     // Kiểm tra xem mặt hàng đã có trong giỏ hàng hay chưa
     // const existItem = cartItems.find((cartItem) => cartItem.id === item.id);
     const existItem = productState.cart.find((cartItem) => cartItem.id === item.id);
     if (existItem) {
       // Nếu mặt hàng đã có trong giỏ hàng, tăng số lượng lên 1
-      // setCartItems(
-      //   cartItems.map((cartItem) =>
-      //     cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
-      //   )
-      // );
       dispatch(productActions.setCart(
         productState.cart.map((cartItem) =>
           cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
@@ -216,7 +211,6 @@ export function HomePage() {
       });
     } else {
       // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
-      // setCartItems([...cartItems, { ...item, quantity: 1 }]);
       dispatch(productActions.setCart([...productState.cart, { ...item, quantity: 1 }]));
       toast.success("Thêm vào giỏ thành công!", {
         position: "top-center",

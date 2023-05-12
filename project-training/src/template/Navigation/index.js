@@ -29,7 +29,7 @@ export default function Navigation({
   return (
     <React.Fragment>
       <nav className="flex w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
-        <div className="flex w-full relative lg:max-w-[1024px] 2xl:w-[80%] lg:mx-auto items-center justify-between">
+        <div className="flex conatainer w-full relative lg:max-w-[1024px] 2xl:w-[80%] lg:mx-auto items-center justify-between">
           <div className="hidden sm:hidden md:flex md:ml-2 w-[50px] h-[50px]">
             <a href="/">
               <img src={logo} alt="" className="h-full" />
@@ -361,6 +361,7 @@ export default function Navigation({
         ) : (<React.Fragment></React.Fragment>)
       }
 
+      {/* POPUP INFOMATION */}
       {showInfor &&
         <React.Fragment>
           <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -378,11 +379,20 @@ export default function Navigation({
                         <h3 className="text-center w-full font-semibold leading-6 text-gray-900" id="modal-title">Thông tin cá nhân</h3>
                         <form>
                           <label className="block mb-2">Full Name:</label>
-                          <input type="text" className="border border-[#ccc] px-3 py-2" value={user.fullName} />
+                          <input
+                            type="text"
+                            className="border border-[#ccc] px-3 py-2"
+                            defaultValue={user.fullName} />
                           <label className="block mb-2">Email:</label>
-                          <input type="text" className="border border-[#ccc] px-3 py-2" value={user.email} />
+                          <input
+                            type="text"
+                            className="border border-[#ccc] px-3 py-2"
+                            defaultValue={user.email} />
                           <label className="block mb-2">Avatar:</label>
-                          <input type="file" className="border border-[#ccc] px-3 py-2" value={user.avatar} />
+                          <input
+                            type="file"
+                            className="border border-[#ccc] px-3 py-2"
+                            defaultValue={user.avatar} />
                         </form>
                       </div>
                     </div>
@@ -398,7 +408,9 @@ export default function Navigation({
             </div>
           </div>
 
-        </React.Fragment>}
+        </React.Fragment>
+      }
+      {/* END POPUP INFOMATION */}
     </React.Fragment >
   );
 }

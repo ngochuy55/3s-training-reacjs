@@ -47,7 +47,7 @@ function Home({
             <Slider />
           </div>
           <div className="lg:flex">
-            <div className="col-0 lg:col-3 p-0 p-r-30 ">
+            <div className="col-0 lg:col-3 lg:w-1/3 pr-30 ">
               <div className="mb-0 sm:block text-left items-center sm:mb-[5rem] pt-[20px] ">
                 <div className="flex justify-between">
                   <h3 className="text-[#0a58ca]">Danh mục</h3>
@@ -131,7 +131,7 @@ function Home({
               </div>
             </div>
 
-            <div className="pt-[20px] pb-[20px] bg-white w-full mb-[20px]">
+            <div className="min-w-[660]:w-full pt-[20px] pb-[20px] bg-white w-full mb-[20px]">
               {state.searchName ? (
                 <p className="hilight1 text-red-600">
                   Tìm thấy {products?.length} kết quả với từ khóa "
@@ -158,7 +158,7 @@ function Home({
                   products.slice(0, visible).map((product) => (
                     <div
                       key={product.id}
-                      className="flex md:block md:w-1/3 hover:border-[0.5px] hover:bg-[transparent] transform  duration-500 mb-[25px]"
+                      className="flex  md:block md:w-1/3 hover:border-[0.5px] hover:bg-[transparent] transform  duration-500 mb-[25px]"
                     >
                       <div className="relative max-w-[20rem] mt-[2rem] h-1/3 flex justify-center">
                         <img
@@ -166,7 +166,7 @@ function Home({
                           src={product.image}
                           alt="ảnh về 1 chiếc điện thoại"
                         />
-                        <div className="w-[3rem] flex h-[3rem] rounded-[50%] bg-[#ea9d02] absolute z-2  justify-center text-[#fff] top-0 right-[40px] items-center">
+                        <div className="hidden w-[3rem] sm:flex h-[3rem] rounded-[50%] bg-[#ea9d02] absolute z-2  justify-center text-[#fff] top-0 right-[40px] items-center">
                           {" "}
                           -{product.discount}%
                         </div>
@@ -195,9 +195,10 @@ function Home({
                             {/* <span>Bộ nhớ trong</span> */}
                           </div>
                           <div className="block md:flex justify-between my-[5px]">
-                            <div className=" bg-[#cb1c22] xl:-[8rem] 2xl:w-[9rem] text-[#fff] xl:[10px] 2xl:text-[18px] xl:leading-[26px] 2xl:leading-[28px] text-center rounded-[2px]">
+                            <div className=" bg-[#cb1c22] xl:-[8rem] 2xl:w-[9rem] text-[#fff]  lg:text-[14px] xl:leading-[26px] 2xl:leading-[28px] text-center rounded-[2px]">
                               {product.priceAfterDisStr}
                             </div>
+                            <p className="text-[#000] sm:hidden">Giảm {product.discount}%</p>
                             <strike className="hidden md:block text-[#919191] text-[14px] leading-[15px] text-right">
                               {product.priceStr}
                             </strike>
