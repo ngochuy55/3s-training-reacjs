@@ -3,8 +3,24 @@ import "../../assets/css/Form.css";
 import { Register } from "../../template/Register";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { isEmail, isBlankValue } from "../../ultis/functions";
+import { isEmail, isBlankValue, alertToast } from "../../ultis/functions";
 import { toast } from "react-toastify";
+
+const errors = {
+  wrong: "Email or password are incorrect",
+  emailwrong: "Email is incorrect",
+  passwrong: "password is incorrect",
+  lengthPass: "Password must be at least 8 character",
+  blank: "Username, Email and Pass is empty",
+  emailBlank: "Email cannot be blank",
+  passBlank: "Password cannot be blank",
+  confirmBlank: "confirm password cannot be blank",
+  usernameBlank: "username cannot be blank",
+  birthdayBlank: "birthday cannot be blank",
+  email: "invalid email",
+  pass: "invalid password",
+  confirm: "confirm password are incorrect",
+};
 
 function RegisterPages() {
   document.title = "Đăng ký"
@@ -17,21 +33,7 @@ function RegisterPages() {
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({});
 
-  const errors = {
-    wrong: "Email or password are incorrect",
-    emailwrong: "Email is incorrect",
-    passwrong: "password is incorrect",
-    lengthPass: "Password must be at least 8 character",
-    blank: "Username, Email and Pass is empty",
-    emailBlank: "Email cannot be blank",
-    passBlank: "Password cannot be blank",
-    confirmBlank: "confirm password cannot be blank",
-    usernameBlank: "username cannot be blank",
-    birthdayBlank: "birthday cannot be blank",
-    email: "invalid email",
-    pass: "invalid password",
-    confirm: "confirm password are incorrect",
-  };
+
 
   //Render validate: Element sẽ được hiển thị lên giao diện
   const renderAlertMessage = (name) =>
@@ -39,6 +41,7 @@ function RegisterPages() {
       <p className="l-[65px] m-0 text-[red] text-left mt-[6px]">{errorMessages.message}</p>
     );
 
+  //validate UserName: lấy dữ liệu ở input userName và kiểm tra
   const handleChangeUsername = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -70,7 +73,6 @@ function RegisterPages() {
   const handleChangePassword = (e) => {
     e.preventDefault();
     const value = e.target.value;
-
     if (value && value.length < 8) {
       setErrorMessages({ name: "password", message: errors.lengthPass });
     } else if (!value) {
@@ -99,7 +101,11 @@ function RegisterPages() {
       setErrorMessages({ name: "confirmPassword", message: errors.confirm });
       isValid = false;
     }
-    if (isValid && !isBlankValue(username) && !isBlankValue(email) && !isBlankValue(password) && !isBlankValue(birthday) && !isBlankValue(confirmPassword)) {
+    if (isValid && !isBlankValue(username)
+      && !isBlankValue(email)
+      && !isBlankValue(password)
+      && !isBlankValue(birthday)
+      && !isBlankValue(confirmPassword)) {
       const data = {
         fullName: username,
         email: email,
@@ -118,16 +124,7 @@ function RegisterPages() {
         })
         .finally(function () {
         });
-      toast.success("Đăng ký thành công!", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      alertToast(toast, "Đăng ký thành công!", "success");
     } else {
       if (username === "") {
         setErrorMessages({ name: "username", message: errors.usernameBlank });
@@ -151,7 +148,6 @@ function RegisterPages() {
       email={email}
       password={password}
       handleSubmit={handleSubmit}
-      // LoginPage={LoginPage}
       handleChangeEmail={handleChangeEmail}
       handleChangePassword={handleChangePassword}
       username={username}

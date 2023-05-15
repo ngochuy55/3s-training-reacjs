@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { Outlet } from 'react-router-dom';
 import {
   faMagnifyingGlass,
   faCartShopping,
@@ -26,6 +25,7 @@ export function Navbar({
   const [showCart, setShowCart] = useState(false);
   const [showBars, setShowbars] = useState(false);
   const [showInfor, setShowInfor] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
   let item = localStorage.getItem("user");
   const [search, setSearchValue] = useState("");
@@ -56,6 +56,7 @@ export function Navbar({
 
       return;
     }
+    // eslint-disable-next-line array-callback-return
     const filterBySearch = products.filter((item) => {
       // console.log(item);
       if (item.productName.toLowerCase().includes(search.toLowerCase())) {
@@ -82,6 +83,12 @@ export function Navbar({
     setShowInfor(!showInfor);
   };
 
+  //show sidebar when responsive mode
+  const handleShowChangePass = () => {
+    setShowbars(false);
+    setShowPass(!showPass);
+  };
+
   //Xoá sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = (productId) => {
     const newCart = productState.cart.filter(product => product.id !== productId);
@@ -102,6 +109,7 @@ export function Navbar({
   useEffect(() => {
     if (item === "" || item === null) setIsLoggedin(false);
     else setIsLoggedin(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -129,6 +137,8 @@ export function Navbar({
       handleshowinfo={handleshowinfo}
       showInfor={showInfor}
       user={user}
+      handleShowChangePass={handleShowChangePass}
+      showPass={showPass}
 
       isProductDetailPage={isProductDetailPage}
     />

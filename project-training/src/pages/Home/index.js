@@ -4,6 +4,7 @@ import Home from "../../template/Home";
 
 import { productActions, useProducts } from "../../Store";
 import { toast } from "react-toastify";
+import { alertToast } from "../../ultis/functions";
 
 export function HomePage() {
   document.title = "Trang chủ";
@@ -55,6 +56,7 @@ export function HomePage() {
     if (filter) {
       fetchDataWithPrice();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
 
@@ -67,6 +69,10 @@ export function HomePage() {
   const collapseProducts = () => {
     setIsMore(true);
     setVisible(9);
+    window.scrollTo({
+      top: 380,
+      behavior: 'smooth' // Cuộn lên đầu một cách mượt
+    });
   };
 
   //Call API Categories Sidebar
@@ -199,29 +205,14 @@ export function HomePage() {
         productState.cart.map((cartItem) =>
           cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
         )));
-      toast.warn("Sản phẩm đã tồn tại trong giỏ!", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      // eslint-disable-next-line no-unused-expressions
+      alertToast(toast, "Sản phẩm đã tồn tại, số lượng đã được cộng thêm ", "warn")
+
     } else {
       // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
       dispatch(productActions.setCart([...productState.cart, { ...item, quantity: 1 }]));
-      toast.success("Thêm vào giỏ thành công!", {
-        position: "top-center",
-        autoClose: 1500,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      alertToast(toast, "Thêm vào giỏ thành công!", "success")
+
     }
   };
 
@@ -238,6 +229,7 @@ export function HomePage() {
     fetchData();
     fetchCategories();
     fetchPrices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

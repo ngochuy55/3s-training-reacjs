@@ -1,5 +1,5 @@
-import { faHouse, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+import { faHouse, faKey, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 export default function Navigation({
   isLoggedin,
@@ -22,15 +22,17 @@ export default function Navigation({
   handleshowinfo,
   showInfor,
   user,
+  showPass,
+  handleShowChangePass,
   isProductDetailPage
 }) {
   return (
     <React.Fragment>
       <nav className="flex w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-40">
-        <div className="flex conatainer w-full relative lg:max-w-[1024px] 2xl:w-[80%] lg:mx-auto items-center justify-between">
+        <div className="flex lg:px-[10rem] w-full relative lg:mx-auto items-center justify-between">
           <div className="hidden sm:hidden md:flex md:ml-2 w-[50px] h-[50px]">
             <a href="/">
-              <img src={logo} alt="" className="h-full" />
+              <img src={logo} alt="Logo" className="h-full" />
             </a>
           </div>
           {isProductDetailPage ? null : (
@@ -58,17 +60,18 @@ export default function Navigation({
               </button>
             </form>
           )}
-          <div className="hidden  lg:flex xl:right-[-6rem] 2xl:-right-30">
-            <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
-            <br />
-            <span className="relative w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 right-1">
-              {cartItems.length}
-            </span>
-          </div>
+
           <div className="absolute left-[90%] lg:hidden">
             <FontAwesomeIcon icon={faBars} onClick={handleShowSidebar} />
           </div>
-          <div>
+          <div className="flex">
+            <div className="hidden  lg:flex xl:right-[-6rem] 2xl:-right-30">
+              <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
+              <br />
+              <span className="relative w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 right-1">
+                {cartItems.length}
+              </span>
+            </div>
             {isLoggedin ? (
               <React.Fragment>
                 <div className="dropdown lg:flex hidden">
@@ -87,7 +90,11 @@ export default function Navigation({
                         Thông tin cá nhân
                       </button>
                     </li>
-
+                    <li>
+                      <button className="dropdown-item" onClick={handleShowChangePass}>
+                        Thay đổi mật khẩu
+                      </button>
+                    </li>
                     <li>
                       <a className="dropdown-item" href="/logout">
                         Log Out
@@ -114,6 +121,7 @@ export default function Navigation({
           </div>
         </div>
       </nav>
+      {/* SHOW CART  */}
       {showCart ? (
         <React.Fragment>
           <nav className='w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-4000'>
@@ -184,10 +192,11 @@ export default function Navigation({
             </div>
           </nav>
 
+          {/* GIỎ HÀNG */}
           {showCart ? (
             <React.Fragment>
               <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'}  
-                  w-full max-w-full bg-white shadow-xl fixed overflow-auto top-[55px]
+                  w-full max-w-full bg-white shadow-xl fixed overflow-auto top-[56px]
                    right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}>
 
                 <div className="flex-1 sm:w-full sm:max-w-full overflow-y-auto px-4 py-6 sm:px-6 ">
@@ -207,7 +216,7 @@ export default function Navigation({
                       >
                         <path
                           strokeLinecap="round"
-                          stroke-linejoin="round"
+                          strokeLinejoin="round"
                           d="M6 18L18 6M6 6l12 12"
                         />
                       </svg>
@@ -230,7 +239,7 @@ export default function Navigation({
                               <div>
                                 <div className="flex justify-between text-base font-[2rem] text-gray-900">
                                   <h3>
-                                    <a href={item.href}>{item.productName}</a>
+                                    <a className="no-underline text-[#000]" href={`chi-tiet-san-pham/${item.id}`}>{item.productName}</a>
                                   </h3>
                                   <p className="ml-4">
                                     {item.priceAfterDisStr}
@@ -267,14 +276,13 @@ export default function Navigation({
                 </div>
               </div>
             </React.Fragment>
-          ) : (<React.Fragment>
-          </React.Fragment>)
+          ) : (null)
           }
         </React.Fragment >
-
-      ) : (<React.Fragment>
-      </React.Fragment>)
+      ) : (null)
       }
+
+      {/* SHOW BAR WHEN RESPONSIVE */}
       {
         showBars ? (
           <React.Fragment>
@@ -317,6 +325,12 @@ export default function Navigation({
                             </button>
                           </li>
                           <li className="rounded-sm">
+                            <button className="flex items-center  p-2 space-x-3 rounded-md" onClick={handleShowChangePass}>
+                              <FontAwesomeIcon icon={faKey} style={{ style: "#ffffff" }} />
+                              <span>Đổi mật khẩu</span>
+                            </button>
+                          </li>
+                          <li className="rounded-sm">
                             <a href="/logout" className="flex no-underline text-white items-center p-2 space-x-3 rounded-md">
                               <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "#ffffff", }} />
                               <span>Logout</span>
@@ -349,7 +363,7 @@ export default function Navigation({
                     <div>
                       <h2 className="text-lg font-semibold">{JSON.parse(localStorage.getItem("user"))?.fullName}{" "}</h2>
                       <span className="flex items-center space-x-1">
-                        <button className="text-xs hover:underline dark:text-gray-400" onClick={handleShowSidebar}>View profile</button>
+                        <button className="text-xs hover:underline dark:text-gray-400" onClick={handleshowinfo}>View profile</button>
                       </span>
                     </div>
                   </div>}
@@ -358,6 +372,7 @@ export default function Navigation({
           </React.Fragment>
         ) : (<React.Fragment></React.Fragment>)
       }
+      {/*END SHOW BAR WHEN RESPONSIVE */}
 
       {/* POPUP INFOMATION */}
       {showInfor &&
@@ -367,48 +382,134 @@ export default function Navigation({
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
             <div className="fixed inset-0 z-10 overflow-y-auto">
-              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div className="flex min-h-[80%] md:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 
-                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="relative transform overflow-hidden rounded-lg bg-white text-left 
+                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
 
                       <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left w-full">
                         <h3 className="text-center w-full font-semibold leading-6 text-gray-900" id="modal-title">Thông tin cá nhân</h3>
                         <form>
-                          <label className="block mb-2">Full Name:</label>
-                          <input
-                            type="text"
-                            className="border border-[#ccc] px-3 py-2"
-                            defaultValue={user.fullName} />
+
+                          <div className="flex">
+                            {/* <img src={user.avatar} className="w-1/3" /> */}
+                            <div className="w-1/3">
+                              <label className="block mb-2">Full Name:</label>
+                              <input
+                                type="text"
+                                className="border border-[#ccc] px-3 py-2"
+                                value={user.fullName}
+                                readOnly
+                              />
+                            </div>
+                          </div>
                           <label className="block mb-2">Email:</label>
                           <input
                             type="text"
                             className="border border-[#ccc] px-3 py-2"
-                            defaultValue={user.email} />
+                            value={user.email}
+                            readOnly />
                           <label className="block mb-2">Avatar:</label>
                           <input
                             type="file"
                             className="border border-[#ccc] px-3 py-2"
-                            defaultValue={user.avatar} />
+                          // value={user.avatar}
+                          />
                         </form>
                       </div>
                     </div>
                   </div>
                   <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button type="button" className=" mt-3 inline-flex w-full justify-center rounded-md ml-2 bg-[#fff] px-3 py-2 text-sm font-semibold
-                     text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto">Deactivate</button>
-                    <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold
-                     text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={handleshowinfo}>Cancel</button>
+                    <button
+                      type="button"
+                      className=" mt-3 inline-flex w-full justify-center rounded-md ml-2 bg-[#fff] px-3 py-2 text-sm font-semibold
+                     text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto"
+                    >
+                      Lưu thay đổi
+                    </button>
+                    <button
+                      type="button"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 
+                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      onClick={handleshowinfo}
+                    >
+                      Huỷ
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-        </React.Fragment>
+        </React.Fragment >
       }
       {/* END POPUP INFOMATION */}
+
+
+      {/* POPUP CHANGE PASSWORD */}
+      {showPass &&
+        <React.Fragment>
+          <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+              <div className="flex min-h-[80%] md:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+
+                <div className="relative w-full transform overflow-hidden rounded-lg bg-white text-left 
+                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div className="sm:flex sm:items-start">
+
+                      <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left w-full">
+                        <h3 className="text-center w-full font-semibold leading-6 text-gray-900" id="modal-title">Đổi mật khẩu</h3>
+                        <form>
+
+                          <div className="w-full">
+                            <label className="block mb-2">Mật khẩu cũ</label>
+                            <input
+                              type="password"
+                              className="border  border-[#ccc] w-full px-3 py-2"
+                            />
+                          </div>
+                          <label className="block mb-2">Mật khẩu mới:</label>
+                          <input
+                            type="password"
+                            className="border border-[#ccc] w-full px-3 py-2"
+                          />
+                          <label className="block mb-2">Nhập lại mật khẩu mới:</label>
+                          <input
+                            type="password"
+                            className="border border-[#ccc] w-full px-3 py-2"
+                          />
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button
+                      type="button"
+                      className="bg-[#cb1c22] text-[#fff] mt-3 inline-flex w-full justify-center rounded-md ml-2 md:bg-[#fff] px-3 py-2 text-sm font-semibold
+                     md:text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto"
+                    >
+                      Lưu thay đổi
+                    </button>
+                    <button
+                      type="button"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 
+                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      onClick={handleShowChangePass}
+                    >
+                      Huỷ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </React.Fragment >
+      }
     </React.Fragment >
   );
 }

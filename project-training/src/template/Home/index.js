@@ -9,7 +9,7 @@ import {
   faCartPlus,
   faMemory,
   faMicrochip,
-  faBars,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useProducts } from "../../Store";
@@ -42,16 +42,17 @@ function Home({
           cartItems={cartItems}
         />
 
-        <main className="mx-auto px-2.5 lg:max-w-[1024px] lg:px-0 lg:mx-auto pt-[56px] place-items-center mr-32 ml-32">
+        <main className="w-full lg:px-[10rem] sm:px-2.5 pt-[56px]">
           <div className="mt-4 basis-1/4 h-4/5">
             <Slider />
           </div>
           <div className="lg:flex">
-            <div className="col-0 lg:col-3 lg:w-1/3 pr-30 ">
-              <div className="mb-0 sm:block text-left items-center sm:mb-[5rem] pt-[20px] ">
-                <div className="flex justify-between">
+            <div className="col-0 lg:col-3 w-full lg:w-1/3 pr-30 ">
+              <div className="mb-[8px] sm:block text-left items-center md:mb-[5rem] pt-[20px] border border-spacing-2 
+              lg:border-spacing-0 lg:border-none">
+                <div className="flex justify-between gap-1 md:border-none">
                   <h3 className="text-[#0a58ca]">Danh mục</h3>
-                  <button onClick={handleshowCategories}><FontAwesomeIcon className='block sm:hidden' icon={faBars} /></button>
+                  <button onClick={handleshowCategories}><FontAwesomeIcon className={`${showCategories ? 'rotate-180 transition-all' : ''}block sm:hidden`} icon={faAngleDown} /></button>
                 </div>
                 <ul className={`${showCategories ? 'flex' : 'hidden'} 
                   sm:flex flex-row flex-wrap w-full max-w-full md:w-full transition-all duration-300`}>
@@ -84,10 +85,10 @@ function Home({
                   ))}
                 </ul>
               </div>
-              <div className="sm:block text-left items-center">
+              <div className="sm:block text-left items-center border border-spacing-2 lg:border-spacing-0 lg:border-none">
                 <div className="flex justify-between ">
                   <h3 className="text-[#0a58ca]"> Mức giá</h3>
-                  <button onClick={handleshowPrices}><FontAwesomeIcon className='block sm:hidden' icon={faBars} /></button>
+                  <button onClick={handleshowPrices}><FontAwesomeIcon className={`${showPrices ? 'rotate-180 transition-all' : ''}block sm:hidden`} icon={faAngleDown} /></button>
                 </div>
                 <ul className={`${showPrices ? 'flex' : 'hidden'}
                  sm:flex flex-row flex-wrap w-full max-w-full md:w-full transition-all duration-300`}>
@@ -158,22 +159,23 @@ function Home({
                   products.slice(0, visible).map((product) => (
                     <div
                       key={product.id}
-                      className="flex  md:block md:w-1/3 hover:border-[0.5px] hover:bg-[transparent] transform  duration-500 mb-[25px]"
+                      className="flex flex-col h-full md:block md:w-1/3 hover:border-[0.5px] hover:bg-[transparent] transform duration-500 mb-[25px]"
                     >
-                      <div className="relative max-w-[20rem] mt-[2rem] h-1/3 flex justify-center">
+                      <div className="relative mx-[8px] w-full md:max-w-[20rem] mt-[2rem] h-1/3 flex justify-center">
                         <img
-                          className="transform w-full min-h-full object-contain duration-500 hover:scale-110 max-w-[15rem]"
+                          className="transform w-[90%] h-[200px] object-contain duration-500 lg:hover:scale-110 max-w-[15rem]"
                           src={product.image}
                           alt="ảnh về 1 chiếc điện thoại"
                         />
-                        <div className="hidden w-[3rem] sm:flex h-[3rem] rounded-[50%] bg-[#ea9d02] absolute z-2  justify-center text-[#fff] top-0 right-[40px] items-center">
+                        <div className="hidden w-[3rem] sm:relative sm:flex h-[3rem] lg:absolute lg:right-2 rounded-[50%] bg-[#ea9d02] absolute z-2  
+                        justify-center text-[#fff] top-0 right-[40px] items-center">
                           {" "}
                           -{product.discount}%
                         </div>
                       </div>
-                      <div className="ml-[20px]">
+                      <div className="mx-[8px] mt-3">
                         <div className="block">
-                          <h5 className="mt-[2rem] ml-[20px] ">
+                          <h5 className="truncate">
                             <Link
                               className="no-underline"
                               to={`/chi-tiet-san-pham/${product.id}`}
@@ -194,7 +196,8 @@ function Home({
                             </p>
                             {/* <span>Bộ nhớ trong</span> */}
                           </div>
-                          <div className="block md:flex justify-between my-[5px]">
+                          <div className="hidden md:block w-full border border-spacing-4 mr-[20px]"></div>
+                          <div className="block md:flex justify-between my-[5px] lg:mt-[10px]">
                             <div className=" bg-[#cb1c22] xl:-[8rem] 2xl:w-[9rem] text-[#fff]  lg:text-[14px] xl:leading-[26px] 2xl:leading-[28px] text-center rounded-[2px]">
                               {product.priceAfterDisStr}
                             </div>
@@ -204,21 +207,21 @@ function Home({
                             </strike>
                           </div>
                         </div>
-                        <div className="block md:flex justify-between lg:mt-3">
-                          <button className="bg-[#cb1c22] lg:w-[7rem] lg:mr-[10px] my-[20px] md:my-0 text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[40%] hover:bg-[#23E8E8]">
-                            <FontAwesomeIcon icon={faCartShopping} />
-                            <a
-                              className="no-underline text-[#fff] hover:text-[#fff]"
-                              href={`/chi-tiet-san-pham/${product.id}`}
-                            >
-                              {" "}
-                              Mua Ngay
-                            </a>
-                          </button>
-                          <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[40%]">
-                            <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
-                          </button>
-                        </div>
+                      </div>
+                      <div className="flex sm:flex justify-between my-[20px] mx-[8px] lg:mt-3">
+                        <button className="bg-[#cb1c22] lg:w-[7rem] lg:mr-[10px] md:my-0 text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[40%] hover:bg-[#23E8E8]">
+                          <FontAwesomeIcon icon={faCartShopping} />
+                          <a
+                            className="no-underline text-[#fff] hover:text-[#fff]"
+                            href={`/chi-tiet-san-pham/${product.id}`}
+                          >
+                            {" "}
+                            Mua Ngay
+                          </a>
+                        </button>
+                        <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[30px] w-[40%]">
+                          <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
+                        </button>
                       </div>
                     </div>
                   ))

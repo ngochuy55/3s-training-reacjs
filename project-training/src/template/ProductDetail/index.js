@@ -35,17 +35,19 @@ export function ProductDetailTemplate(
                 <BreadCrumb
                   props={product.productName}
                 />
-                <div className="shadow-lg shadow-[#dee2e6]"></div>
-                <div className="flex mb-[16px] leading-[18.2px] pt-[10px] pb-[15px] border-b-2">
-                  <h1 className="text-[#212529] w-3/4 font-[Helvetica Neue] text-left flex border-b-2 border-gray-500">{product.productName}</h1>
-                  <div className="flex items-center justify-center">
-                    <p className="mb-0" >Đánh giá: </p>
+                <div className=" border-b-2" >
+                  <div className="flex leading-[18.2px] pt-[10px]">
+                    <h1 className="text-[#212529] w-full text-left flex ">{product.productName}</h1>
+                  </div>
+
+                  <div className="flex items-center w-full justify-end relative mb-2">
+                    <p className="hidden md:block mb-0" >Đánh giá: </p>
                     {renderStar(product.star)}
+
                   </div>
                 </div>
-
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-4 m-4 border-b-2">
-                  <div className="mr-0">
+                  <div className="mr-0 mb-[20px]">
                     <img src={product.imageDetail} className="w-full " alt={`Ảnh về chiếc điện thoại ${product.productName}`} />
                   </div>
                   <div className="pl-2">
@@ -56,24 +58,14 @@ export function ProductDetailTemplate(
                     <div className="col my-[2rem] flex">
                       {product.color.map(
                         (color, i) => (
-                          <div>
-                            <div
-                              className=" w-[16px] h-[16px]"
-                              style={{
-                                background: color,
-                                marginLeft: i === 0 ? 0 : "8px",
-                              }}
-                            ></div>
-                            <input
-                              className=" w-[16px] h-[16px]"
-                              type="radio"
-                              name="color"
-                              style={{
-                                background: color,
-                                marginLeft: i === 0 ? 0 : "8px",
-                              }}
-                            ></input>
-                          </div>
+                          <button
+                            className=" w-[16px] h-[16px]"
+                            style={{
+                              background: color,
+                              marginLeft: i === 0 ? 0 : "8px",
+                            }}
+                          ></button>
+
                         ))}
                     </div>
 
@@ -144,6 +136,6 @@ export function ProductDetailTemplate(
         </main>
         <Footer />
       </section>
-    </React.Fragment>
+    </React.Fragment >
   )
 }

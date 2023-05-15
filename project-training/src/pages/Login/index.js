@@ -1,9 +1,21 @@
 import { useState } from "react";
 import { Login } from "../../template/Login";
 import { useNavigate } from "react-router-dom";
-import { isBlank, isEmail } from "../../ultis/functions";
+import { alertToast, isBlank, isEmail } from "../../ultis/functions";
 import axios from "axios";
 import { toast } from "react-toastify";
+
+const errors = {
+  wrong: "Email or password are incorrect",
+  emailwrong: "Email is incorrect",
+  passwrong: "password is incorrect",
+  lengthPass: "Password must be at least 8 character",
+  blank: "Email and Password can not be blank",
+  emailBlank: "Email cannot be blank",
+  passBlank: "Password cannot be blank",
+  email: "invalid email",
+  pass: "invalid password",
+};
 
 export default function LoginPage() {
   const [, setAccount] = useState({});
@@ -12,17 +24,6 @@ export default function LoginPage() {
   const [errorMessages, setErrorMessages] = useState({});
   const navigate = useNavigate();
 
-  const errors = {
-    wrong: "Email or password are incorrect",
-    emailwrong: "Email is incorrect",
-    passwrong: "password is incorrect",
-    lengthPass: "Password must be at least 8 character",
-    blank: "Email and Password can not be blank",
-    emailBlank: "Email cannot be blank",
-    passBlank: "Password cannot be blank",
-    email: "invalid email",
-    pass: "invalid password",
-  };
 
   //Render validate: Element sẽ được hiển thị lên giao diện
   const renderAlertMessage = (name) =>
@@ -32,6 +33,7 @@ export default function LoginPage() {
       </p>
     );
 
+  //handle change email input
   const handleChangeEmail = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -43,6 +45,7 @@ export default function LoginPage() {
     setEmail(value);
   };
 
+  //handle change password input
   const handleChangePassword = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -52,6 +55,7 @@ export default function LoginPage() {
     setPassword(value);
   };
 
+  //handle submit login button
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isBlank(email, password)) {
@@ -62,28 +66,10 @@ export default function LoginPage() {
           const user = res.data.find((user) => user.email === email && user.password === password);
           if (user) {
             localStorage.setItem("user", JSON.stringify(user));
-            toast.success("Đăng nhập thành công!", {
-              position: "top-center",
-              autoClose: 1500,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
+            alertToast(toast, "Đăng nhập thành công!", "success");
             navigate("/");
           } else {
-            toast.error("Email hoặc mật khẩu sai!", {
-              position: "top-center",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
+            alertToast(toast, "Email hoặc mật khẩu sai!", "error")
           }
         })
         .catch(function (err) {
@@ -91,14 +77,12 @@ export default function LoginPage() {
         })
         .finally(function () { });
     } else {
-
       if (email === "") {
         setErrorMessages({ name: "email", message: errors.emailBlank });
       } else if (password === "") {
         setErrorMessages({ name: "password", message: errors.passBlank });
       }
     }
-
   };
 
   return (
