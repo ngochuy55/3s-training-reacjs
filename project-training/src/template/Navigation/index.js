@@ -24,7 +24,16 @@ export default function Navigation({
   user,
   showPass,
   handleShowChangePass,
-  isProductDetailPage
+  isProductDetailPage,
+  submiteditinfo,
+  handleInputname,
+  handleInputemail,
+  renderAlertMessage,
+  handleInputPasswordOld,
+  handleInputPasswordNew,
+  handleInputConfirmPasswordNew,
+  changePassword
+
 }) {
   return (
     <React.Fragment>
@@ -400,17 +409,20 @@ export default function Navigation({
                               <input
                                 type="text"
                                 className="border border-[#ccc] px-3 py-2"
-                                value={user.fullName}
-                                readOnly
+                                defaultValue={user.fullName}
+                                onChange={handleInputname}
                               />
+                              {renderAlertMessage("username")}
                             </div>
                           </div>
                           <label className="block mb-2">Email:</label>
                           <input
-                            type="text"
+                            type="email"
                             className="border border-[#ccc] px-3 py-2"
-                            value={user.email}
-                            readOnly />
+                            defaultValue={user.email}
+                            onChange={handleInputemail}
+                          />
+                          {renderAlertMessage("email")}
                           <label className="block mb-2">Avatar:</label>
                           <input
                             type="file"
@@ -423,6 +435,7 @@ export default function Navigation({
                   </div>
                   <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button
+                      onClick={submiteditinfo}
                       type="button"
                       className=" mt-3 inline-flex w-full justify-center rounded-md ml-2 bg-[#fff] px-3 py-2 text-sm font-semibold
                      text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto"
@@ -469,26 +482,36 @@ export default function Navigation({
                           <div className="w-full">
                             <label className="block mb-2">Mật khẩu cũ</label>
                             <input
+                              name="password_old"
                               type="password"
                               className="border  border-[#ccc] w-full px-3 py-2"
+                              onChange={handleInputPasswordOld}
                             />
+                            {renderAlertMessage("password_old")}
                           </div>
                           <label className="block mb-2">Mật khẩu mới:</label>
                           <input
+                            name="password_new"
                             type="password"
                             className="border border-[#ccc] w-full px-3 py-2"
+                            onChange={handleInputPasswordNew}
                           />
+                          {renderAlertMessage("password_new")}
                           <label className="block mb-2">Nhập lại mật khẩu mới:</label>
                           <input
+                            name="comfirmpassword_new"
                             type="password"
                             className="border border-[#ccc] w-full px-3 py-2"
+                            onChange={handleInputConfirmPasswordNew}
                           />
+                          {renderAlertMessage("comfirmpassword_new")}
                         </form>
                       </div>
                     </div>
                   </div>
                   <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button
+                      onClick={changePassword}
                       type="button"
                       className="bg-[#cb1c22] text-[#fff] mt-3 inline-flex w-full justify-center rounded-md ml-2 md:bg-[#fff] px-3 py-2 text-sm font-semibold
                      md:text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto"
