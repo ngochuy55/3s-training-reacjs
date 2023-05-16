@@ -8,7 +8,6 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export default function Navigation({
   isLoggedin,

@@ -42,7 +42,7 @@ export function Navbar({ cartItems, isproductDetail }) {
   const [showBars, setShowbars] = useState(false);
   const [showInfor, setShowInfor] = useState(false);
   const [showPass, setShowPass] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+
 
   let item = localStorage.getItem("user");
   const [search, setSearchValue] = useState("");
