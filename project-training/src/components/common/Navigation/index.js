@@ -10,8 +10,26 @@ import "../../../assets/css/Responsive.css";
 import Navigation from "../../../template/Navigation";
 import axios from "axios";
 import { productActions, useProducts } from "../../../Store";
-import { useLocation } from "react-router-dom";
-import { setSearchResult } from "../../../Store/product/action";
+import { useLocation } from 'react-router-dom';
+import { isEmail, alertToast } from "../../../ultis/functions/";
+import { toast } from "react-toastify";
+const errors = {
+  wrong: "Email or password are incorrect",
+  emailwrong: "Email is incorrect",
+  passwrong: "password is incorrect",
+  lengthPass: "Password must be at least 8 character",
+  blank: "not blank",
+  emailBlank: "Email cannot be blank",
+  passBlank: "Password cannot be blank",
+  confirmBlank: "confirm password cannot be blank",
+  usernameBlank: "username cannot be blank",
+  birthdayBlank: "birthday cannot be blank",
+  email: "invalid email",
+  pass: "invalid password",
+  confirm: "confirm password are incorrect",
+  passOld: "wrong old password",
+  confirmNew: "confirm password new are incorrect",
+};
 
 export function Navbar({ cartItems, isproductDetail }) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -31,6 +49,20 @@ export function Navbar({ cartItems, isproductDetail }) {
   const { pathname } = useLocation();
   const isProductDetailPage = pathname.includes("/chi-tiet-san-pham/");
 
+  const [email, setEmail] = useState(user.email);
+  const [username, setUsername] = useState(user.fullName);
+  const [birthday, setBirthday] = useState(user.birthDay);
+  const [password, setPassword] = useState(user.password);
+  const [passwordNew, setPasswordNew] = useState("");
+  const [confirmPasswordNew, setConfirmPasswordNew] = useState("")
+  const [errorMessages, setErrorMessages] = useState({});
+  //Render validate: Element sẽ được hiển thị lên giao diện
+  const renderAlertMessage = (name) =>
+    name === errorMessages.name && (
+      <p className="l-[65px] m-0 text-[red] text-left mt-[6px]">{errorMessages.message}</p>
+    );
+
+
   //fetch api product
   const fetchData = async () => {
     await axios
@@ -41,7 +73,7 @@ export function Navbar({ cartItems, isproductDetail }) {
       .catch(function (err) {
         console.log(err);
       })
-      .finally(function () {});
+      .finally(function () { });
   };
   useEffect(() => {
     fetchData();
@@ -79,14 +111,152 @@ export function Navbar({ cartItems, isproductDetail }) {
   //show popup information
   const handleshowinfo = () => {
     setShowbars(false);
+    setShowPass(false);
     setShowInfor(!showInfor);
   };
-
   //show sidebar when responsive mode
   const handleShowChangePass = () => {
     setShowbars(false);
+    setShowInfor(false);
     setShowPass(!showPass);
   };
+
+  // submit info
+  const submiteditinfo = async () => {
+    let isValid = true;
+
+    if (!isEmail(email) || email === "" || username === "") {
+      isValid = false;
+      alertToast(toast, "Sửa thông tin thất bại!", "error");
+    } else
+      alertToast(toast, "Sửa thông tin thành công!", "success");
+
+
+    if (isValid) {
+      const newData = {
+        email: email,
+        fullName: username,
+        birthDay: birthday,
+      };
+
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const response = await axios.put(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/users/${user.id}`, newData);
+        // console.log('Updated data:', response.data);
+        // Cập nhật localStorage mới sau khi thay đổi
+        const updatedUser = { ...user, ...newData };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    }
+    setShowInfor(false);
+  };
+
+  // nhập dữ liệu name
+  const handleInputname = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    // console.log("value", value);
+    if (!value) {
+      setErrorMessages({ name: "username", message: errors.usernameBlank });
+    } else setErrorMessages(false);
+    setUsername(value);
+  }
+  // nhập dữ liệu email
+  const handleInputemail = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    if (value && !isEmail(email)) {
+      setErrorMessages({ name: "email", message: errors.email });
+    } else if (!value) {
+      setErrorMessages({ name: "email", message: errors.emailBlank });
+    } else setErrorMessages(false);
+    setEmail(value);
+  }
+
+  const handleInputBirthday = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setBirthday(value);
+  }
+  //nhập dữ liệu password cũ
+  const handleInputPasswordOld = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setPassword(value);
+    if (value && value.length < 8) {
+      setErrorMessages({ name: "password_old", message: errors.lengthPass });
+    } else if (!value) {
+      setErrorMessages({ name: "password_old", message: errors.passBlank });
+    }
+    else setErrorMessages(false);
+
+  };
+
+  //nhập dữ liệu password mới
+  const handleInputPasswordNew = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    if (value && value.length < 8) {
+      setErrorMessages({ name: "password_new", message: errors.lengthPass });
+    } else if (!value) {
+      setErrorMessages({ name: "password_new", message: errors.passBlank });
+    } else setErrorMessages(false);
+    setPasswordNew(value);
+  };
+
+  //nhập dữ liệu confirm password
+  const handleInputConfirmPasswordNew = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setConfirmPasswordNew(value);
+    if (value && value.length < 8) {
+      setErrorMessages({ name: "comfirmpassword_new", message: errors.lengthPass });
+    } else if (!value) {
+      setErrorMessages({ name: "comfirmpassword_new", message: errors.confirmBlank });
+    }
+    else setErrorMessages(false);
+  };
+
+  //Submit đổi mật khẩu
+  const changePassword = async () => {
+    let isValid = true;
+    // Kiểm tra xác thực mật khẩu cũ và mới
+    if (password === "" || passwordNew === "" || confirmPasswordNew === "") {
+      isValid = false;
+      alertToast(toast, "đổi mật khẩu thất bại, tất cả không được để trống!", "error");
+    } else if (password !== user.password) {
+      isValid = false;
+      setErrorMessages({ name: "password_old", message: errors.passOld });
+    } else if (passwordNew !== confirmPasswordNew) {
+      isValid = false;
+      setErrorMessages({ name: "comfirmpassword_new", message: errors.confirmNew });
+    } else setErrorMessages(false)
+
+    if (isValid) {
+      try {
+        // Tạo đối tượng chứa dữ liệu mới
+        const updatedUser = { ...user, password: passwordNew };
+
+        // Gửi yêu cầu cập nhật thông tin người dùng vào API sử dụng Axios
+        // eslint-disable-next-line no-unused-vars
+        const response = await axios.put(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/users/${user.id}`, updatedUser);
+        // console.log('Updated data:', response.data);
+        alertToast(toast, "đổi mật khẩu thành công!", "success");
+        setShowPass(false);
+
+        // Cập nhật dữ liệu mới vào localStorage
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      }
+      catch (error) {
+        console.error(error);
+        // Xử lý và hiển thị thông báo lỗi nếu cần
+      }
+    }
+  };
+
+
 
   //Xoá sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = (productId) => {
@@ -146,9 +316,17 @@ export function Navbar({ cartItems, isproductDetail }) {
       handleShowChangePass={handleShowChangePass}
       showPass={showPass}
       isProductDetailPage={isProductDetailPage}
-      searchTerm={searchTerm}
-      // handleSearchTermChange={handleSearchTermChange}
-      handleClearSearch={handleClearSearch}
+
+      submiteditinfo={submiteditinfo}
+      handleInputname={handleInputname}
+      handleInputemail={handleInputemail}
+      renderAlertMessage={renderAlertMessage}
+      handleInputPasswordOld={handleInputPasswordOld}
+      handleInputConfirmPasswordNew={handleInputConfirmPasswordNew}
+      password={password}
+      handleInputPasswordNew={handleInputPasswordNew}
+      changePassword={changePassword}
+      handleInputBirthday={handleInputBirthday}
     />
   );
 }

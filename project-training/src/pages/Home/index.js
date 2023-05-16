@@ -49,7 +49,7 @@ export function HomePage() {
       from: id === 0 ? null : price.valueFrom,
       to: id === 0 ? null : price.valueTo,
     });
-    console.log(price);
+    // console.log(price);
   };
 
   useEffect(() => {
