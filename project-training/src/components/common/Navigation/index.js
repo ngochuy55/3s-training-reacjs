@@ -10,13 +10,11 @@ import "../../../assets/css/Responsive.css";
 import Navigation from "../../../template/Navigation";
 import axios from "axios";
 import { productActions, useProducts } from "../../../Store";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { setSearchResult } from "../../../Store/product/action";
 
-export function Navbar({
-  cartItems,
-  isproductDetail
-}) {
-  const user = JSON.parse(localStorage.getItem('user'));
+export function Navbar({ cartItems, isproductDetail }) {
+  const user = JSON.parse(localStorage.getItem("user"));
   const logo = require("../../../assets/images/logo-fix.png");
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [products, setproducts] = useState([]);
@@ -26,11 +24,12 @@ export function Navbar({
   const [showBars, setShowbars] = useState(false);
   const [showInfor, setShowInfor] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   let item = localStorage.getItem("user");
   const [search, setSearchValue] = useState("");
   const { pathname } = useLocation();
-  const isProductDetailPage = pathname.includes('/chi-tiet-san-pham/');
+  const isProductDetailPage = pathname.includes("/chi-tiet-san-pham/");
 
   //fetch api product
   const fetchData = async () => {
@@ -42,7 +41,7 @@ export function Navbar({
       .catch(function (err) {
         console.log(err);
       })
-      .finally(function () { });
+      .finally(function () {});
   };
   useEffect(() => {
     fetchData();
@@ -91,27 +90,35 @@ export function Navbar({
 
   //Xoá sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = (productId) => {
-    const newCart = productState.cart.filter(product => product.id !== productId);
+    const newCart = productState.cart.filter(
+      (product) => product.id !== productId
+    );
     // setCartItems(newCart);
-    dispatch(productActions.setCart(newCart))
-  }
+    dispatch(productActions.setCart(newCart));
+  };
 
   useEffect(() => {
     // console.log("type", typeof (cartItems));
     if (!cartItems.length !== 0) {
       const totalPrice = cartItems.reduce((sum, item) => {
         return sum + item.priceAfterDis * item.quantity;
-      }, 0)
+      }, 0);
       setTotal(totalPrice);
     }
-  }, [cartItems])
+  }, [cartItems]);
 
   useEffect(() => {
     if (item === "" || item === null) setIsLoggedin(false);
     else setIsLoggedin(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // / xóa từ tìm kiếm
 
+  const handleClearSearch = () => {
+    setSearchValue("");
+    dispatch(productActions.setSearchResult(products));
+    productState.searchName = false;
+  };
 
   return (
     <Navigation
@@ -125,7 +132,6 @@ export function Navbar({
       products={products}
       handleSearchClick={handleSearchClick}
       search={search}
-
       handleShowSidebar={handleShowSidebar}
       total={total}
       handleShowCart={handleShowCart}
@@ -139,8 +145,10 @@ export function Navbar({
       user={user}
       handleShowChangePass={handleShowChangePass}
       showPass={showPass}
-
       isProductDetailPage={isProductDetailPage}
+      searchTerm={searchTerm}
+      // handleSearchTermChange={handleSearchTermChange}
+      handleClearSearch={handleClearSearch}
     />
   );
 }
