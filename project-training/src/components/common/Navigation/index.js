@@ -141,7 +141,9 @@ export function Navbar({
         console.log('Error:', error);
       }
     }
+    setShowInfor(false);
   };
+
   // nhập dữ liệu name
   const handleInputname = (e) => {
     e.preventDefault();
@@ -164,6 +166,7 @@ export function Navbar({
     setEmail(value);
   }
 
+  //nhập dữ liệu password cũ
   const handleInputPasswordOld = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -177,6 +180,7 @@ export function Navbar({
 
   };
 
+  //nhập dữ liệu password mới
   const handleInputPasswordNew = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -188,6 +192,7 @@ export function Navbar({
     setPasswordNew(value);
   };
 
+  //nhập dữ liệu confirm password
   const handleInputConfirmPasswordNew = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -200,36 +205,41 @@ export function Navbar({
     else setErrorMessages(false);
   };
 
+  //Submit đổi mật khẩu
   const changePassword = async () => {
-    try {
-      // Kiểm tra xác thực mật khẩu cũ và mới
-      if (password === "" || passwordNew === "" || confirmPasswordNew === "") {
-        alertToast(toast, "đổi mật khẩu thất bại, tất cả không được để trống!", "error");
-      } else if (password !== user.password) {
-        setErrorMessages({ name: "password_old", message: errors.passOld });
-      } else if (passwordNew !== confirmPasswordNew) {
-        setErrorMessages({ name: "comfirmpassword_new", message: errors.confirmNew });
-      } else setErrorMessages(false)
+    let isValid = true;
+    // Kiểm tra xác thực mật khẩu cũ và mới
+    if (password === "" || passwordNew === "" || confirmPasswordNew === "") {
+      isValid = false;
+      alertToast(toast, "đổi mật khẩu thất bại, tất cả không được để trống!", "error");
+    } else if (password !== user.password) {
+      isValid = false;
+      setErrorMessages({ name: "password_old", message: errors.passOld });
+    } else if (passwordNew !== confirmPasswordNew) {
+      isValid = false;
+      setErrorMessages({ name: "comfirmpassword_new", message: errors.confirmNew });
+    } else setErrorMessages(false)
 
-      // Tạo đối tượng chứa dữ liệu mới
-      const updatedUser = { ...user, password: passwordNew };
+    if (isValid) {
+      try {
+        // Tạo đối tượng chứa dữ liệu mới
+        const updatedUser = { ...user, password: passwordNew };
 
-      // Gửi yêu cầu cập nhật thông tin người dùng vào API sử dụng Axios
-      const response = await axios.put(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/users/${user.id}`, updatedUser);
-      console.log('Updated data:', response.data);
+        // Gửi yêu cầu cập nhật thông tin người dùng vào API sử dụng Axios
+        const response = await axios.put(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/users/${user.id}`, updatedUser);
+        console.log('Updated data:', response.data);
+        alertToast(toast, "đổi mật khẩu thành công!", "success");
+        setShowPass(false);
 
-
-      // Cập nhật dữ liệu mới vào localStorage
-      localStorage.setItem('user', JSON.stringify(updatedUser));
-    } catch (error) {
-      console.error(error);
-      // Xử lý và hiển thị thông báo lỗi nếu cần
+        // Cập nhật dữ liệu mới vào localStorage
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      }
+      catch (error) {
+        console.error(error);
+        // Xử lý và hiển thị thông báo lỗi nếu cần
+      }
     }
   };
-
-
-
-
 
   //show sidebar when responsive mode
   const handleShowChangePass = () => {
