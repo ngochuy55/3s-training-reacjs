@@ -1,5 +1,14 @@
-import { faHouse, faKey, faRightFromBracket, faRightToBracket, faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHouse,
+  faKey,
+  faRightFromBracket,
+  faRightToBracket,
+  faUser,
+  faUserPlus,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export default function Navigation({
   isLoggedin,
@@ -24,7 +33,9 @@ export default function Navigation({
   user,
   showPass,
   handleShowChangePass,
-  isProductDetailPage
+  isProductDetailPage,
+
+  handleClearSearch,
 }) {
   return (
     <React.Fragment>
@@ -37,13 +48,32 @@ export default function Navigation({
           </div>
           {isProductDetailPage ? null : (
             <form className="w-[80%] ml-1 sm:ml-2 md:w-[496px] flex">
-              <input
-                type="text"
-                className="h-[38px] w-full pl-4 outline-none text-[#000]"
-                placeholder="Nhập tên điện thoại cần tìm"
-                value={search}
-                onChange={(e) => setSearchValue(e.target.value)}
-              />
+              <div className="flex bg-white h-[38px] min-w-[300px] justify-between">
+                <input
+                  type="text"
+                  className="h-[38px] w-full pl-4 outline-none text-[#000]"
+                  placeholder="Nhập tên điện thoại cần tìm"
+                  value={search}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                />
+                {search !== "" && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleClearSearch();
+                    }}
+                  >
+                    <span
+                      className="text-black h-[38px] items-center flex  mr-[13px] text-[11px]"
+                      icon="icon-cance"
+                      id="icon-cance"
+                    >
+                      <FontAwesomeIcon icon={faX} />
+                    </span>
+                  </button>
+                )}
+              </div>
 
               <button
                 className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]"
@@ -66,7 +96,12 @@ export default function Navigation({
           </div>
           <div className="flex">
             <div className="hidden  lg:flex xl:right-[-6rem] 2xl:-right-30">
-              <button onClick={handleShowCart}><FontAwesomeIcon className="text-[20px] " icon={faCartShopping} /></button>
+              <button onClick={handleShowCart}>
+                <FontAwesomeIcon
+                  className="text-[20px] "
+                  icon={faCartShopping}
+                />
+              </button>
               <br />
               <span className="relative w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 right-1">
                 {cartItems.length}
@@ -86,12 +121,18 @@ export default function Navigation({
                   </p>
                   <ul className="dropdown-menu dropdown-menu-right transform transition duration-500 scale-0 translate-y-2">
                     <li>
-                      <button className="dropdown-item" onClick={handleshowinfo}>
+                      <button
+                        className="dropdown-item"
+                        onClick={handleshowinfo}
+                      >
                         Thông tin cá nhân
                       </button>
                     </li>
                     <li>
-                      <button className="dropdown-item" onClick={handleShowChangePass}>
+                      <button
+                        className="dropdown-item"
+                        onClick={handleShowChangePass}
+                      >
                         Thay đổi mật khẩu
                       </button>
                     </li>
@@ -102,7 +143,6 @@ export default function Navigation({
                     </li>
                   </ul>
                 </div>
-
               </React.Fragment>
             ) : (
               <ul className="hidden lg:flex m-0">
@@ -124,14 +164,27 @@ export default function Navigation({
       {/* SHOW CART  */}
       {showCart ? (
         <React.Fragment>
-          <nav className='w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-4000'>
-            <div className='flex container items-center justify-between'>
-              <div className='w-[50px] h-[50px]'>
-                <a href='/'><img src={logo} alt='' className='h-full' /></a>
+          <nav className="w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-4000">
+            <div className="flex container items-center justify-between">
+              <div className="w-[50px] h-[50px]">
+                <a href="/">
+                  <img src={logo} alt="" className="h-full" />
+                </a>
               </div>
-              <form className={`${isproductDetail ? 'hidden' : 'flex -[496px]'} `}>
-                <input type='text' className='h-[38px] w-full pl-4 outline-none text-[#000]' placeholder='Nhập tên điện thoại cần tìm' />
-                <span className='w-[58px] h-[38px] flex items-center justify-center bg-[#333]'><FontAwesomeIcon className='search_icon' icon={faMagnifyingGlass} /></span>
+              <form
+                className={`${isproductDetail ? "hidden" : "flex -[496px]"} `}
+              >
+                <input
+                  type="text"
+                  className="h-[38px] w-full pl-4 outline-none text-[#000]"
+                  placeholder="Nhập tên điện thoại cần tìm"
+                />
+                <span className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]">
+                  <FontAwesomeIcon
+                    className="search_icon"
+                    icon={faMagnifyingGlass}
+                  />
+                </span>
               </form>
               <div className="relative">
                 <button>
@@ -195,10 +248,13 @@ export default function Navigation({
           {/* GIỎ HÀNG */}
           {showCart ? (
             <React.Fragment>
-              <div className={`${showCart ? 'animate-slide-right' : 'animate-slide-left'}  
+              <div
+                className={`${
+                  showCart ? "animate-slide-right" : "animate-slide-left"
+                }  
                   w-full max-w-full bg-white shadow-xl fixed overflow-auto top-[56px]
-                   right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}>
-
+                   right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}
+              >
                 <div className="flex-1 sm:w-full sm:max-w-full overflow-y-auto px-4 py-6 sm:px-6 ">
                   <div className="flex items-start justify-between">
                     <h2 className="">Giỏ hàng</h2>
@@ -239,7 +295,12 @@ export default function Navigation({
                               <div>
                                 <div className="flex justify-between text-base font-[2rem] text-gray-900">
                                   <h3>
-                                    <a className="no-underline text-[#000]" href={`chi-tiet-san-pham/${item.id}`}>{item.productName}</a>
+                                    <a
+                                      className="no-underline text-[#000]"
+                                      href={`chi-tiet-san-pham/${item.id}`}
+                                    >
+                                      {item.productName}
+                                    </a>
                                   </h3>
                                   <p className="ml-4">
                                     {item.priceAfterDisStr}
@@ -269,130 +330,194 @@ export default function Navigation({
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Tổng:</p>
-                        <p>{total.toLocaleString('en-US')}đ</p>
-                      </div></div>
-                    <button className="w-full bg-slate-600 text-white h-6 rounded-[5px]">Đặt hàng</button>
+                        <p>{total.toLocaleString("en-US")}đ</p>
+                      </div>
+                    </div>
+                    <button className="w-full bg-slate-600 text-white h-6 rounded-[5px]">
+                      Đặt hàng
+                    </button>
                   </div>
                 </div>
               </div>
             </React.Fragment>
-          ) : (null)
-          }
-        </React.Fragment >
-      ) : (null)
-      }
+          ) : null}
+        </React.Fragment>
+      ) : null}
 
       {/* SHOW BAR WHEN RESPONSIVE */}
-      {
-        showBars ? (
-          <React.Fragment>
-            <div className={`${showBars ? 'animate-slide-right' : 'animate-slide-left'} 
+      {showBars ? (
+        <React.Fragment>
+          <div
+            className={`${
+              showBars ? "animate-slide-right" : "animate-slide-left"
+            } 
          bg-white w-full sm:w-[300px] sm:max-w-[100%] md:w-[300px] lg:hidden 
-          shadow-xl fixed top-[55px] right-0 h-full max-w-full transition-all duration-300 z-40`}>
-
-              <div className="flex flex-col h-full p-3 w-full bg-gray-900 text-gray-100">
-
-                <div className="space-y-3 h-3/5 relative">
-
-                  <div className="flex items-center">
-                    <div className="w-[50px] h-[50px] ">
-                      <a href="/">
-                        <img src={logo} alt="" className="h-full" />
-                      </a>
-                    </div>
-                    <h2>3S Shop</h2>
+          shadow-xl fixed top-[55px] right-0 h-full max-w-full transition-all duration-300 z-40`}
+          >
+            <div className="flex flex-col h-full p-3 w-full bg-gray-900 text-gray-100">
+              <div className="space-y-3 h-3/5 relative">
+                <div className="flex items-center">
+                  <div className="w-[50px] h-[50px] ">
+                    <a href="/">
+                      <img src={logo} alt="" className="h-full" />
+                    </a>
                   </div>
+                  <h2>3S Shop</h2>
+                </div>
 
-                  <div className="flex-1 ">
-                    <ul className="pt-2 pb-4 space-y-1 text-sm ">
-                      <li className="rounded-sm">
-                        <a href="/" className="no-underline text-white flex items-center p-2 space-x-3 rounded-md">
-                          <FontAwesomeIcon icon={faHouse} style={{ color: "#ffffff", }} /><span>Home</span>
-                        </a>
-                      </li>
-                      {isLoggedin ? (
-                        <React.Fragment>
-                          <li className="rounded-sm">
-                            <button className="flex items-center  p-2 space-x-3 rounded-md" onClick={handleshowinfo}>
-                              <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff", }} />
-                              <span>Thông tin cá nhân</span>
-                            </button>
-                          </li>
-                          <li className="rounded-sm">
-                            <button className="flex items-center  p-2 space-x-3 rounded-md" onClick={handleShowCart}>
-                              <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ffffff", }} />
-                              <span>Giỏ hàng ({`${cartItems.length}`})</span>
-                            </button>
-                          </li>
-                          <li className="rounded-sm">
-                            <button className="flex items-center  p-2 space-x-3 rounded-md" onClick={handleShowChangePass}>
-                              <FontAwesomeIcon icon={faKey} style={{ style: "#ffffff" }} />
-                              <span>Đổi mật khẩu</span>
-                            </button>
-                          </li>
-                          <li className="rounded-sm">
-                            <a href="/logout" className="flex no-underline text-white items-center p-2 space-x-3 rounded-md">
-                              <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "#ffffff", }} />
-                              <span>Logout</span>
-                            </a>
-                          </li>
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          <li className="rounded-sm">
-                            <a href="/login" className="flex no-underline text-white items-center p-2 space-x-3 rounded-md">
-                              <FontAwesomeIcon icon={faRightToBracket} style={{ color: "#ffffff", }} />
-                              <span>Login</span>
-                            </a>
-                          </li>
-                          <li className="rounded-sm">
-                            <a href="/register" className="flex no-underline text-white items-center p-2 space-x-3 rounded-md">
-                              <FontAwesomeIcon icon={faUserPlus} style={{ color: "#ffffff", }} />
-                              <span>Signup</span>
-                            </a>
-                          </li>
-                        </React.Fragment>
-                      )}
-
-                    </ul>
+                <div className="flex-1 ">
+                  <ul className="pt-2 pb-4 space-y-1 text-sm ">
+                    <li className="rounded-sm">
+                      <a
+                        href="/"
+                        className="no-underline text-white flex items-center p-2 space-x-3 rounded-md"
+                      >
+                        <FontAwesomeIcon
+                          icon={faHouse}
+                          style={{ color: "#ffffff" }}
+                        />
+                        <span>Home</span>
+                      </a>
+                    </li>
+                    {isLoggedin ? (
+                      <React.Fragment>
+                        <li className="rounded-sm">
+                          <button
+                            className="flex items-center  p-2 space-x-3 rounded-md"
+                            onClick={handleshowinfo}
+                          >
+                            <FontAwesomeIcon
+                              icon={faUser}
+                              style={{ color: "#ffffff" }}
+                            />
+                            <span>Thông tin cá nhân</span>
+                          </button>
+                        </li>
+                        <li className="rounded-sm">
+                          <button
+                            className="flex items-center  p-2 space-x-3 rounded-md"
+                            onClick={handleShowCart}
+                          >
+                            <FontAwesomeIcon
+                              icon={faCartShopping}
+                              style={{ color: "#ffffff" }}
+                            />
+                            <span>Giỏ hàng ({`${cartItems.length}`})</span>
+                          </button>
+                        </li>
+                        <li className="rounded-sm">
+                          <button
+                            className="flex items-center  p-2 space-x-3 rounded-md"
+                            onClick={handleShowChangePass}
+                          >
+                            <FontAwesomeIcon
+                              icon={faKey}
+                              style={{ style: "#ffffff" }}
+                            />
+                            <span>Đổi mật khẩu</span>
+                          </button>
+                        </li>
+                        <li className="rounded-sm">
+                          <a
+                            href="/logout"
+                            className="flex no-underline text-white items-center p-2 space-x-3 rounded-md"
+                          >
+                            <FontAwesomeIcon
+                              icon={faRightFromBracket}
+                              style={{ color: "#ffffff" }}
+                            />
+                            <span>Logout</span>
+                          </a>
+                        </li>
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment>
+                        <li className="rounded-sm">
+                          <a
+                            href="/login"
+                            className="flex no-underline text-white items-center p-2 space-x-3 rounded-md"
+                          >
+                            <FontAwesomeIcon
+                              icon={faRightToBracket}
+                              style={{ color: "#ffffff" }}
+                            />
+                            <span>Login</span>
+                          </a>
+                        </li>
+                        <li className="rounded-sm">
+                          <a
+                            href="/register"
+                            className="flex no-underline text-white items-center p-2 space-x-3 rounded-md"
+                          >
+                            <FontAwesomeIcon
+                              icon={faUserPlus}
+                              style={{ color: "#ffffff" }}
+                            />
+                            <span>Signup</span>
+                          </a>
+                        </li>
+                      </React.Fragment>
+                    )}
+                  </ul>
+                </div>
+              </div>
+              {isLoggedin && (
+                <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end absolute bottom-0 h-2/5">
+                  <img
+                    src={JSON.parse(localStorage.getItem("user"))?.image}
+                    alt=""
+                    className="w-12 h-12 rounded-lg dark:bg-gray-500"
+                  />
+                  <div>
+                    <h2 className="text-lg font-semibold">
+                      {JSON.parse(localStorage.getItem("user"))?.fullName}{" "}
+                    </h2>
+                    <span className="flex items-center space-x-1">
+                      <button
+                        className="text-xs hover:underline dark:text-gray-400"
+                        onClick={handleshowinfo}
+                      >
+                        View profile
+                      </button>
+                    </span>
                   </div>
                 </div>
-                {isLoggedin &&
-                  <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end absolute bottom-0 h-2/5">
-                    <img src={JSON.parse(localStorage.getItem("user"))?.image} alt="" className="w-12 h-12 rounded-lg dark:bg-gray-500" />
-                    <div>
-                      <h2 className="text-lg font-semibold">{JSON.parse(localStorage.getItem("user"))?.fullName}{" "}</h2>
-                      <span className="flex items-center space-x-1">
-                        <button className="text-xs hover:underline dark:text-gray-400" onClick={handleshowinfo}>View profile</button>
-                      </span>
-                    </div>
-                  </div>}
-              </div>
+              )}
             </div>
-          </React.Fragment>
-        ) : (<React.Fragment></React.Fragment>)
-      }
+          </div>
+        </React.Fragment>
+      ) : (
+        <React.Fragment></React.Fragment>
+      )}
       {/*END SHOW BAR WHEN RESPONSIVE */}
 
       {/* POPUP INFOMATION */}
-      {showInfor &&
+      {showInfor && (
         <React.Fragment>
-          <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-
+          <div
+            className="relative z-10"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+          >
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
             <div className="fixed inset-0 z-10 overflow-y-auto">
               <div className="flex min-h-[80%] md:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-
-                <div className="relative transform overflow-hidden rounded-lg bg-white text-left 
-                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div
+                  className="relative transform overflow-hidden rounded-lg bg-white text-left 
+                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+                >
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
-
                       <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left w-full">
-                        <h3 className="text-center w-full font-semibold leading-6 text-gray-900" id="modal-title">Thông tin cá nhân</h3>
+                        <h3
+                          className="text-center w-full font-semibold leading-6 text-gray-900"
+                          id="modal-title"
+                        >
+                          Thông tin cá nhân
+                        </h3>
                         <form>
-
                           <div className="flex">
                             {/* <img src={user.avatar} className="w-1/3" /> */}
                             <div className="w-1/3">
@@ -410,12 +535,13 @@ export default function Navigation({
                             type="text"
                             className="border border-[#ccc] px-3 py-2"
                             value={user.email}
-                            readOnly />
+                            readOnly
+                          />
                           <label className="block mb-2">Avatar:</label>
                           <input
                             type="file"
                             className="border border-[#ccc] px-3 py-2"
-                          // value={user.avatar}
+                            // value={user.avatar}
                           />
                         </form>
                       </div>
@@ -442,30 +568,37 @@ export default function Navigation({
               </div>
             </div>
           </div>
-        </React.Fragment >
-      }
+        </React.Fragment>
+      )}
       {/* END POPUP INFOMATION */}
 
-
       {/* POPUP CHANGE PASSWORD */}
-      {showPass &&
+      {showPass && (
         <React.Fragment>
-          <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-
+          <div
+            className="relative z-10"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+          >
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
             <div className="fixed inset-0 z-10 overflow-y-auto">
               <div className="flex min-h-[80%] md:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-
-                <div className="relative w-full transform overflow-hidden rounded-lg bg-white text-left 
-                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div
+                  className="relative w-full transform overflow-hidden rounded-lg bg-white text-left 
+                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+                >
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
-
                       <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left w-full">
-                        <h3 className="text-center w-full font-semibold leading-6 text-gray-900" id="modal-title">Đổi mật khẩu</h3>
+                        <h3
+                          className="text-center w-full font-semibold leading-6 text-gray-900"
+                          id="modal-title"
+                        >
+                          Đổi mật khẩu
+                        </h3>
                         <form>
-
                           <div className="w-full">
                             <label className="block mb-2">Mật khẩu cũ</label>
                             <input
@@ -478,7 +611,9 @@ export default function Navigation({
                             type="password"
                             className="border border-[#ccc] w-full px-3 py-2"
                           />
-                          <label className="block mb-2">Nhập lại mật khẩu mới:</label>
+                          <label className="block mb-2">
+                            Nhập lại mật khẩu mới:
+                          </label>
                           <input
                             type="password"
                             className="border border-[#ccc] w-full px-3 py-2"
@@ -508,8 +643,8 @@ export default function Navigation({
               </div>
             </div>
           </div>
-        </React.Fragment >
-      }
-    </React.Fragment >
+        </React.Fragment>
+      )}
+    </React.Fragment>
   );
 }
