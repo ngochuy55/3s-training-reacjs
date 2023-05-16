@@ -327,6 +327,7 @@ export function Navbar({ cartItems, isproductDetail }) {
       handleInputPasswordNew={handleInputPasswordNew}
       changePassword={changePassword}
       handleInputBirthday={handleInputBirthday}
+      handleClearSearch={handleClearSearch}
     />
   );
 }
