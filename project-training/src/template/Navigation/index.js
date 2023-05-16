@@ -32,7 +32,8 @@ export default function Navigation({
   handleInputPasswordOld,
   handleInputPasswordNew,
   handleInputConfirmPasswordNew,
-  changePassword
+  changePassword,
+  handleInputBirthday
 
 }) {
   return (
@@ -101,7 +102,7 @@ export default function Navigation({
                     </li>
                     <li>
                       <button className="dropdown-item" onClick={handleShowChangePass}>
-                        Thay đổi mật khẩu
+                        Đổi mật khẩu
                       </button>
                     </li>
                     <li>
@@ -402,32 +403,38 @@ export default function Navigation({
                         <h3 className="text-center w-full font-semibold leading-6 text-gray-900" id="modal-title">Thông tin cá nhân</h3>
                         <form>
 
-                          <div className="flex">
-                            {/* <img src={user.avatar} className="w-1/3" /> */}
-                            <div className="w-1/3">
-                              <label className="block mb-2">Full Name:</label>
-                              <input
-                                type="text"
-                                className="border border-[#ccc] px-3 py-2"
-                                defaultValue={user.fullName}
-                                onChange={handleInputname}
-                              />
-                              {renderAlertMessage("username")}
-                            </div>
-                          </div>
+
+
+                          <label className=" block mb-2">Full Name:</label>
+                          <input
+                            type="text"
+                            className="border border-[#ccc] px-3 py-2  w-full"
+                            defaultValue={user.fullName}
+                            onChange={handleInputname}
+                          />
+                          {renderAlertMessage("username")}
+
+
                           <label className="block mb-2">Email:</label>
                           <input
                             type="email"
-                            className="border border-[#ccc] px-3 py-2"
+                            className="border border-[#ccc] px-3 py-2  w-full"
                             defaultValue={user.email}
                             onChange={handleInputemail}
                           />
                           {renderAlertMessage("email")}
-                          <label className="block mb-2">Avatar:</label>
+                          {/* <label className="block mb-2">Avatar:</label>
                           <input
                             type="file"
-                            className="border border-[#ccc] px-3 py-2"
+                            className="border border-[#ccc] px-3 py-2  w-full"
                           // value={user.avatar}
+                          /> */}
+                          <label className="block mb-2">birthday:</label>
+                          <input
+                            type="date"
+                            className="border border-[#ccc] px-3 py-2  w-full"
+                            defaultValue={user.birthDay}
+                            onChange={handleInputBirthday}
                           />
                         </form>
                       </div>
@@ -437,15 +444,15 @@ export default function Navigation({
                     <button
                       onClick={submiteditinfo}
                       type="button"
-                      className=" mt-3 inline-flex w-full justify-center rounded-md ml-2 bg-[#fff] px-3 py-2 text-sm font-semibold
-                     text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto"
+                      className=" mt-3 inline-flex w-full justify-center rounded-md ml-0 sm:ml-2 bg-[#6366f1] px-3 py-2 text-sm font-semibold
+                     text-[#fff] shadow-sm ring-1 ring-inset ring-gray-300 hover:text-[#ccc] sm:mt-0 sm:w-auto"
                     >
                       Lưu thay đổi
                     </button>
                     <button
                       type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-[#cd1818] px-3 py-2 text-sm font-semibold text-[#fff] 
+                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#6366f1] hover:text-[#fff] sm:mt-0 sm:w-auto"
                       onClick={handleshowinfo}
                     >
                       Huỷ
@@ -513,15 +520,15 @@ export default function Navigation({
                     <button
                       onClick={changePassword}
                       type="button"
-                      className="bg-[#cb1c22] text-[#fff] mt-3 inline-flex w-full justify-center rounded-md ml-2 md:bg-[#fff] px-3 py-2 text-sm font-semibold
-                     md:text-[#000] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#000] hover:text-[#fff] sm:mt-0 sm:w-auto"
+                      className="bg-[#6366f1] text-[#fff] mt-3 inline-flex w-full justify-center rounded-md ml-0 sm:ml-2 px-3 py-2 text-sm font-semibold
+                      shadow-sm ring-1 ring-inset  hover:text-[#ccc] sm:mt-0 sm:w-auto"
                     >
                       Lưu thay đổi
                     </button>
                     <button
                       type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-[#cd1818] px-3 py-2 text-sm font-semibold text-white 
+                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#6366f1] hover:text-[#ccc] sm:mt-0 sm:w-auto"
                       onClick={handleShowChangePass}
                     >
                       Huỷ

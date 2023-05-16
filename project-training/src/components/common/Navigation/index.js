@@ -53,6 +53,7 @@ export function Navbar({
 
   const [email, setEmail] = useState(user.email);
   const [username, setUsername] = useState(user.fullName);
+  const [birthday, setBirthday] = useState(user.birthDay);
   const [password, setPassword] = useState(user.password);
   const [passwordNew, setPasswordNew] = useState("");
   const [confirmPasswordNew, setConfirmPasswordNew] = useState("")
@@ -112,8 +113,16 @@ export function Navbar({
   //show popup information
   const handleshowinfo = () => {
     setShowbars(false);
+    setShowPass(false);
     setShowInfor(!showInfor);
   };
+  //show sidebar when responsive mode
+  const handleShowChangePass = () => {
+    setShowbars(false);
+    setShowInfor(false);
+    setShowPass(!showPass);
+  };
+
   // submit info
   const submiteditinfo = async () => {
     let isValid = true;
@@ -129,11 +138,13 @@ export function Navbar({
       const newData = {
         email: email,
         fullName: username,
+        birthDay: birthday,
       };
 
       try {
+        // eslint-disable-next-line no-unused-vars
         const response = await axios.put(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/users/${user.id}`, newData);
-        console.log('Updated data:', response.data);
+        // console.log('Updated data:', response.data);
         // Cập nhật localStorage mới sau khi thay đổi
         const updatedUser = { ...user, ...newData };
         localStorage.setItem('user', JSON.stringify(updatedUser));
@@ -148,7 +159,7 @@ export function Navbar({
   const handleInputname = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    console.log("value", value);
+    // console.log("value", value);
     if (!value) {
       setErrorMessages({ name: "username", message: errors.usernameBlank });
     } else setErrorMessages(false);
@@ -166,6 +177,11 @@ export function Navbar({
     setEmail(value);
   }
 
+  const handleInputBirthday = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setBirthday(value);
+  }
   //nhập dữ liệu password cũ
   const handleInputPasswordOld = (e) => {
     e.preventDefault();
@@ -226,8 +242,9 @@ export function Navbar({
         const updatedUser = { ...user, password: passwordNew };
 
         // Gửi yêu cầu cập nhật thông tin người dùng vào API sử dụng Axios
+        // eslint-disable-next-line no-unused-vars
         const response = await axios.put(`https://61bfdf3ab25c3a00173f4f15.mockapi.io/users/${user.id}`, updatedUser);
-        console.log('Updated data:', response.data);
+        // console.log('Updated data:', response.data);
         alertToast(toast, "đổi mật khẩu thành công!", "success");
         setShowPass(false);
 
@@ -241,11 +258,7 @@ export function Navbar({
     }
   };
 
-  //show sidebar when responsive mode
-  const handleShowChangePass = () => {
-    setShowbars(false);
-    setShowPass(!showPass);
-  };
+
 
   //Xoá sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = (productId) => {
@@ -309,6 +322,7 @@ export function Navbar({
       password={password}
       handleInputPasswordNew={handleInputPasswordNew}
       changePassword={changePassword}
+      handleInputBirthday={handleInputBirthday}
     />
   );
 }
