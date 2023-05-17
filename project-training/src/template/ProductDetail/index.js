@@ -20,7 +20,9 @@ export function ProductDetailTemplate(
     handleClickdescriptions,
     activetab,
     renderStar,
-    cartItems
+    cartItems,
+    activecolor,
+    handleClickcolor,
   }
 ) {
   return (
@@ -59,11 +61,12 @@ export function ProductDetailTemplate(
                       {product.color.map(
                         (color, i) => (
                           <button
-                            className=" w-[16px] h-[16px]"
+                            className={`${activecolor === i && 'border-[1px] border-red-600'} w-[16px] h-[16px]`}
                             style={{
                               background: color,
                               marginLeft: i === 0 ? 0 : "8px",
                             }}
+                            onClick={() => handleClickcolor(i)}
                           ></button>
 
                         ))}

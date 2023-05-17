@@ -31,8 +31,8 @@ export function ProductDetail() {
     setdescription(state)
   }
 
-  function handleClickcolor(state) {
-    setIsActivecolor(!activecolor)
+  function handleClickcolor(index) {
+    setIsActivecolor(index)
   }
   //Call API product for Detail page
   function fetchDataProductDetails() {
