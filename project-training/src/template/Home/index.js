@@ -48,7 +48,7 @@ function Home({
           </div>
           <div className="lg:flex">
             <div className="col-0 lg:col-3 w-full lg:w-1/3 pr-30 ">
-              <div className="mb-[8px] sm:block text-left items-center md:mb-[5rem] pt-[20px] border-[1px] border-spacing-2 
+              <div className="my-[8px] sm:block text-left items-center md:mb-[5rem] lg:pt-[20px] border-[1px] border-spacing-2 
               lg:border-spacing-0 lg:border-none">
                 <div className="flex justify-between gap-1">
                   <h3 className="text-[#0a58ca]">Danh mục</h3>
@@ -215,7 +215,7 @@ function Home({
                             className="no-underline text-[#fff] hover:text-[#fff]"
                             href={`/chi-tiet-san-pham/${product.id}`}
                           >
-                            {" "}
+
                             Mua Ngay
                           </a>
                         </button>

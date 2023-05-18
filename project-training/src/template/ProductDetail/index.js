@@ -23,6 +23,7 @@ export function ProductDetailTemplate(
     cartItems,
     activecolor,
     handleClickcolor,
+    handleAddToCart,
   }
 ) {
   return (
@@ -60,15 +61,20 @@ export function ProductDetailTemplate(
                     <div className="col my-[2rem] flex">
                       {product.color.map(
                         (color, i) => (
-                          <button
-                            className={`${activecolor === i && 'border-[1px] border-red-600'} w-[16px] h-[16px]`}
+                          <div className={`${activecolor === i && 'border-[1px] border-red-600'} `}
                             style={{
-                              background: color,
                               marginLeft: i === 0 ? 0 : "8px",
                             }}
-                            onClick={() => handleClickcolor(i)}
-                          ></button>
+                          >
+                            <button
+                              className={`m-1 w-[16px] h-[16px]`}
+                              style={{
+                                background: color,
 
+                              }}
+                              onClick={() => handleClickcolor(i)}
+                            ></button>
+                          </div>
                         ))}
                     </div>
 
@@ -77,7 +83,7 @@ export function ProductDetailTemplate(
                       <button className="bg-[#cb1c22] mr-[20px] px-[32px] py-[10px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[50px] w-[50%]">
                         <FontAwesomeIcon icon={faDollarSign} /> Mua Ngay
                       </button>
-                      <button className="bg-[#43e851] px-[32px] py-[10px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[50px] w-[50%]">
+                      <button onClick={() => handleAddToCart(product)} className="bg-[#43e851] px-[32px] py-[10px] text-[#fff] text-[12px] leading-[13px] rounded-[4px] text-center h-[50px] w-[50%]">
                         <FontAwesomeIcon icon={faCartPlus} /> Thêm vào giỏ
                       </button>
                     </div>
@@ -136,9 +142,9 @@ export function ProductDetailTemplate(
 
             )
           }
-        </main>
+        </main >
         <Footer />
-      </section>
+      </section >
     </React.Fragment >
   )
 }

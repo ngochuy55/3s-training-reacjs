@@ -1,13 +1,11 @@
 import {
-  faHouse,
-  faKey,
-  faRightFromBracket,
-  faRightToBracket,
-  faUser,
-  faUserPlus,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { Cart } from "../../components/common/Cart";
+import { Sidebar } from "../../components/common/Sidebar";
+import { Information } from "../../components/common/Infomation";
+import { ChangePassword } from "../../components/common/ChangePassForm";
 
 export default function Navigation({
   isLoggedin,
@@ -32,7 +30,7 @@ export default function Navigation({
   user,
   showPass,
   handleShowChangePass,
-  isProductDetailPage,
+
   submiteditinfo,
   handleInputname,
   handleInputemail,
@@ -42,8 +40,9 @@ export default function Navigation({
   handleInputConfirmPasswordNew,
   changePassword,
   handleInputBirthday,
-
   handleClearSearch,
+  handlePreviewAvatar,
+  avatar
 }) {
   return (
     <React.Fragment>
@@ -54,50 +53,50 @@ export default function Navigation({
               <img src={logo} alt="Logo" className="h-full" />
             </a>
           </div>
-          {isProductDetailPage ? null : (
-            <form className="w-[80%] ml-1 sm:ml-2 md:w-[496px] flex">
-              <div className="flex bg-white h-[38px] min-w-[300px] justify-between">
-                <input
-                  type="text"
-                  className="h-[38px] w-full pl-4 outline-none text-[#000]"
-                  placeholder="Nhập tên điện thoại cần tìm"
-                  value={search}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                />
-                {search !== "" && (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleClearSearch();
-                    }}
-                  >
-                    <span
-                      className="text-black h-[38px] items-center flex  mr-[13px] text-[11px]"
-                      icon="icon-cance"
-                      id="icon-cance"
-                    >
-                      <FontAwesomeIcon icon={faX} />
-                    </span>
-                  </button>
-                )}
-              </div>
 
-              <button
-                className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSearchClick();
-                }}
-                type="submit"
-              >
-                <FontAwesomeIcon
-                  className="search_icon"
-                  icon={faMagnifyingGlass}
-                />
-              </button>
-            </form>
-          )}
+          <form className="w-[80%] ml-1 sm:ml-2 md:w-[496px] flex">
+            <div className="flex bg-white h-[38px] min-w-[220px] lg:w-[360px] justify-between">
+              <input
+                type="text"
+                className={`${isproductDetail ? "hidden" : "flex -[496px]"} h-[38px] w-full pl-4 outline-none text-[#000]`}
+                placeholder="Nhập tên điện thoại cần tìm"
+                value={search}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+              {search !== "" && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClearSearch();
+                  }}
+                >
+                  <span
+                    className="text-black h-[38px] items-center flex  mr-[13px] text-[11px]"
+                    icon="icon-cance"
+                    id="icon-cance"
+                  >
+                    <FontAwesomeIcon icon={faX} />
+                  </span>
+                </button>
+              )}
+            </div>
+
+            <button
+              className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSearchClick();
+              }}
+              type="submit"
+            >
+              <FontAwesomeIcon
+                className="search_icon"
+                icon={faMagnifyingGlass}
+              />
+            </button>
+          </form>
+
 
           <div className="absolute left-[90%] lg:hidden">
             <FontAwesomeIcon icon={faBars} onClick={handleShowSidebar} />
@@ -117,15 +116,17 @@ export default function Navigation({
             </div>
             {isLoggedin ? (
               <React.Fragment>
+
+
                 <div className="dropdown lg:flex hidden">
                   <p
-                    className="dropdown-toggle m-0"
+                    className="dropdown-toggle m-0 flex items-center"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Welcome: {JSON.parse(localStorage.getItem("user")).fullName}{" "}
-                    !
+                    <img src={user?.avatar} alt="" className="rounded-[50%] w-10 h-10" />
+
                   </p>
                   <ul className="dropdown-menu dropdown-menu-right transform transition duration-500 scale-0 translate-y-2">
                     <li>
@@ -169,504 +170,55 @@ export default function Navigation({
           </div>
         </div>
       </nav>
-      {/* SHOW CART  */}
-      {showCart ? (
-        <React.Fragment>
-          <nav className="w-full bg-[#CD1818] text-white h-[56px] leading-[56px] fixed top-0 left-0 right-0 z-4000">
-            <div className="flex container items-center justify-between">
-              <div className="w-[50px] h-[50px]">
-                <a href="/">
-                  <img src={logo} alt="" className="h-full" />
-                </a>
-              </div>
-              <form
-                className={`${isproductDetail ? "hidden" : "flex -[496px]"} `}
-              >
-                <input
-                  type="text"
-                  className="h-[38px] w-full pl-4 outline-none text-[#000]"
-                  placeholder="Nhập tên điện thoại cần tìm"
-                />
-                <span className="w-[58px] h-[38px] flex items-center justify-center bg-[#333]">
-                  <FontAwesomeIcon
-                    className="search_icon"
-                    icon={faMagnifyingGlass}
-                  />
-                </span>
-              </form>
-              <div className="relative">
-                <button>
-                  <FontAwesomeIcon
-                    className="text-[20px]"
-                    icon={faCartShopping}
-                    onClick={handleShowCart}
-                  />
-                  <br />
-                </button>
-                <span className="absolute w-[15px] h-[15px] text-center leading-[15px] rounded-[50%] bg-white text-[#cd1818] top-3 -right-3">
-                  {`${cartItems.length}`}
-                </span>
-              </div>
-
-              <div>
-                {isLoggedin ? (
-                  <React.Fragment>
-                    <div className="dropdown">
-                      <p
-                        className="dropdown-toggle m-0"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Welcome:{" "}
-                        {JSON.parse(localStorage.getItem("user")).fullName} !
-                      </p>
-                      <ul className="dropdown-menu dropdown-menu-right transform transition duration-500 scale-0 translate-y-2">
-                        <li>
-                          <a className="dropdown-item" href="/">
-                            Thông tin cá nhân
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="/logout">
-                            Log Out
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </React.Fragment>
-                ) : (
-                  <ul className="flex m-0">
-                    <li className="mr-3">
-                      <a className="nav-link text-white" href="/login">
-                        Login
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link text-white" href="/register">
-                        Sign Up
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </div>
-            </div>
-          </nav>
-
-          {/* GIỎ HÀNG */}
-          {showCart ? (
-            <React.Fragment>
-              <div
-                className={`${showCart ? "animate-slide-right" : "animate-slide-left"
-                  }  
-                  w-full max-w-full bg-white shadow-xl fixed overflow-auto top-[56px]
-                   right-0 h-full sm:w-[500px] sm:max-w-[40vw] transition-all duration-300 z-50`}
-              >
-                <div className="flex-1 sm:w-full sm:max-w-full overflow-y-auto px-4 py-6 sm:px-6 ">
-                  <div className="flex items-start justify-between">
-                    <h2 className="">Giỏ hàng</h2>
-                  </div>
-
-                  <div className="flex items-center justify-center my-2">
-                    <button onClick={handleShowCart}>
-                      <svg
-                        className="h-6 w-6 absolute right-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <div className="mt-8">
-                    <div className="flow-root">
-                      <ul className="-my-6 divide-y divide-gray-200 overflow-y-auto max-h-[450px]">
-                        {cartItems.map((item) => (
-                          <li key={item.id} className="flex py-6">
-                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                              <img
-                                src={item.image}
-                                alt=""
-                                className="h-full w-full object-cover object-center"
-                              />
-                            </div>
-
-                            <div className="ml-4 flex flex-1 flex-col">
-                              <div>
-                                <div className="flex justify-between text-base font-[2rem] text-gray-900">
-                                  <h3>
-                                    <a
-                                      className="no-underline text-[#000]"
-                                      href={`chi-tiet-san-pham/${item.id}`}
-                                    >
-                                      {item.productName}
-                                    </a>
-                                  </h3>
-                                  <p className="ml-4">
-                                    {item.priceAfterDisStr}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex flex-1 items-end justify-between text-sm">
-                                <p className="text-gray-500">
-                                  Số lượng: {item.quantity}
-                                </p>
-
-                                <div className="flex">
-                                  <button
-                                    type="button"
-                                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                                    onClick={() => handleDeleteProduct(item.id)}
-                                  >
-                                    Xoá
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                      <div className="flex justify-between text-base font-medium text-gray-900">
-                        <p>Tổng:</p>
-                        <p>{total.toLocaleString("en-US")}đ</p>
-                      </div>
-                    </div>
-                    <button className="w-full bg-slate-600 text-white h-6 rounded-[5px]">
-                      Đặt hàng
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </React.Fragment>
-          ) : null}
-        </React.Fragment>
-      ) : null}
-
+      {/* GIỎ HÀNG */}
+      {showCart && (
+        <Cart
+          showCart={showCart}
+          handleShowCart={handleShowCart}
+          cartItems={cartItems}
+          handleDeleteProduct={handleDeleteProduct}
+          total={total}
+        />
+      )}
       {/* SHOW BAR WHEN RESPONSIVE */}
-      {showBars ? (
-        <React.Fragment>
-          <div
-            className={`${showBars ? "animate-slide-right" : "animate-slide-left"
-              } 
-         bg-white w-full sm:w-[300px] sm:max-w-[100%] md:w-[300px] lg:hidden 
-          shadow-xl fixed top-[55px] right-0 h-full max-w-full transition-all duration-300 z-40`}
-          >
-            <div className="flex flex-col h-full p-3 w-full bg-gray-900 text-gray-100">
-              <div className="space-y-3 h-3/5 relative">
-                <div className="flex items-center">
-                  <div className="w-[50px] h-[50px] ">
-                    <a href="/">
-                      <img src={logo} alt="" className="h-full" />
-                    </a>
-                  </div>
-                  <h2>3S Shop</h2>
-                </div>
-
-                <div className="flex-1 ">
-                  <ul className="pt-2 pb-4 space-y-1 text-sm ">
-                    <li className="rounded-sm">
-                      <a
-                        href="/"
-                        className="no-underline text-white flex items-center p-2 space-x-3 rounded-md"
-                      >
-                        <FontAwesomeIcon
-                          icon={faHouse}
-                          style={{ color: "#ffffff" }}
-                        />
-                        <span>Home</span>
-                      </a>
-                    </li>
-                    {isLoggedin ? (
-                      <React.Fragment>
-                        <li className="rounded-sm">
-                          <button
-                            className="flex items-center  p-2 space-x-3 rounded-md"
-                            onClick={handleshowinfo}
-                          >
-                            <FontAwesomeIcon
-                              icon={faUser}
-                              style={{ color: "#ffffff" }}
-                            />
-                            <span>Thông tin cá nhân</span>
-                          </button>
-                        </li>
-                        <li className="rounded-sm">
-                          <button
-                            className="flex items-center  p-2 space-x-3 rounded-md"
-                            onClick={handleShowCart}
-                          >
-                            <FontAwesomeIcon
-                              icon={faCartShopping}
-                              style={{ color: "#ffffff" }}
-                            />
-                            <span>Giỏ hàng ({`${cartItems.length}`})</span>
-                          </button>
-                        </li>
-                        <li className="rounded-sm">
-                          <button
-                            className="flex items-center  p-2 space-x-3 rounded-md"
-                            onClick={handleShowChangePass}
-                          >
-                            <FontAwesomeIcon
-                              icon={faKey}
-                              style={{ style: "#ffffff" }}
-                            />
-                            <span>Đổi mật khẩu</span>
-                          </button>
-                        </li>
-                        <li className="rounded-sm">
-                          <a
-                            href="/logout"
-                            className="flex no-underline text-white items-center p-2 space-x-3 rounded-md"
-                          >
-                            <FontAwesomeIcon
-                              icon={faRightFromBracket}
-                              style={{ color: "#ffffff" }}
-                            />
-                            <span>Logout</span>
-                          </a>
-                        </li>
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <li className="rounded-sm">
-                          <a
-                            href="/login"
-                            className="flex no-underline text-white items-center p-2 space-x-3 rounded-md"
-                          >
-                            <FontAwesomeIcon
-                              icon={faRightToBracket}
-                              style={{ color: "#ffffff" }}
-                            />
-                            <span>Login</span>
-                          </a>
-                        </li>
-                        <li className="rounded-sm">
-                          <a
-                            href="/register"
-                            className="flex no-underline text-white items-center p-2 space-x-3 rounded-md"
-                          >
-                            <FontAwesomeIcon
-                              icon={faUserPlus}
-                              style={{ color: "#ffffff" }}
-                            />
-                            <span>Signup</span>
-                          </a>
-                        </li>
-                      </React.Fragment>
-                    )}
-                  </ul>
-                </div>
-              </div>
-              {isLoggedin && (
-                <div className="flex items-center p-2 mt-12 space-x-4 justify-self-end absolute bottom-0 h-2/5">
-                  <img
-                    src={JSON.parse(localStorage.getItem("user"))?.image}
-                    alt=""
-                    className="w-12 h-12 rounded-lg dark:bg-gray-500"
-                  />
-                  <div>
-                    <h2 className="text-lg font-semibold">
-                      {JSON.parse(localStorage.getItem("user"))?.fullName}{" "}
-                    </h2>
-                    <span className="flex items-center space-x-1">
-                      <button
-                        className="text-xs hover:underline dark:text-gray-400"
-                        onClick={handleshowinfo}
-                      >
-                        View profile
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </React.Fragment>
-      ) : (
-        <React.Fragment></React.Fragment>
+      {showBars && (
+        <Sidebar
+          showBars={showBars}
+          logo={logo}
+          isLoggedin={isLoggedin}
+          handleshowinfo={handleshowinfo}
+          handleShowCart={handleShowCart}
+          cartItems={cartItems}
+          handleShowChangePass={handleShowChangePass}
+        />
       )}
       {/*END SHOW BAR WHEN RESPONSIVE */}
 
       {/* POPUP INFOMATION */}
       {showInfor && (
-        <React.Fragment>
-          <div
-            className="relative z-10"
-            aria-labelledby="modal-title"
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-            <div className="fixed inset-0 z-10 overflow-y-auto">
-              <div className="flex min-h-[80%] md:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                  className="relative transform overflow-hidden rounded-lg bg-white text-left 
-                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
-                >
-                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                    <div className="sm:flex sm:items-start">
-                      <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left w-full">
-                        <h3
-                          className="text-center w-full font-semibold leading-6 text-gray-900"
-                          id="modal-title"
-                        >
-                          Thông tin cá nhân
-                        </h3>
-                        <form>
-
-
-
-                          <label className=" block mb-2">Full Name:</label>
-                          <input
-                            type="text"
-                            className="border border-[#ccc] px-3 py-2  w-full"
-                            defaultValue={user.fullName}
-                            onChange={handleInputname}
-                          />
-                          {renderAlertMessage("username")}
-
-
-                          <label className="block mb-2">Email:</label>
-                          <input
-                            type="email"
-                            className="border border-[#ccc] px-3 py-2  w-full"
-                            defaultValue={user.email}
-                            onChange={handleInputemail}
-                          />
-                          {renderAlertMessage("email")}
-                          {/* <label className="block mb-2">Avatar:</label>
-                          <input
-                            type="file"
-                            className="border border-[#ccc] px-3 py-2  w-full"
-                          // value={user.avatar}
-                          /> */}
-                          <label className="block mb-2">birthday:</label>
-                          <input
-                            type="date"
-                            className="border border-[#ccc] px-3 py-2  w-full"
-                            defaultValue={user.birthDay}
-                            onChange={handleInputBirthday}
-                          />
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button
-                      onClick={submiteditinfo}
-                      type="button"
-                      className=" mt-3 inline-flex w-full justify-center rounded-md ml-0 sm:ml-2 bg-[#6366f1] px-3 py-2 text-sm font-semibold
-                     text-[#fff] shadow-sm ring-1 ring-inset ring-gray-300 hover:text-[#ccc] sm:mt-0 sm:w-auto"
-                    >
-                      Lưu thay đổi
-                    </button>
-                    <button
-                      type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-[#cd1818] px-3 py-2 text-sm font-semibold text-[#fff] 
-                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#6366f1] hover:text-[#fff] sm:mt-0 sm:w-auto"
-                      onClick={handleshowinfo}
-                    >
-                      Huỷ
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </React.Fragment>
+        <Information
+          user={user}
+          handleInputname={handleInputname}
+          handleInputemail={handleInputemail}
+          renderAlertMessage={renderAlertMessage}
+          handleInputBirthday={handleInputBirthday}
+          submiteditinfo={submiteditinfo}
+          handleshowinfo={handleshowinfo}
+          handlePreviewAvatar={handlePreviewAvatar}
+          avatar={avatar}
+        />
       )}
       {/* END POPUP INFOMATION */}
 
       {/* POPUP CHANGE PASSWORD */}
       {showPass && (
-        <React.Fragment>
-          <div
-            className="relative z-10"
-            aria-labelledby="modal-title"
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-            <div className="fixed inset-0 z-10 overflow-y-auto">
-              <div className="flex min-h-[80%] md:min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                  className="relative w-full transform overflow-hidden rounded-lg bg-white text-left 
-                shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
-                >
-                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                    <div className="sm:flex sm:items-start">
-                      <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left w-full">
-                        <h3
-                          className="text-center w-full font-semibold leading-6 text-gray-900"
-                          id="modal-title"
-                        >
-                          Đổi mật khẩu
-                        </h3>
-                        <form>
-                          <div className="w-full">
-                            <label className="block mb-2">Mật khẩu cũ</label>
-                            <input
-                              name="password_old"
-                              type="password"
-                              className="border  border-[#ccc] w-full px-3 py-2"
-                              onChange={handleInputPasswordOld}
-                            />
-                            {renderAlertMessage("password_old")}
-                          </div>
-                          <label className="block mb-2">Mật khẩu mới:</label>
-                          <input
-                            name="password_new"
-                            type="password"
-                            className="border border-[#ccc] w-full px-3 py-2"
-                            onChange={handleInputPasswordNew}
-                          />
-                          <label className="block mb-2">Nhập lại mật khẩu mới:</label>
-                          <input
-                            name="comfirmpassword_new"
-                            type="password"
-                            className="border border-[#ccc] w-full px-3 py-2"
-                            onChange={handleInputConfirmPasswordNew}
-                          />
-                          {renderAlertMessage("comfirmpassword_new")}
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button
-                      onClick={changePassword}
-                      type="button"
-                      className="bg-[#6366f1] text-[#fff] mt-3 inline-flex w-full justify-center rounded-md ml-0 sm:ml-2 px-3 py-2 text-sm font-semibold
-                      shadow-sm ring-1 ring-inset  hover:text-[#ccc] sm:mt-0 sm:w-auto"
-                    >
-                      Lưu thay đổi
-                    </button>
-                    <button
-                      type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-[#cd1818] px-3 py-2 text-sm font-semibold text-white 
-                    shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#6366f1] hover:text-[#ccc] sm:mt-0 sm:w-auto"
-                      onClick={handleShowChangePass}
-                    >
-                      Huỷ
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </React.Fragment>
+        <ChangePassword
+          handleShowChangePass={handleShowChangePass}
+          changePassword={changePassword}
+          renderAlertMessage={renderAlertMessage}
+          handleInputPasswordNew={handleInputPasswordNew}
+          handleInputConfirmPasswordNew={handleInputConfirmPasswordNew}
+          handleInputPasswordOld={handleInputPasswordOld} />
       )}
     </React.Fragment>
   );

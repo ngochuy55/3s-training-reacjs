@@ -10,7 +10,7 @@ import "../../../assets/css/Responsive.css";
 import Navigation from "../../../template/Navigation";
 import axios from "axios";
 import { productActions, useProducts } from "../../../Store";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { isEmail, alertToast } from "../../../ultis/functions/";
 import { toast } from "react-toastify";
 const errors = {
@@ -42,17 +42,19 @@ export function Navbar({ cartItems, isproductDetail }) {
   const [showBars, setShowbars] = useState(false);
   const [showInfor, setShowInfor] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const navigate = useNavigate();
 
 
-  let item = localStorage.getItem("user");
   const [search, setSearchValue] = useState("");
   const { pathname } = useLocation();
   const isProductDetailPage = pathname.includes("/chi-tiet-san-pham/");
 
-  const [email, setEmail] = useState(user.email);
-  const [username, setUsername] = useState(user.fullName);
-  const [birthday, setBirthday] = useState(user.birthDay);
-  const [password, setPassword] = useState(user.password);
+  const [email, setEmail] = useState(user?.email);
+  const [username, setUsername] = useState(user?.fullName);
+  const [birthday, setBirthday] = useState(user?.birthDay);
+  const [password, setPassword] = useState(user?.password);
+  // eslint-disable-next-line no-unused-vars
+  const [avatar, setAvatar] = useState(user?.avatar);
   const [passwordNew, setPasswordNew] = useState("");
   const [confirmPasswordNew, setConfirmPasswordNew] = useState("")
   const [errorMessages, setErrorMessages] = useState({});
@@ -137,6 +139,7 @@ export function Navbar({ cartItems, isproductDetail }) {
         email: email,
         fullName: username,
         birthDay: birthday,
+        // avatar: avatar,
       };
 
       try {
@@ -175,6 +178,22 @@ export function Navbar({ cartItems, isproductDetail }) {
     setEmail(value);
   }
 
+  // //nhập dữ liệu avatar
+  // const handlePreviewAvatar = (e) => {
+  //   // e.preventDefault();
+  //   const file = e.target.file;
+  //   console.log(file);
+  //   file.preview = URL.createObjectURL(file);
+  //   setAvatar(file);
+  // }
+
+  // useEffect(() => {
+  //   return () => {
+  //     avatar && URL.revokeObjectURL(avatar.preview)
+  //   }
+  // }, [avatar])
+
+  //nhập dữ liệu birthday
   const handleInputBirthday = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -245,9 +264,8 @@ export function Navbar({ cartItems, isproductDetail }) {
         // console.log('Updated data:', response.data);
         alertToast(toast, "đổi mật khẩu thành công!", "success");
         setShowPass(false);
+        navigate('/logout')
 
-        // Cập nhật dữ liệu mới vào localStorage
-        localStorage.setItem('user', JSON.stringify(updatedUser));
       }
       catch (error) {
         console.error(error);
@@ -278,7 +296,7 @@ export function Navbar({ cartItems, isproductDetail }) {
   }, [cartItems]);
 
   useEffect(() => {
-    if (item === "" || item === null) setIsLoggedin(false);
+    if (user === null) setIsLoggedin(false);
     else setIsLoggedin(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -328,6 +346,8 @@ export function Navbar({ cartItems, isproductDetail }) {
       changePassword={changePassword}
       handleInputBirthday={handleInputBirthday}
       handleClearSearch={handleClearSearch}
+      // handlePreviewAvatar={handlePreviewAvatar}
+      avatar={avatar}
     />
   );
 }

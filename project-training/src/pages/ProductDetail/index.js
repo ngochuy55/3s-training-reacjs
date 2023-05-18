@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+// eslint-disable-next-line no-unused-vars
 import { productActions, useProducts } from "../../Store";
+import { alertToast } from "../../ultis/functions";
+import { toast } from "react-toastify";
 
 export function ProductDetail() {
   document.title = "Chi tiết sản phẩm"
@@ -14,6 +17,7 @@ export function ProductDetail() {
   const [activetab, setIsActivetab] = useState(false);
   const [activecolor, setIsActivecolor] = useState(false);
 
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useProducts()
 
   //Render star of product
@@ -50,6 +54,28 @@ export function ProductDetail() {
       .finally(function () {
       });
   };
+
+  //Add Product to cart
+  const handleAddToCart = (item) => {
+    // Kiểm tra xem mặt hàng đã có trong giỏ hàng hay chưa
+    // const existItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    const existItem = state.cart.find((cartItem) => cartItem.id === item.id);
+    if (existItem) {
+      // Nếu mặt hàng đã có trong giỏ hàng, tăng số lượng lên 1
+      dispatch(productActions.setCart(
+        state.cart.map((cartItem) =>
+          cartItem.id === item.id ? { ...existItem, quantity: existItem.quantity + 1 } : cartItem
+        )));
+      // eslint-disable-next-line no-unused-expressions
+      alertToast(toast, "Sản phẩm đã tồn tại, số lượng đã được cộng thêm ", "warn")
+
+    } else {
+      // Nếu mặt hàng chưa có trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
+      dispatch(productActions.setCart([...state.cart, { ...item, quantity: 1 }]));
+      alertToast(toast, "Thêm vào giỏ thành công!", "success")
+
+    }
+  };
   useEffect(() => {
     fetchDataProductDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,6 +91,7 @@ export function ProductDetail() {
       renderStar={renderStar}
       productdetail={productdetail}
       cartItems={state.cart}
+      handleAddToCart={handleAddToCart}
     />
   );
 }
