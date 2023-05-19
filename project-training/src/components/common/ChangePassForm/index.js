@@ -53,6 +53,7 @@ export function ChangePassword(
                         className="border border-[#ccc] w-full px-3 py-2"
                         onChange={handleInputPasswordNew}
                       />
+                      {renderAlertMessage("password_new")}
                       <label className="block mb-2">Nhập lại mật khẩu mới:</label>
                       <input
                         name="comfirmpassword_new"
